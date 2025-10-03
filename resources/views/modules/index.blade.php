@@ -1,5 +1,5 @@
 <div>
-    <h2>Listar os cursos</h2>
+    <h2>Listar os Módulos</h2>
 
     @if (session('success'))
         <p style="color: #082">
@@ -7,6 +7,6 @@
         </p>
     @endif
 
-    <a href="{{ route('courses.create') }}">Cadastrar</a>
+    <a href="{{ route('modules.create') }}">Cadastrar</a>
 
 </div>
