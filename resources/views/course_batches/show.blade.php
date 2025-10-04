@@ -4,7 +4,15 @@
     <h2>Detalhes da Turma</h2>
 
     <a href="{{ route('course_batches.index') }}">Listar</a><br>
-    <a href="{{ route('course_batches.edit', ['courseBatch' => $courseBatch->id]) }}">Editar</a><br><br>
+    <a href="{{ route('course_batches.edit', ['courseBatch' => $courseBatch->id]) }}">Editar</a><br>
+
+    <form action="{{ route('course_batches.destroy', ['courseBatch' => $courseBatch->id]) }}" method="POST">
+        @csrf
+        @method('delete')
+
+        <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
+
+    </form><br><br>
 
     <x-alert />
 

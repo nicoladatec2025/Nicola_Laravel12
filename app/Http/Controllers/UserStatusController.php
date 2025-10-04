@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserStatus;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserStatusController extends Controller
 {
@@ -16,6 +17,9 @@ class UserStatusController extends Controller
         // Recuperar os registros do banco dados
         $userStatuses = UserStatus::orderBy('id', 'DESC')->paginate(10);
 
+        // Salvar log
+        Log::info('Listar os status para usuário.');
+
         // Carregar a view 
         return view('user_statuses.index', ['userStatuses' => $userStatuses]);
     }
@@ -23,6 +27,9 @@ class UserStatusController extends Controller
     // Visualizar os detalhes do status para usuário
     public function show(UserStatus $userStatus)
     {
+        // Salvar log
+        Log::info('Visualizar o status para usuário.', ['user_status_id' => $userStatus->id]);
+
         // Carregar a view 
         return view('user_statuses.show', ['userStatus' => $userStatus]);
     }
@@ -40,14 +47,20 @@ class UserStatusController extends Controller
         // Capturar possíveis exceções durante a execução.
         try {
             // Cadastrar no banco de dados na tabela status
-            UserStatus::create([
+            $userStatus = UserStatus::create([
                 'name' => $request->name
             ]);
 
+            // Salvar log
+            Log::info('Status para usuário cadastrado.', ['user_status_id' => $userStatus->id]);
+
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('user_statuses.index')->with('success', 'Status para usuário cadastrado com sucesso!');
+            return redirect()->route('user_statuses.show', ['userStatus' => $userStatus->id])->with('success', 'Status para usuário cadastrado com sucesso!');
         } catch (Exception $e) {
-            dd($e->getMessage());
+
+            // Salvar log
+            Log::notice('Status para usuário não cadastrado.', ['error' => $e->getMessage()]);
+
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Status para usuário não cadastrado!');
         }
@@ -70,9 +83,16 @@ class UserStatusController extends Controller
                 'name' => $request->name
             ]);
 
+            // Salvar log
+            Log::info('Status para usuário editado.', ['user_status_id' => $userStatus->id]);
+
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('user_statuses.show', ['userStatus' => $userStatus->id])->with('success', 'Status para usuário editado com sucesso!');
         } catch (Exception $e) {
+
+            // Salvar log
+            Log::notice('Status para usuário não editado.', ['error' => $e->getMessage()]);
+
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Status para usuário não editado!');
         }
@@ -86,10 +106,17 @@ class UserStatusController extends Controller
 
             // Excluir o registro do banco de dados
             $userStatus->delete();
+
+            // Salvar log
+            Log::info('Status para usuário apagado.', ['user_status_id' => $userStatus->id]);
             
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('user_statuses.index')->with('success', 'Status para usuário apagado com sucesso!');
         } catch (Exception $e) {
+
+            // Salvar log
+            Log::notice('Status para usuário não apagado.', ['error' => $e->getMessage()]);
+
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Status para usuário não apagado!');
         }

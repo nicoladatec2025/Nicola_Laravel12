@@ -4,7 +4,15 @@
     <h2>Detalhes da Aula</h2>
 
     <a href="{{ route('lessons.index') }}">Listar</a><br>
-    <a href="{{ route('lessons.edit', ['lesson' => $lesson->id]) }}">Editar</a><br><br>
+    <a href="{{ route('lessons.edit', ['lesson' => $lesson->id]) }}">Editar</a><br>
+
+    <form action="{{ route('lessons.destroy', ['lesson' => $lesson->id]) }}" method="POST">
+        @csrf
+        @method('delete')
+
+        <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
+
+    </form><br><br>
 
     <x-alert />
 
