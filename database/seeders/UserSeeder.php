@@ -30,20 +30,20 @@ class UserSeeder extends Seeder
             if (App::environment() !== 'production') {
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 User::firstOrCreate(
-                    ['email' => 'kelly@oliveira.com'],
-                    ['name' => 'Kelly', 'email' => 'kelly@oliveira.com', 'password' => '123456A#'],
+                    ['email' => 'kelly@jose.com'],
+                    ['name' => 'Kelly', 'email' => 'kelly@jose.com', 'password' => '123456A#'],
                 );
 
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 User::firstOrCreate(
-                    ['email' => 'jessica@jose.com'],
-                    ['name' => 'Jessica', 'email' => 'jessica@jose.com', 'password' => '123456A#'],
+                    ['email' => 'jessica@oliveira.com'],
+                    ['name' => 'Jessica', 'email' => 'jessica@oliveira.com', 'password' => '123456A#'],
                 );
 
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 User::firstOrCreate(
-                    ['email' => 'gabriel@joaquim.com'],
-                    ['name' => 'Gabriel', 'email' => 'gabriel@joaquim.com', 'password' => '123456A#'],
+                    ['email' => 'gabrielly@celke.com'],
+                    ['name' => 'Gabrielly', 'email' => 'gabrielly@celke.com', 'password' => '123456A#'],
                 );
             }
         } catch (Exception $e) {

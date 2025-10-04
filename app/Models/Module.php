@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
-   // Indicar o nome da tabela
+    // Indicar o nome da tabela
     protected $table = 'modules';
 
     // Indicar quais colunas podem ser manipuladas

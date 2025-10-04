@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Status;
+use App\Models\UserStatus;
 use Exception;
 use Illuminate\Database\Seeder;
 
-class StatusSeeder extends Seeder
+class UserStatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,10 +14,10 @@ class StatusSeeder extends Seeder
     public function run(): void
     {
 
-        // Capturar possíveis exceções durante a execução do seeder.
+        // Capturar possíveis exceções durante a execução do seeder. 
         try {
             // Se não encontrar o registro com o nome e o id, cadastra o registro no BD
-            Status::firstOrCreate(
+            UserStatus::firstOrCreate(
                 ['name' => 'Ativo', 'id' => 2],
                 ['id' => 1, 'name' => 'Ativo'],
             );
@@ -25,22 +25,22 @@ class StatusSeeder extends Seeder
             // Lidar com a exceção
         }
 
-        // Capturar possíveis exceções durante a execução do seeder.
+        // Capturar possíveis exceções durante a execução do seeder. 
         try {
             // Se não encontrar o registro com o nome, cadastra o registro no BD
-            Status::firstOrCreate(
+            UserStatus::firstOrCreate(
                 ['name' => 'Inativo', 'id' => 2],
                 ['id' => 2, 'name' => 'Inativo'],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
-            Status::firstOrCreate(
+            UserStatus::firstOrCreate(
                 ['name' => 'Aguardando Confirmação', 'id' => 3],
                 ['id' => 3, 'name' => 'Aguardando Confirmação'],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
-            Status::firstOrCreate(
+            UserStatus::firstOrCreate(
                 ['name' => 'Spam', 'id' => 4],
                 ['id' => 4, 'name' => 'Spam'],
             );
@@ -49,4 +49,3 @@ class StatusSeeder extends Seeder
         }
     }
 }
-

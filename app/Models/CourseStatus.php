@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CourseStatus extends Model
 {
-   // Indicar o nome da tabela
+    // Indicar o nome da tabela
     protected $table = 'course_statuses';
 
     // Indicar quais colunas podem ser manipuladas

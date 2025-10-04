@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CourseBatch extends Model
 {
-     // Indicar o nome da tabela
+    // Indicar o nome da tabela
     protected $table = 'course_batches';
 
     // Indicar quais colunas podem ser manipuladas

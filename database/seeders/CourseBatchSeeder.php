@@ -14,7 +14,7 @@ class CourseBatchSeeder extends Seeder
     public function run(): void
     {
 
-        // Capturar possíveis exceções durante a execução do seeder.
+        // Capturar possíveis exceções durante a execução do seeder. 
         try {
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             CourseBatch::firstOrCreate(
