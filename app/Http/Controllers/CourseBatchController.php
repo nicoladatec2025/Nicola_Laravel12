@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseBatchRequest;
+use App\Models\Course;
 use App\Models\CourseBatch;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -10,16 +11,18 @@ use Illuminate\Support\Facades\Log;
 class CourseBatchController extends Controller
 {
     // Listar as turmas dos cursos
-    public function index()
+    public function index(Course $course)
     {
         // Recuperar os registros do banco dados
-        $coursesBatches = CourseBatch::orderBy('id', 'DESC')->paginate(10);
+        $coursesBatches = CourseBatch::orderBy('id', 'DESC')
+            ->where('course_id', $course->id)
+            ->paginate(10);
 
         // Salvar log
         Log::info('Listar as turmas.');
 
         // Carregar a view 
-        return view('course_batches.index', ['coursesBatches' => $coursesBatches]);
+        return view('course_batches.index', ['coursesBatches' => $coursesBatches, 'course' => $course]);
     }
 
     // Visualizar os detalhes da turma
@@ -33,20 +36,21 @@ class CourseBatchController extends Controller
     }
 
     // Carregar o formulário cadastrar nova turma
-    public function create()
+    public function create(Course $course)
     {
         // Carregar a view 
-        return view('course_batches.create');
+        return view('course_batches.create', ['course' => $course]);
     }
 
     // Cadastrar no banco de dados o nova turma
-    public function store(CourseBatchRequest $request)
+    public function store(Course $course, CourseBatchRequest $request)
     {
         // Capturar possíveis exceções durante a execução.
         try {
             // Cadastrar no banco de dados na tabela turmas
             $courseBatch = CourseBatch::create([
-                'name' => $request->name
+                'name' => $request->name,
+                'course_id' => $course->id,
             ]);
 
             // Salvar log
@@ -72,7 +76,7 @@ class CourseBatchController extends Controller
     }
 
     // Editar no banco de dados o turma
-    public function update(CourseBatchRequest $request, CourseBatch $courseBatch)
+    public function update(CourseBatch $courseBatch, CourseBatchRequest $request)
     {
         // Capturar possíveis exceções durante a execução.
         try {
@@ -109,7 +113,7 @@ class CourseBatchController extends Controller
             Log::info('Turma apagada.', ['course_batch_id' => $courseBatch->id]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('course_batches.index')->with('success', 'Turma apagada com sucesso!');
+            return redirect()->route('course_batches.index', ['course' => $courseBatch->course_id])->with('success', 'Turma apagada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log

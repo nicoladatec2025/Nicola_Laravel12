@@ -3,11 +3,11 @@
 @section('content')
     <h2>Cadastrar Aula</h2>
 
-    <a href="{{ route('lessons.index') }}">Listar</a><br><br>
+    <a href="{{ route('lessons.index', ['module' => $module->id]) }}">Aulas</a><br><br>
 
     <x-alert />
 
-    <form action="{{ route('lessons.store') }}" method="POST">
+    <form action="{{ route('lessons.store', ['module' => $module->id]) }}" method="POST">
         @csrf
         @method('POST')
 

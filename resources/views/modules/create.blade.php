@@ -3,11 +3,11 @@
 @section('content')
     <h2>Cadastrar Módulo</h2>
 
-    <a href="{{ route('modules.index') }}">Listar</a><br><br>
+    {{-- <a href="{{ route('modules.index') }}">Listar</a><br><br> --}}
 
     <x-alert />
 
-    <form action="{{ route('modules.store') }}" method="POST">
+    <form action="{{ route('modules.store', ['courseBatch' => $courseBatch]) }}" method="POST">
         @csrf
         @method('POST')
 

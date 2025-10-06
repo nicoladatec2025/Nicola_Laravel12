@@ -4,22 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LessonRequest;
 use App\Models\Lesson;
+use App\Models\Module;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
 class LessonController extends Controller
 {
     // Listar as aulas
-    public function index()
+    public function index(Module $module)
     {
+        // dd($module);
         // Recuperar os registros do banco dados
-        $lessons = Lesson::orderBy('id', 'DESC')->paginate(10);
+        $lessons = Lesson::orderBy('id', 'DESC')
+            ->where('module_id', $module->id)
+            ->paginate(10);
 
         // Salvar log
         Log::info('Listar as aulas.');
 
         // Carregar a view 
-        return view('lessons.index', ['lessons' => $lessons]);
+        return view('lessons.index', ['lessons' => $lessons, 'module' => $module]);
     }
 
     // Visualizar os detalhes da aula
@@ -33,20 +37,21 @@ class LessonController extends Controller
     }
 
     // Carregar o formulário cadastrar nova aula
-    public function create()
+    public function create(Module $module)
     {
         // Carregar a view 
-        return view('lessons.create');
+        return view('lessons.create', ['module' => $module]);
     }
 
     // Cadastrar no banco de dados o nova aula
-    public function store(LessonRequest $request)
+    public function store(LessonRequest $request, Module $module)
     {
         // Capturar possíveis exceções durante a execução.
         try {
             // Cadastrar no banco de dados na tabela aula
             $lesson = Lesson::create([
-                'name' => $request->name
+                'name' => $request->name,
+                'module_id' => $module->id,
             ]);
 
             // Salvar log
@@ -107,7 +112,7 @@ class LessonController extends Controller
 
             // Salvar log
             Log::info('Aula apagada.', ['lesson_id' => $lesson->id]);
-            
+
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('lessons.index')->with('success', 'Aula apagada com sucesso!');
         } catch (Exception $e) {

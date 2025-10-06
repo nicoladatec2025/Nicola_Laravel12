@@ -3,7 +3,8 @@
 @section('content')
     <h2>Editar Turma</h2>
 
-    <a href="{{ route('course_batches.index') }}">Listar</a><br>
+    {{-- <a href="{{ route('course_batches.index') }}">Listar</a><br> --}}
+    <a href="{{ route('course_batches.index', ['course' => $courseBatch->id]) }}">Turmas</a><br>
     <a href="{{ route('course_batches.show', ['courseBatch' => $courseBatch->id]) }}">Visualizar</a><br><br>
 
     <x-alert />

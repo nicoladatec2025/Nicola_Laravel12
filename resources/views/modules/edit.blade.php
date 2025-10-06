@@ -3,7 +3,7 @@
 @section('content')
     <h2>Editar Módulo</h2>
 
-    <a href="{{ route('modules.index') }}">Listar</a><br>
+    <a href="{{ route('modules.index', ['courseBatch' => $module->course_batch_id]) }}">Listar Módulos</a><br>
     <a href="{{ route('modules.show', ['module' => $module->id]) }}">Visualizar</a><br><br>
 
     <x-alert />

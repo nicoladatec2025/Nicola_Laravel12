@@ -3,7 +3,9 @@
 @section('content')
     <h2>Listar os Módulos</h2>
 
-    <a href="{{ route('modules.create') }}">Cadastrar</a><br><br>
+
+    <a href="{{ route('course_batches.index', ['course' => $courseBatch->course_id]) }}">Listar as Turma</a><br>
+    <a href="{{ route('modules.create', ['courseBatch' => $courseBatch->id]) }}">Cadastrar</a><br><br>
 
     <x-alert />
 
@@ -11,6 +13,7 @@
     @forelse ($modules as $module)
         ID: {{ $module->id }}<br>
         Nome: {{ $module->name }}<br>
+        <a href="{{ route('lessons.index', ['module' => $module->id]) }}">Listar Aulas</a><br>
         <a href="{{ route('modules.show', ['module' => $module->id]) }}">Visualizar</a><br>
         <a href="{{ route('modules.edit', ['module' => $module->id]) }}">Editar</a><br>
 

@@ -2,8 +2,8 @@
 
 @section('content')
     <h2>Editar Aula</h2>
-
-    <a href="{{ route('lessons.index') }}">Listar</a><br>
+    
+    <a href="{{ route('lessons.index', ['module' => $lesson->module_id]) }}">Aulas</a><br>
     <a href="{{ route('lessons.show', ['lesson' => $lesson->id]) }}">Visualizar</a><br><br>
 
     <x-alert />

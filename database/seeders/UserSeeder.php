@@ -15,14 +15,14 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-        // Capturar possíveis exceções durante a execução do seeder.
+        // Capturar possíveis exceções durante a execução do seeder. 
         try {
             // Verificar se o usuário está cadastrado no banco de dados
-            if (!User::where('email', 'augusto@nicolau.com')->first()) {
+            if (!User::where('email', 'cesar@celke.com.br')->first()) {
                 // Cadastrar o usuário
                 User::create([
-                    'name' => 'Augusto',
-                    'email' => 'augusto@nicolau.com',
+                    'name' => 'Cesar',
+                    'email' => 'cesar@celke.com.br',
                     'password' => '123456A#',
                 ]);
             }
@@ -30,20 +30,20 @@ class UserSeeder extends Seeder
             if (App::environment() !== 'production') {
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 User::firstOrCreate(
-                    ['email' => 'kelly@jose.com'],
-                    ['name' => 'Kelly', 'email' => 'kelly@jose.com', 'password' => '123456A#'],
+                    ['email' => 'kelly@celke.com.br'],
+                    ['name' => 'Kelly', 'email' => 'kelly@celke.com.br', 'password' => '123456A#'],
                 );
 
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 User::firstOrCreate(
-                    ['email' => 'jessica@oliveira.com'],
-                    ['name' => 'Jessica', 'email' => 'jessica@oliveira.com', 'password' => '123456A#'],
+                    ['email' => 'jessica@celke.com.br'],
+                    ['name' => 'Jessica', 'email' => 'jessica@celke.com.br', 'password' => '123456A#'],
                 );
 
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 User::firstOrCreate(
-                    ['email' => 'gabrielly@celke.com'],
-                    ['name' => 'Gabrielly', 'email' => 'gabrielly@celke.com', 'password' => '123456A#'],
+                    ['email' => 'gabrielly@celke.com.br'],
+                    ['name' => 'Gabrielly', 'email' => 'gabrielly@celke.com.br', 'password' => '123456A#'],
                 );
             }
         } catch (Exception $e) {

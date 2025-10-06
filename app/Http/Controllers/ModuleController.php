@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ModuleRequest;
+use App\Models\CourseBatch;
 use App\Models\Module;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,16 +12,18 @@ use Illuminate\Support\Facades\Log;
 class ModuleController extends Controller
 {
     // Listar os módulos das turmas
-    public function index()
+    public function index(CourseBatch $courseBatch)
     {
         // Recuperar os registros do banco dados
-        $modules = Module::orderBy('id', 'DESC')->paginate(10);
+        $modules = Module::orderBy('id', 'DESC')
+            ->where('course_batch_id', $courseBatch->id)
+            ->paginate(10);
 
         // Salvar log
         Log::info('Listar os módulos.');
 
         // Carregar a view 
-        return view('modules.index', ['modules' => $modules]);
+        return view('modules.index', ['modules' => $modules, 'courseBatch' => $courseBatch]);
     }
 
     // Visualizar os detalhes do módulo
@@ -34,20 +37,21 @@ class ModuleController extends Controller
     }
 
     // Carregar o formulário cadastrar novo módulo
-    public function create()
+    public function create(CourseBatch $courseBatch)
     {
         // Carregar a view 
-        return view('modules.create');
+        return view('modules.create', ['courseBatch' => $courseBatch]);
     }
 
     // Cadastrar no banco de dados o novo módulo
-    public function store(ModuleRequest $request)
+    public function store(CourseBatch $courseBatch, ModuleRequest $request)
     {
         // Capturar possíveis exceções durante a execução.
         try {
             // Cadastrar no banco de dados na tabela módulo
             $module = Module::create([
-                'name' => $request->name
+                'name' => $request->name,
+                'course_batch_id' => $courseBatch->id,
             ]);
 
             // Salvar log
@@ -62,7 +66,7 @@ class ModuleController extends Controller
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Módulo não cadastrado!');
-        }        
+        }
     }
 
     // Carregar o formulário editar módulo
@@ -108,7 +112,7 @@ class ModuleController extends Controller
 
             // Salvar log
             Log::info('Módulo apagado.', ['module_id' => $module->id]);
-            
+
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('modules.index')->with('success', 'Módulo apagado com sucesso!');
         } catch (Exception $e) {
