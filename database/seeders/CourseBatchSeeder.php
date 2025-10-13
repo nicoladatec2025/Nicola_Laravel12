@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\CourseBatch;
 use Exception;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class CourseBatchSeeder extends Seeder
 {
@@ -34,7 +35,8 @@ class CourseBatchSeeder extends Seeder
                 ['id' => 3, 'name' => 'Turma 3', 'course_id' => 1],
             );
         } catch (Exception $e) {
-            // Lidar com a exceção
+            // Salvar log
+            Log::notice('Turma não cadastrada.', ['error' => $e->getMessage()]);
         }
     }
 }

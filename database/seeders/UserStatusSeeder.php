@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\UserStatus;
 use Exception;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class UserStatusSeeder extends Seeder
 {
@@ -45,7 +46,8 @@ class UserStatusSeeder extends Seeder
                 ['id' => 4, 'name' => 'Spam'],
             );
         } catch (Exception $e) {
-            // Lidar com a exceção
+            // Salvar log
+            Log::notice('Status para usuário não cadastrado.', ['error' => $e->getMessage()]);
         }
     }
 }

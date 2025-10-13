@@ -27,5 +27,5 @@
     @endforelse
 
     {{ $coursesStatuses->links() }}
-    
+
 @endsection

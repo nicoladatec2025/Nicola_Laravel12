@@ -6,6 +6,7 @@ use App\Http\Requests\CourseBatchRequest;
 use App\Models\Course;
 use App\Models\CourseBatch;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class CourseBatchController extends Controller
@@ -19,7 +20,7 @@ class CourseBatchController extends Controller
             ->paginate(10);
 
         // Salvar log
-        Log::info('Listar as turmas.');
+        Log::info('Listar as turmas.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view 
         return view('course_batches.index', ['coursesBatches' => $coursesBatches, 'course' => $course]);
@@ -29,7 +30,7 @@ class CourseBatchController extends Controller
     public function show(CourseBatch $courseBatch)
     {
         // Salvar log
-        Log::info('Visualizar a turma.', ['course_batch_id' => $courseBatch->id]);
+        Log::info('Visualizar a turma.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
         // Carregar a view 
         return view('course_batches.show', ['courseBatch' => $courseBatch]);
@@ -54,14 +55,14 @@ class CourseBatchController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Turma cadastrada.', ['course_batch_id' => $courseBatch->id]);
+            Log::info('Turma cadastrada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Turma cadastrada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Turma não cadastrada.', ['error' => $e->getMessage()]);
+            Log::notice('Turma não cadastrada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Turma não cadastrada!');
@@ -86,14 +87,14 @@ class CourseBatchController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Turma editada.', ['course_batch_id' => $courseBatch->id]);
+            Log::info('Turma editada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Turma editada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Turma não editada.', ['error' => $e->getMessage()]);
+            Log::notice('Turma não editada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Turma não editada!');
@@ -110,14 +111,14 @@ class CourseBatchController extends Controller
             $courseBatch->delete();
 
             // Salvar log
-            Log::info('Turma apagada.', ['course_batch_id' => $courseBatch->id]);
+            Log::info('Turma apagada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('course_batches.index', ['course' => $courseBatch->course_id])->with('success', 'Turma apagada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Turma não apagada.', ['error' => $e->getMessage()]);
+            Log::notice('Turma não apagada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Turma não apagado!');

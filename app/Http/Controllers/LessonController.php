@@ -6,6 +6,7 @@ use App\Http\Requests\LessonRequest;
 use App\Models\Lesson;
 use App\Models\Module;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class LessonController extends Controller
@@ -20,7 +21,7 @@ class LessonController extends Controller
             ->paginate(10);
 
         // Salvar log
-        Log::info('Listar as aulas.');
+        Log::info('Listar as aulas.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view 
         return view('lessons.index', ['lessons' => $lessons, 'module' => $module]);
@@ -30,7 +31,7 @@ class LessonController extends Controller
     public function show(Lesson $lesson)
     {
         // Salvar log
-        Log::info('Visualizar a aula.', ['lesson_id' => $lesson->id]);
+        Log::info('Visualizar a aula.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a view 
         return view('lessons.show', ['lesson' => $lesson]);
@@ -55,14 +56,14 @@ class LessonController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Aula cadastrada.', ['lesson_id' => $lesson->id]);
+            Log::info('Aula cadastrada.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('lessons.show', ['lesson' => $lesson->id])->with('success', 'Aula cadastrada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Aula não cadastrada.', ['error' => $e->getMessage()]);
+            Log::notice('Aula não cadastrada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Aula não cadastrada!');
@@ -87,14 +88,14 @@ class LessonController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Aula editada.', ['lesson_id' => $lesson->id]);
+            Log::info('Aula editada.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('lessons.show', ['lesson' => $lesson->id])->with('success', 'Aula editada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Aula não editada.', ['error' => $e->getMessage()]);
+            Log::notice('Aula não editada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Aula não editada!');
@@ -111,14 +112,14 @@ class LessonController extends Controller
             $lesson->delete();
 
             // Salvar log
-            Log::info('Aula apagada.', ['lesson_id' => $lesson->id]);
+            Log::info('Aula apagada.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('lessons.index')->with('success', 'Aula apagada com sucesso!');
+            return redirect()->route('lessons.index', ['module' => $lesson->module_id])->with('success', 'Aula apagada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Aula não apagada.', ['error' => $e->getMessage()]);
+            Log::notice('Aula não apagada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Aula não apagada!');

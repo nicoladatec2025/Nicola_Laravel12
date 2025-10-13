@@ -4,15 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Classe de requisição para validação de usuários.
- *
- * Responsável por definir as regras de validação e mensagens de erro 
- * para operações relacionadas a usuários, como criação e edição.
- *
- * @package App\Http\Requests
- */
-class UserRequest extends FormRequest
+class AuthLoginRequest extends FormRequest
 {
     /**
      * Determina se o usuário está autorizado a fazer esta requisição.
@@ -24,7 +16,7 @@ class UserRequest extends FormRequest
         return true;
     }
 
-    /**
+     /**
      * Retorna as regras de validação aplicáveis à requisição.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> 
@@ -32,12 +24,9 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('user');
-
         return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . ($user ? $user->id : null),
-            'password' => 'required_if:password,!=null|confirmed|min:6',
+            'email' => 'required|email',
+            'password' => 'required',
         ];
     }
 
@@ -49,13 +38,9 @@ class UserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => "Campo nome é obrigatório!",
             'email.required' => "Campo e-mail é obrigatório!",
             'email.email' => "Necessário enviar e-mail válido!",
-            'email.unique' => "O e-mail já está cadastrado!",
             'password.required' => "Campo senha é obrigatório!",
-            'password.confirmed' => 'A confirmação da senha não corresponde!',
-            'password.min' => "Senha com no mínimo :min caracteres!",
         ];
     }
 }

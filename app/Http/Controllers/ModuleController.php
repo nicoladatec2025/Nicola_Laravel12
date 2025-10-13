@@ -6,7 +6,7 @@ use App\Http\Requests\ModuleRequest;
 use App\Models\CourseBatch;
 use App\Models\Module;
 use Exception;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ModuleController extends Controller
@@ -20,7 +20,7 @@ class ModuleController extends Controller
             ->paginate(10);
 
         // Salvar log
-        Log::info('Listar os módulos.');
+        Log::info('Listar os módulos.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view 
         return view('modules.index', ['modules' => $modules, 'courseBatch' => $courseBatch]);
@@ -30,7 +30,7 @@ class ModuleController extends Controller
     public function show(Module $module)
     {
         // Salvar log
-        Log::info('Visualizar o módulo.', ['module_id' => $module->id]);
+        Log::info('Visualizar o módulo.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a view 
         return view('modules.show', ['module' => $module]);
@@ -55,14 +55,14 @@ class ModuleController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Módulo cadastrado.', ['module_id' => $module->id]);
+            Log::info('Módulo cadastrado.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('modules.show', ['module' => $module->id])->with('success', 'Módulo cadastrado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Módulo não cadastrado.', ['error' => $e->getMessage()]);
+            Log::notice('Módulo não cadastrado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Módulo não cadastrado!');
@@ -87,14 +87,14 @@ class ModuleController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Módulo editado.', ['module_id' => $module->id]);
+            Log::info('Módulo editado.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('modules.show', ['module' => $module->id])->with('success', 'Módulo editado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Módulo não editado.', ['error' => $e->getMessage()]);
+            Log::notice('Módulo não editado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Módulo não editado!');
@@ -111,14 +111,14 @@ class ModuleController extends Controller
             $module->delete();
 
             // Salvar log
-            Log::info('Módulo apagado.', ['module_id' => $module->id]);
-
+            Log::info('Módulo apagado.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
+            
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('modules.index')->with('success', 'Módulo apagado com sucesso!');
+            return redirect()->route('modules.index', ['courseBatch' => $module->course_batch_id])->with('success', 'Módulo apagado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Módulo não apagado.', ['error' => $e->getMessage()]);
+            Log::notice('Módulo não apagado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Módulo não apagado!');
