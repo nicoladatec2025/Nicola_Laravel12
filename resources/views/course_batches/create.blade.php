@@ -3,7 +3,9 @@
 @section('content')
     <h2>Cadastrar Turma</h2>
 
-    {{-- <a href="{{ route('course_batches.index') }}">Listar</a><br><br> --}}
+    @can('index-course-batch')
+        <a href="{{ route('course_batches.index', ['course' => $course->id]) }}">Turmas</a><br>
+    @endcan
 
     <x-alert />
 

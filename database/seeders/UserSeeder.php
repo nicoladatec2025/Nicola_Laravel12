@@ -16,14 +16,14 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-        // Capturar possíveis exceções durante a execução do seeder. 
+        // Capturar possíveis exceções durante a execução do seeder.
         try {
             // Verificar se o usuário está cadastrado no banco de dados
-            if (!User::where('email', 'cesar@celke.com.br')->first()) {
+            if (!User::where('email', 'augusto@nicolau.com')->first()) {
                 // Cadastrar o usuário
                 $superAdmin = User::create([
-                    'name' => 'Cesar',
-                    'email' => 'cesar@celke.com.br',
+                    'name' => 'Augusto',
+                    'email' => 'augusto@nicolau.com',
                     'password' => '123456A#',
                 ]);
 
@@ -34,8 +34,8 @@ class UserSeeder extends Seeder
             if (App::environment() !== 'production') {
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 $admin = User::firstOrCreate(
-                    ['email' => 'kelly@celke.com.br'],
-                    ['name' => 'Kelly', 'email' => 'kelly@celke.com.br', 'password' => '123456A#'],
+                    ['email' => 'maria@oliveira.com'],
+                    ['name' => 'Maria', 'email' => 'maria@oliveira.com', 'password' => '123456A#'],
                 );
 
                 // Atribuir papel para o usuário
@@ -43,18 +43,18 @@ class UserSeeder extends Seeder
 
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 $teacher = User::firstOrCreate(
-                    ['email' => 'jessica@celke.com.br'],
-                    ['name' => 'Jessica', 'email' => 'jessica@celke.com.br', 'password' => '123456A#'],
+                    ['email' => 'natan@oliveira.com'],
+                    ['name' => 'Natan', 'email' => 'natan@oliveira.com', 'password' => '123456A#'],
                 );
 
                 // Atribuir papel para o usuário
                 $teacher->assignRole('Professor');
-                $teacher->assignRole('Aluno');
+                // $teacher->assignRole('Aluno');
 
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 $tutor = User::firstOrCreate(
-                    ['email' => 'gabrielly@celke.com.br'],
-                    ['name' => 'Gabrielly', 'email' => 'gabrielly@celke.com.br', 'password' => '123456A#'],
+                    ['email' => 'lud@oliveira.com'],
+                    ['name' => 'Lud', 'email' => 'lud@oliveira.com', 'password' => '123456A#'],
                 );
 
                 // Atribuir papel para o usuário
@@ -62,8 +62,8 @@ class UserSeeder extends Seeder
 
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
                 $student = User::firstOrCreate(
-                    ['email' => 'ana@celke.com.br'],
-                    ['name' => 'Ana', 'email' => 'ana@celke.com.br', 'password' => '123456A#'],
+                    ['email' => 'nico@oliveira.com'],
+                    ['name' => 'Nico', 'email' => 'nico@oliveira.com', 'password' => '123456A#'],
                 );
 
                 // Atribuir papel para o usuário

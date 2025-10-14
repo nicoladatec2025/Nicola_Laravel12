@@ -24,6 +24,6 @@
     <a href="{{ route('password.request') }}">Esqueceu a senha?</a><br>
     Precisa de uma de conta? <a href="{{ route('register') }}">Increva-se!</a><br><br>
 
-    Usuário: cesar@celke.com.br<br>
+    Usuário: augusto@nicolau.com<br>
     Senha: 123456A#
 @endsection

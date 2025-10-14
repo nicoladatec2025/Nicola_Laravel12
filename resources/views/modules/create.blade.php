@@ -3,7 +3,9 @@
 @section('content')
     <h2>Cadastrar Módulo</h2>
 
-    {{-- <a href="{{ route('modules.index') }}">Listar</a><br><br> --}}
+    @can('index-course-batch')
+        <a href="{{ route('course_batches.index', ['course' => $courseBatch->course_id]) }}">Listar as Turma</a><br>
+    @endcan
 
     <x-alert />
 
@@ -12,7 +14,8 @@
         @method('POST')
 
         <label>Nome: </label>
-        <input type="text" name="name" id="name" placeholder="Nome do módulo" value="{{ old('name') }}" required><br><br>
+        <input type="text" name="name" id="name" placeholder="Nome do módulo" value="{{ old('name') }}"
+            required><br><br>
 
         <button type="submit">Cadastrar</button>
     </form>
