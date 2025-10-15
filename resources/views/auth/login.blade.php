@@ -1,28 +1,44 @@
 @extends('layouts.login')
 
 @section('content')
-    <h3>Área Restrita</h3>
+    <h1 class="title-login">Área Restrita</h1>
 
     <x-alert />
 
-    <form action="{{ route('login.process') }}" method="POST">
+    <form class="mt-4" action="{{ route('login.process') }}" method="POST">
         @csrf
         @method('POST')
 
-        <label for="email">E-mail</label>
-        <input type="email" name="email" id="email" placeholder="Digite o e-mail de usuário" value="{{ old('email') }}" required>
-        <br><br>
+        <!-- Campo e-mail -->
+        <div class="form-group-login">
+            <label for="email" class="form-label-login">E-mail</label>
+            <input type="email" name="email" id="email" placeholder="Digite o e-mail de usuário"
+                class="form-input-login" value="{{ old('email') }}" required>
+        </div>
 
-        <label for="password">Senha</label>
-        <input type="password" name="password" id="password" placeholder="Digite a senha" value="{{ old('password') }}" required>
-        <br><br>
+        <!-- Campo senha -->
+        <div class="form-group-login">
+            <label for="password" class="form-label-login">Senha</label>
+            <input type="password" name="password" id="password" placeholder="Digite a senha" class="form-input-login"
+                value="{{ old('password') }}" required>
+        </div>
 
-        <button type="submit">Acessar</button><br><br>
+        <!-- Link para recuperação de senha e botão de login -->
+        <div class="btn-group-login">
+            <a href="{{ route('password.request') }}" class="link-login">Esqueceu a
+                senha?</a>
+            <button type="submit" class="btn-primary-md">Acessar</button>
+        </div>
+
+        <div class="mt-4 text-center">
+            <a href="{{ route('register') }}" class="link-login">Criar nova conta!</a>
+        </div>
+
+        <!-- Informações de login -->
+        <div class="mt-4 text-center text-sm text-gray-600">
+            <p>Usuário: cesar@celke.com.br</p>
+            <p>Senha: 123456A#</p>
+        </div>
 
     </form>
-
-    <a href="{{ route('password.request') }}">Esqueceu a senha?</a><br>
-    Precisa de uma de conta? <a href="{{ route('register') }}">Increva-se!</a><br><br>
-
-
 @endsection

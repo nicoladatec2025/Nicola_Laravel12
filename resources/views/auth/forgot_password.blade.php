@@ -1,22 +1,27 @@
 @extends('layouts.login')
 
 @section('content')
-    <h3>Recuperar a Senha</h3>
+    <h1 class="title-login">Recuperar a Senha</h1>
 
     <x-alert />
 
-    <form action="{{ route('password.email') }}" method="POST">
+    <form class="mt-4" action="{{ route('password.email') }}" method="POST">
         @csrf
         @method('POST')
 
-        <label for="email">E-mail</label>
-        <input type="email" name="email" id="email" placeholder="Digite o e-mail cadastrado" value="{{ old('email') }}" required>
-        <br><br>
+        <!-- Campo e-mail -->
+        <div class="form-group-login">
+            <label for="email" class="form-label-login">E-mail</label>
+            <input type="email" name="email" id="email" placeholder="Digite o e-mail cadastrado"
+                class="form-input-login" value="{{ old('email') }}" required>
+        </div>
 
-        <button type="submit">Recuperar</button><br><br>
+        <!-- Link para página de login -->
+        <div class="btn-group-login">
+            <a href="{{ route('login') }}" class="link-login">Login</a>
+            <button type="submit" class="btn-primary-md">Recuperar</button>
+        </div>
 
     </form>
-
-    <a href="{{ route('login') }}">Login</a><br><br>
 
 @endsection
