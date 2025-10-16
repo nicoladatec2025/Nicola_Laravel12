@@ -5,15 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NicolaDaTec</title>
+    <title>NicolaDaTe</title>
 
-    <script>
-        localStorage.setItem('theme', 'dark');
 
-    </script>
- @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/app_auth.js'])
-
-    </head>
+    @vite(['resources/css/app.css', 'resources/js/app_auth.js'])
+</head>
 
 <body class="bg-login">
 

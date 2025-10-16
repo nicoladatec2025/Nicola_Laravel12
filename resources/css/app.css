@@ -38,7 +38,7 @@
 
     /* Estilização do título */
     .title-login {
-        @apply text-2xl font-semibold text-center text-red-500;
+        @apply text-2xl font-semibold text-center text-blue-500;
     }
 
     /* Margem superior para os campos */
@@ -63,10 +63,62 @@
 
     /* Link da página de login */
     .link-login {
-        @apply text-base text-red-500 hover:no-underline;
+        @apply text-base text-blue-500 hover:no-underline;
     }
 
     /****** Fim Login ******/
+
+/****** Início Navbar ******/
+    /* Estilização do fundo */
+    .bg-dashboard {
+        @apply bg-gray-100 dark:bg-zinc-950;
+    }
+
+    /* Navbar */
+    .navbar {
+        @apply bg-gray-50 border-b border-gray-200 px-4 py-2 sm:px-6 lg:px-8 dark:bg-zinc-900 dark:border-zinc-950;
+    }
+
+    /* Botão de menu mobile */
+    .menu-button {
+        @apply text-blue-600 sm:hidden cursor-pointer;
+    }
+
+    /* Container da Navbar */
+    .navbar-container {
+        @apply flex justify-end items-center;
+    }
+
+    /* Container do usuário */
+    .user-container {
+        @apply ml-auto flex items-center space-x-0;
+    }
+
+    /* Dropdown */
+    .dropdown-button {
+        @apply bg-gray-50 px-3 py-2 text-sm text-gray-500 flex items-center cursor-pointer dark:bg-zinc-900 dark:text-gray-400;
+    }
+
+    /* Dropdown border */
+    .dropdown-button-border {
+        @apply border-e-2 border-gray-300 dark:border-gray-600;
+    }
+
+    .dropdown-content {
+        @apply absolute right-0 z-50 mt-2 rounded-md shadow-lg bg-white w-48 dark:bg-zinc-800;
+    }
+
+    .dropdown-item {
+        @apply block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none hover:rounded-md dark:text-gray-400 dark:hover:bg-zinc-950 dark:focus:bg-gray-400;
+    }
+
+    /* Ícone do dropdown */
+    .dropdown-icon {
+        @apply ml-2 h-4 w-4;
+    }
+
+    /****** Fim Navbar ******/
+
 
     /****** Início Botões ******/
     /* Botão azul */

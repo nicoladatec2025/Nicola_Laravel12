@@ -1,5 +1,7 @@
 @extends('layouts.login')
 
+<h2 class="btn-group-login"><a href="{{ route('home') }}" class="link-login">Benvindo...</a></h2>
+
 @section('content')
     <h1 class="title-login">Área Restrita</h1>
 
@@ -34,11 +36,9 @@
             <a href="{{ route('register') }}" class="link-login">Criar nova conta!</a>
         </div>
 
-        <!-- Informações de login -->
-        <div class="mt-4 text-center text-sm text-gray-600">
-            <p>Usuário: cesar@celke.com.br</p>
-            <p>Senha: 123456A#</p>
-        </div>
+           </form>
 
-    </form>
+
 @endsection
+
+
