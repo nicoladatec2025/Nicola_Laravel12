@@ -5,12 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NicolaDaTec</title>
+    <title>NicolaDaTe</title>
+
+
+    @vite(['resources/css/app.css', 'resources/js/app_auth.js'])
 </head>
 
-<body>
+<body class="bg-login">
 
-    @yield('content')
+    <div class="card-login">
+        <div class="logo-wrapper-login">
+            <a href="{{ route('login') }}">
+                <img src="{{ asset('images/logo-define-500x500_v3.png') }}" alt="Logo" class="logo-login">
+            </a>
+        </div>
+
+        @yield('content')
+
+    </div>
 
 </body>
 

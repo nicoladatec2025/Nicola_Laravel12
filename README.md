@@ -576,3 +576,6 @@ Este projeto foi desenvolvido por [Cesar Szpak](https://github.com/cesarszpak) e
 ## Licença
 
 Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE.txt) para mais detalhes.
+
+
+npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
