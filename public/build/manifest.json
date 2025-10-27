@@ -1,0 +1,32 @@
+{
+  "_bootstrap-DzHx-6TG.js": {
+    "file": "assets/bootstrap-DzHx-6TG.js",
+    "name": "bootstrap"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-hPD1xkeL.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-WAWvZzDp.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_bootstrap-DzHx-6TG.js"
+    ]
+  },
+  "resources/js/app_auth.js": {
+    "file": "assets/app_auth-og6dq0aK.js",
+    "name": "app_auth",
+    "src": "resources/js/app_auth.js",
+    "isEntry": true,
+    "imports": [
+      "_bootstrap-DzHx-6TG.js"
+    ]
+  }
+}

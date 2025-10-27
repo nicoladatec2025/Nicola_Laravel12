@@ -5,22 +5,34 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CourseRequest;
 use App\Models\Course;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
     // Listar os cursos
-    public function index()
+    public function index(Request $request)
     {
         // Recuperar os registros do banco dados
-        $courses = Course::orderBy('id', 'DESC')->paginate(10);
+        // $courses = Course::orderBy('id', 'DESC')->paginate(10);
+        $courses = Course::when(
+            $request->filled('name'),
+            fn($query) =>
+            $query->whereLike('name', '%' . $request->name .  '%')
+        )
+            ->orderBy('id', 'DESC')
+            ->paginate(10)
+            ->withQueryString();
 
         // Salvar log
         Log::info('Listar os cursos.', ['action_user_id' => Auth::id()]);
 
-        // Carregar a view 
-        return view('courses.index', ['courses' => $courses]);
+        // Carregar a view
+        return view('courses.index', [
+            'menu' => 'courses',
+            'name' => $request->name,
+            'courses' => $courses]);
     }
 
     // Visualizar os detalhes do curso
@@ -30,15 +42,16 @@ class CourseController extends Controller
         Log::info('Visualizar o curso.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
 
         // dd($course);
-        // Carregar a view 
-        return view('courses.show', ['course' => $course]);
+        // Carregar a view
+        return view('courses.show', ['menu' => 'courses', 'course' => $course]);
     }
 
     // Carregar o formulário cadastrar novo curso
     public function create()
     {
-        // Carregar a view 
-        return view('courses.create');
+
+        // Carregar a view
+        return view('courses.create', ['menu' => 'courses']);
     }
 
     // Cadastrar no banco de dados o novo curso
@@ -69,8 +82,8 @@ class CourseController extends Controller
     // Carregar o formulário editar curso
     public function edit(Course $course)
     {
-        // Carregar a view 
-        return view('courses.edit', ['course' => $course]);
+        // Carregar a view
+        return view('courses.edit', ['menu' => 'courses', 'course' => $course]);
     }
 
     // Editar no banco de dados o curso
@@ -109,7 +122,7 @@ class CourseController extends Controller
 
             // Salvar log
             Log::info('Curso apagado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
-            
+
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('courses.index')->with('success', 'Curso apagado com sucesso!');
         } catch (Exception $e) {

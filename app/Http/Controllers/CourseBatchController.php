@@ -20,60 +20,67 @@ class CourseBatchController extends Controller
             ->paginate(10);
 
         // Salvar log
-        Log::info('Listar as turmas.', ['action_user_id' => Auth::id()]);
+        Log::info('Listar as Classes.', ['action_user_id' => Auth::id()]);
 
-        // Carregar a view 
-        return view('course_batches.index', ['coursesBatches' => $coursesBatches, 'course' => $course]);
+        // Carregar a view
+        return view('course_batches.index', ['menu' => 'courses', 'coursesBatches' => $coursesBatches, 'course' => $course]);
     }
 
     // Visualizar os detalhes da turma
     public function show(CourseBatch $courseBatch)
     {
         // Salvar log
-        Log::info('Visualizar a turma.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
+        Log::info('Visualizar a classe.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
-        // Carregar a view 
-        return view('course_batches.show', ['courseBatch' => $courseBatch]);
+        // Carregar a view
+        return view('course_batches.show', ['menu' => 'courses', 'courseBatch' => $courseBatch]);
     }
 
     // Carregar o formulário cadastrar nova turma
     public function create(Course $course)
     {
-        // Carregar a view 
-        return view('course_batches.create', ['course' => $course]);
+
+                        // Carregar a view
+        return view('course_batches.create', ['menu' => 'courses', 'course' => $course]);
     }
 
-    // Cadastrar no banco de dados o nova turma
+    // Cadastrar no banco de dados o nova classe
     public function store(Course $course, CourseBatchRequest $request)
     {
         // Capturar possíveis exceções durante a execução.
         try {
-            // Cadastrar no banco de dados na tabela turmas
+            // Cadastrar no banco de dados na tabela classe
             $courseBatch = CourseBatch::create([
                 'name' => $request->name,
                 'course_id' => $course->id,
             ]);
 
             // Salvar log
-            Log::info('Turma cadastrada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
+            Log::info('Classe cadastrada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Turma cadastrada com sucesso!');
+            return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Classe cadastrada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Turma não cadastrada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Classe não cadastrada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Turma não cadastrada!');
+            return back()->withInput()->with('error', 'Classe não cadastrada!');
         }
     }
 
     // Carregar o formulário editar turma
     public function edit(CourseBatch $courseBatch)
     {
-        // Carregar a view 
-        return view('course_batches.edit', ['courseBatch' => $courseBatch]);
+         // Recuperar do banco de dados as situações
+        $course = Course::orderBy('name', 'asc')->get();
+
+        // Carregar a view
+        return view('course_batches.edit', ['menu' => 'courses', 'courseBatch' => $courseBatch,
+        'courses' => $course,
+    ]);
+
     }
 
     // Editar no banco de dados o turma
@@ -87,17 +94,17 @@ class CourseBatchController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Turma editada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
+            Log::info('Classe editada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Turma editada com sucesso!');
+            return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Classe editada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Turma não editada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
+            Log::notice('Classe não editada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Turma não editada!');
+            return back()->withInput()->with('error', 'Classe não editada!');
         }
     }
 
@@ -111,17 +118,17 @@ class CourseBatchController extends Controller
             $courseBatch->delete();
 
             // Salvar log
-            Log::info('Turma apagada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
+            Log::info('Classe apagada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('course_batches.index', ['course' => $courseBatch->course_id])->with('success', 'Turma apagada com sucesso!');
+            return redirect()->route('course_batches.index', ['course' => $courseBatch->course_id])->with('success', 'Classe apagada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Turma não apagada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
+            Log::notice('Classe não apagada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Turma não apagado!');
+            return back()->withInput()->with('error', 'Classe não apagado!');
         }
     }
 }

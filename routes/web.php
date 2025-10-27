@@ -69,7 +69,13 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/{user}/edit-password', [UserController::class, 'editPassword'])->name('users.edit_password')->middleware('permission:edit-password-user');
         Route::put('/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.update_password')->middleware('permission:edit-password-user');
-    });
+
+        Route::get('/generate-pdf-user/{user}', [UserController::class, 'generatePdfUser'])->name('users.generate-pdf-user')->middleware('permission:generate-pdf-user');
+        Route::get('/generate-pdf/users', [UserController::class, 'generatePdfUsers'])->name('users.generate-pdf-users')->middleware('permission:generate-pdf-users');
+
+        Route::get('/generate-csv/users', [UserController::class, 'generateCSVUsers'])->name('users.generate-csv-users')->middleware('permission:generate-csv-users');
+
+            });
 
     // Usuários Status
     Route::prefix('user-statuses')->group(function () {
@@ -110,7 +116,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy')->middleware('permission:destroy-permission');
     });
 
-    // Cursos
+    // Cursos ou Lectivos
     Route::prefix('courses')->group(function () {
         Route::get('/', [CourseController::class, 'index'])->name('courses.index')->middleware('permission:index-course');
         Route::get('/create', [CourseController::class, 'create'])->name('courses.create')->middleware('permission:create-course');
@@ -132,7 +138,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{courseStatus}', [CourseStatusController::class, 'destroy'])->name('course_statuses.destroy')->middleware('permission:destroy-course-status');
     });
 
-    // Turmas
+    // Turmas ou Classes
     Route::prefix('course-batches')->group(function () {
         Route::get('/courses/{course}', [CourseBatchController::class, 'index'])->name('course_batches.index')->middleware('permission:index-course-batch');
         Route::get('/create/{course}', [CourseBatchController::class, 'create'])->name('course_batches.create')->middleware('permission:create-course-batch');
@@ -143,7 +149,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{courseBatch}', [CourseBatchController::class, 'destroy'])->name('course_batches.destroy')->middleware('permission:destroy-course-batch');
     });
 
-    // Módulos
+    // Módulos ou Turmas
     Route::prefix('modules')->group(function () {
         Route::get('/course-batch/{courseBatch}', [ModuleController::class, 'index'])->name('modules.index')->middleware('permission:index-module');
         Route::get('/create/{courseBatch}', [ModuleController::class, 'create'])->name('modules.create')->middleware('permission:create-module');
@@ -154,7 +160,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{module}', [ModuleController::class, 'destroy'])->name('modules.destroy')->middleware('permission:destroy-module');
     });
 
-    // Aulas
+    // Aulas ou Estudantes
     Route::prefix('lessons')->group(function () {
         Route::get('/module/{module}', [LessonController::class, 'index'])->name('lessons.index')->middleware('permission:index-lesson');
         Route::get('/create/{module}', [LessonController::class, 'create'])->name('lessons.create')->middleware('permission:create-lesson');
@@ -163,5 +169,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{lesson}/edit', [LessonController::class, 'edit'])->name('lessons.edit')->middleware('permission:edit-lesson');
         Route::put('/{lesson}', [LessonController::class, 'update'])->name('lessons.update')->middleware('permission:edit-lesson');
         Route::delete('/{lesson}', [LessonController::class, 'destroy'])->name('lessons.destroy')->middleware('permission:destroy-lesson');
+
+        Route::get('/generate-pdf-lesson/{lesson}', [LessonController::class, 'generatePdfLesson'])->name('lessons.generate-pdf-lesson')->middleware('permission:generate-pdf-lesson');
     });
 });

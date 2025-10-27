@@ -63,6 +63,9 @@ class PermissionSeeder extends Seeder
                 ['title'=> 'Editar a senha do usuário', 'name' => 'edit-password-user'],
                 ['title'=> 'Apagar o usuário', 'name' => 'destroy-user'],
                 ['title'=> 'Editar papéis do usuário', 'name' => 'edit-roles-user'],
+                ['title'=> 'Gerar PDF do usuário', 'name' => 'generate-pdf-user'],
+                ['title'=> 'Gerar PDF dos usuários', 'name' => 'generate-pdf-users'],
+                ['title'=> 'Gerar CSV dos usuários', 'name' => 'generate-csv-users'],
 
                 ['title'=> 'Listar os status usuários', 'name' => 'index-user-status'],
                 ['title'=> 'Visualizar o status usuário', 'name' => 'show-user-status'],

@@ -1,23 +1,64 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h2>Cadastrar Aula</h2>
+    <!-- Título e Trilha de Navegação -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <h2 class="content-title">Estudante</h2>
+            <nav class="breadcrumb">
+                <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
+                <span>/</span>
+                <span>...</span>
+                <span>/</span>
+                <a href="{{ route('lessons.index', ['module' => $module->id]) }}" class="breadcrumb-link">Estudantes</a>
+                <span>/</span>
+                <span>Estudante</span>
+            </nav>
+        </div>
+    </div>
 
-    @can('index-lesson')
-        <a href="{{ route('lessons.index', ['module' => $module->id]) }}">Aulas</a><br>
-    @endcan
+    <div class="content-box">
+        <div class="content-box-header">
+            <h3 class="content-box-title">Cadastrar</h3>
+            <div class="content-box-btn">
+                @can('index-lesson')
+                    <a href="{{ route('lessons.index', ['module' => $module->id]) }}"
+                        class="btn-info align-icon-btn">
+                        <!-- Ícone queue-list (Heroicons) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+                        </svg>
+                        <span>Listar</span>
+                    </a>
+                @endcan
+            </div>
+        </div>
 
-    <br>
-    <x-alert />
+        <x-alert />
 
-    <form action="{{ route('lessons.store', ['module' => $module->id]) }}" method="POST">
-        @csrf
-        @method('POST')
+        <form action="{{ route('lessons.store', ['module' => $module->id]) }}" method="POST">
+            @csrf
+            @method('POST')
 
-        <label>Nome: </label>
-        <input type="text" name="name" id="name" placeholder="Nome da aula" value="{{ old('name') }}"
-            required><br><br>
+            <div class="mb-4">
+                <label for="name" class="form-label">Nome</label>
+                <input type="text" name="name" id="name" class="form-input"
+                    placeholder="Nome da aula" value="{{ old('name') }}" required>
+            </div>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+            <button type="submit" class="btn-success align-icon-btn">
+                <!-- Ícone plus-circle (Heroicons) -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <span>Cadastrar</span>
+            </button>
+
+        </form>
+
+    </div>
 @endsection

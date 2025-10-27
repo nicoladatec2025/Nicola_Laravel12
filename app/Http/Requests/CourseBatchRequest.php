@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * Classe de requisição para validação de turmas.
  *
- * Responsável por definir as regras de validação e mensagens de erro 
+ * Responsável por definir as regras de validação e mensagens de erro
  * para operações relacionadas a turmas, como criação e edição.
  *
  * @package App\Http\Requests
@@ -27,7 +27,7 @@ class CourseBatchRequest extends FormRequest
     /**
      * Retorna as regras de validação aplicáveis à requisição.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> 
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      * Regras de validação.
      */
     public function rules(): array
@@ -35,7 +35,9 @@ class CourseBatchRequest extends FormRequest
         $courseBatch = $this->route('courseBatch');
 
         return [
-            'name' => 'required|unique:course_batches,name,' . ($courseBatch ? $courseBatch->id : null),
+            'name' => 'required',
+
+            // |unique:course_batches,name,' . ($courseBatch ? $courseBatch->id : null),
         ];
     }
 
@@ -48,7 +50,7 @@ class CourseBatchRequest extends FormRequest
     {
         return [
             'name.required' => "Campo nome é obrigatório!",
-            'name.unique' => "O nome já está cadastrado!",
+           // 'name.unique' => "O nome já está cadastrado!",
         ];
     }
 }

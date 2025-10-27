@@ -20,7 +20,7 @@ class RoleController extends Controller
         Log::info('Listar os papéis.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view 
-        return view('roles.index', ['roles' => $roles]);
+        return view('roles.index', ['menu' => 'roles', 'roles' => $roles]);
     }
 
     // Visualizar os detalhes do papel
@@ -30,14 +30,14 @@ class RoleController extends Controller
         Log::info('Visualizar o papel.', ['role_id' => $role->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a view 
-        return view('roles.show', ['role' => $role]);
+        return view('roles.show', ['menu' => 'roles', 'role' => $role]);
     }
 
     // Carregar o formulário cadastrar novo papel
     public function create()
     {
         // Carregar a view 
-        return view('roles.create');
+        return view('roles.create', ['menu' => 'roles']);
     }
 
     // Cadastrar no banco de dados o novo papel
@@ -80,7 +80,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         // Carregar a view 
-        return view('roles.edit', ['role' => $role]);
+        return view('roles.edit', ['menu' => 'roles', 'role' => $role]);
     }
 
     // Editar no banco de dados o papel

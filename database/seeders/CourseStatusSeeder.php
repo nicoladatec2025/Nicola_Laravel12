@@ -36,7 +36,7 @@ class CourseStatusSeeder extends Seeder
             );
         } catch (Exception $e) {
             // Salvar log
-            Log::notice('Status para curso não cadastrado.', ['error' => $e->getMessage()]);
+            Log::notice('Status para lectivo não cadastrado.', ['error' => $e->getMessage()]);
         }
     }
 }

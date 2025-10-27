@@ -20,7 +20,7 @@ class UserStatusController extends Controller
         Log::info('Listar os status para usuário.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view 
-        return view('user_statuses.index', ['userStatuses' => $userStatuses]);
+        return view('user_statuses.index', ['menu' => 'user_statuses', 'userStatuses' => $userStatuses]);
     }
 
     // Visualizar os detalhes do status para usuário
@@ -30,14 +30,14 @@ class UserStatusController extends Controller
         Log::info('Visualizar o status para usuário.', ['user_status_id' => $userStatus->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a view 
-        return view('user_statuses.show', ['userStatus' => $userStatus]);
+        return view('user_statuses.show', ['menu' => 'user_statuses', 'userStatus' => $userStatus]);
     }
 
     // Carregar o formulário cadastrar novo status
     public function create()
     {
         // Carregar a view 
-        return view('user_statuses.create');
+        return view('user_statuses.create', ['menu' => 'user_statuses']);
     }
 
     // Cadastrar no banco de dados o novo status
@@ -69,7 +69,7 @@ class UserStatusController extends Controller
     public function edit(UserStatus $userStatus)
     {
         // Carregar a view 
-        return view('user_statuses.edit', ['userStatus' => $userStatus]);
+        return view('user_statuses.edit', ['menu' => 'user_statuses', 'userStatus' => $userStatus]);
     }
 
     // Editar no banco de dados o status para usuário

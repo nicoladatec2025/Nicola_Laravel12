@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LessonRequest;
 use App\Models\Lesson;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Module;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,8 @@ class LessonController extends Controller
         // Salvar log
         Log::info('Listar as aulas.', ['action_user_id' => Auth::id()]);
 
-        // Carregar a view 
-        return view('lessons.index', ['lessons' => $lessons, 'module' => $module]);
+        // Carregar a view
+        return view('lessons.index', ['menu' => 'courses', 'lessons' => $lessons, 'module' => $module]);
     }
 
     // Visualizar os detalhes da aula
@@ -33,15 +34,15 @@ class LessonController extends Controller
         // Salvar log
         Log::info('Visualizar a aula.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
-        // Carregar a view 
-        return view('lessons.show', ['lesson' => $lesson]);
+        // Carregar a view
+        return view('lessons.show', ['menu' => 'courses', 'lesson' => $lesson]);
     }
 
     // Carregar o formulário cadastrar nova aula
     public function create(Module $module)
     {
-        // Carregar a view 
-        return view('lessons.create', ['module' => $module]);
+        // Carregar a view
+        return view('lessons.create', ['menu' => 'courses', 'module' => $module]);
     }
 
     // Cadastrar no banco de dados o nova aula
@@ -73,8 +74,8 @@ class LessonController extends Controller
     // Carregar o formulário editar aula
     public function edit(Lesson $lesson)
     {
-        // Carregar a view 
-        return view('lessons.edit', ['lesson' => $lesson]);
+        // Carregar a view
+        return view('lessons.edit', ['menu' => 'courses', 'lesson' => $lesson]);
     }
 
     // Editar no banco de dados o aula
@@ -112,17 +113,38 @@ class LessonController extends Controller
             $lesson->delete();
 
             // Salvar log
-            Log::info('Aula apagada.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
+            Log::info('Estudante apagado.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('lessons.index', ['module' => $lesson->module_id])->with('success', 'Aula apagada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Aula não apagada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Estudante não apagado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Aula não apagada!');
+            return back()->withInput()->with('error', 'Estudante não apagado!');
+        }
+    }
+
+      // Gerar PDF
+    public function generatePdfLesson(Lesson $lesson)
+    {
+        // Capturar possíveis exceções durante a execução.
+        try {
+            // Carregar a string com o HTML/conteúdo e determinar a orientação e o tamanho do arquivo
+            $pdf = Pdf::loadView('lessons.generate_pdf_lesson', ['lesson' => $lesson])->setPaper('a4', 'portrait');
+
+
+            // Fazer o download do arquivo
+            return $pdf->download('view_lesson_' . $lesson->id . '.pdf');
+        } catch (Exception $e) {
+
+            // Salvar log
+            Log::notice('PDF dos dados do estudante não gerado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'PDF dos dados do estudante não gerado!');
         }
     }
 }
