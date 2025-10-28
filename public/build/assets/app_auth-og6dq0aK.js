@@ -1,0 +1,1 @@
+import"./bootstrap-DzHx-6TG.js";document.addEventListener("DOMContentLoaded",function(){const e=document.documentElement,t=localStorage.theme==="dark"||!("theme"in localStorage)&&window.matchMedia("(prefers-color-scheme: dark)").matches;e.classList.toggle("dark",t)});

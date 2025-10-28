@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
 
-        // Capturar possíveis exceções durante a execução do seeder. 
+        // Capturar possíveis exceções durante a execução do seeder.
         try {
             /******* Super Admin - tem acesso a todas as páginas *******/
             // Se não encontrar o registro, cadastra o registro no BD
@@ -46,13 +46,13 @@ class RoleSeeder extends Seeder
                 'create-course-batch',
                 'edit-course-batch',
                 'destroy-course-batch',
-                
+
                 'index-module',
                 'show-module',
                 'create-module',
                 'edit-module',
                 'destroy-module',
-                
+
                 'index-lesson',
                 'show-lesson',
                 'create-lesson',
@@ -64,11 +64,11 @@ class RoleSeeder extends Seeder
                 'create-course-status',
                 'edit-course-status',
                 'destroy-course-status',
-                
+
                 'show-profile',
                 'edit-profile',
                 'edit-password-profile',
-                
+
                 'index-user',
                 'show-user',
                 'create-user',
@@ -76,13 +76,16 @@ class RoleSeeder extends Seeder
                 'edit-password-user',
                 'destroy-user',
                 'edit-roles-user',
+                'generate-pdf-user',
+                'generate-pdf-users',
+                'generate-csv-users',
 
                 'index-user-status',
                 'show-user-status',
                 'create-user-status',
                 'edit-user-status',
                 'destroy-user-status',
-                
+
                 'index-role',
                 'show-role',
                 'create-role',
@@ -105,31 +108,23 @@ class RoleSeeder extends Seeder
 
                 'index-course',
                 'show-course',
-                'create-course',
-                'edit-course',
 
                 'index-course-batch',
                 'show-course-batch',
-                'create-course-batch',
-                'edit-course-batch',
-                'destroy-course-batch',
-                
+
                 'index-module',
                 'show-module',
-                'create-module',
-                'edit-module',
-                'destroy-module',
-                
+
                 'index-lesson',
                 'show-lesson',
                 'create-lesson',
                 'edit-lesson',
                 'destroy-lesson',
-                
+
                 'show-profile',
                 'edit-profile',
                 'edit-password-profile',
-                
+
                 'index-user',
                 'show-user',
             ]);
@@ -147,31 +142,23 @@ class RoleSeeder extends Seeder
 
                 'index-course',
                 'show-course',
-                'create-course',
-                'edit-course',
 
                 'index-course-batch',
                 'show-course-batch',
-                'create-course-batch',
-                'edit-course-batch',
-                'destroy-course-batch',
-                
+
                 'index-module',
                 'show-module',
-                'create-module',
-                'edit-module',
-                'destroy-module',
-                
+
                 'index-lesson',
                 'show-lesson',
                 'create-lesson',
                 'edit-lesson',
                 'destroy-lesson',
-                
+
                 'show-profile',
                 'edit-profile',
                 'edit-password-profile',
-                
+
                 'index-user',
                 'show-user',
                 'create-user',
@@ -185,9 +172,9 @@ class RoleSeeder extends Seeder
             );
 
             // Cadastrar permissão para o papel
-            $student->givePermissionTo([    
+            $student->givePermissionTo([
                 'dashboard',
-                            
+
                 'show-profile',
                 'edit-profile',
                 'edit-password-profile',

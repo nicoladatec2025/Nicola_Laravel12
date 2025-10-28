@@ -23,7 +23,7 @@ class ModuleController extends Controller
         Log::info('Listar os módulos.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view 
-        return view('modules.index', ['modules' => $modules, 'courseBatch' => $courseBatch]);
+        return view('modules.index', ['menu' => 'courses', 'modules' => $modules, 'courseBatch' => $courseBatch]);
     }
 
     // Visualizar os detalhes do módulo
@@ -33,14 +33,14 @@ class ModuleController extends Controller
         Log::info('Visualizar o módulo.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a view 
-        return view('modules.show', ['module' => $module]);
+        return view('modules.show', ['menu' => 'courses', 'module' => $module]);
     }
 
     // Carregar o formulário cadastrar novo módulo
     public function create(CourseBatch $courseBatch)
     {
         // Carregar a view 
-        return view('modules.create', ['courseBatch' => $courseBatch]);
+        return view('modules.create', ['menu' => 'courses', 'courseBatch' => $courseBatch]);
     }
 
     // Cadastrar no banco de dados o novo módulo
@@ -73,7 +73,7 @@ class ModuleController extends Controller
     public function edit(Module $module)
     {
         // Carregar a view 
-        return view('modules.edit', ['module' => $module]);
+        return view('modules.edit', ['menu' => 'courses', 'module' => $module]);
     }
 
     // Editar no banco de dados o módulo

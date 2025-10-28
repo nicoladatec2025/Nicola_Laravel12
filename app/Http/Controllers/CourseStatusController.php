@@ -20,7 +20,7 @@ class CourseStatusController extends Controller
         Log::info('Listar os status para curso.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view 
-        return view('course_statuses.index', ['coursesStatuses' => $coursesStatuses]);
+        return view('course_statuses.index', ['menu' => 'course_statuses', 'coursesStatuses' => $coursesStatuses]);
     }
 
     // Visualizar os detalhes do status para curso
@@ -30,14 +30,14 @@ class CourseStatusController extends Controller
         Log::info('Visualizar o status para curso.', ['course_status_id' => $courseStatus->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a view 
-        return view('course_statuses.show', ['courseStatus' => $courseStatus]);
+        return view('course_statuses.show', ['menu' => 'course_statuses', 'courseStatus' => $courseStatus]);
     }
 
     // Carregar o formulário cadastrar novo status curso
     public function create()
     {
         // Carregar a view 
-        return view('course_statuses.create');
+        return view('course_statuses.create', ['menu' => 'course_statuses']);
     }
 
     // Cadastrar no banco de dados o novo status curso
@@ -69,7 +69,7 @@ class CourseStatusController extends Controller
     public function edit(CourseStatus $courseStatus)
     {
         // Carregar a view 
-        return view('course_statuses.edit', ['courseStatus' => $courseStatus]);
+        return view('course_statuses.edit', ['menu' => 'course_statuses', 'courseStatus' => $courseStatus]);
     }
 
     // Editar no banco de dados status para curso

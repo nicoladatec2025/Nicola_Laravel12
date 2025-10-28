@@ -13,7 +13,7 @@ use Spatie\Permission\Models\Role;
 class RolePermissionController extends Controller
 {
     // Listar as permissões do papel
-    public function index(Role $role)
+    public function index(Request $request,Role $role)
     {
 
         // Verificar se o papel é super admin, não permitir visualizar as permissões
@@ -34,13 +34,28 @@ class RolePermissionController extends Controller
 
 
         // Recuperar as permissões
-        $permissions = Permission::orderBy('name')->get();
+        // $permissions = Permission::orderBy('name')->get();
+        $permissions = Permission::when(
+            $request->filled('title'),
+            fn($query) =>
+            $query->whereLike('title', '%' . $request->title .  '%')
+        )
+            ->when(
+                $request->filled('name'),
+                fn($query) =>
+                $query->whereLike('name', '%' . $request->name .  '%')
+            )
+            ->orderBy('title', 'ASC')
+            ->get();
 
         // Salvar log
         Log::info('Listar permissões do papel.', ['role_id' => $role->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a view 
         return view('role_permissions.index', [
+            'menu' => 'roles', 
+            'title' => $request->title,
+            'name' => $request->name,
             'rolePermissions' => $rolePermissions,
             'permissions' => $permissions,
             'role' => $role,

@@ -15,28 +15,28 @@ class LessonSeeder extends Seeder
     public function run(): void
     {
 
-        // Capturar possíveis exceções durante a execução do seeder. 
+        // Capturar possíveis exceções durante a execução do seeder.
         try {
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Lesson::firstOrCreate(
-                ['name' => 'Apresentação do Curso', 'id' => 1],
-                ['id' => 1, 'name' => 'Apresentação do Curso', 'module_id' => 1],
+                ['name' => 'Antonio', 'id' => 1],
+                ['id' => 1, 'name' => 'Antonio', 'module_id' => 1],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Lesson::firstOrCreate(
-                ['name' => 'Preparar o Ambiente de Desenvolvimento', 'id' => 2],
-                ['id' => 2, 'name' => 'Preparar o Ambiente de Desenvolvimento', 'module_id' => 1],
+                ['name' => 'Joaquim', 'id' => 2],
+                ['id' => 2, 'name' => 'Joaquim', 'module_id' => 1],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Lesson::firstOrCreate(
-                ['name' => 'Criar a Base do Projeto', 'id' => 3],
-                ['id' => 3, 'name' => 'Criar a Base do Projeto', 'module_id' => 1],
+                ['name' => 'Santos', 'id' => 3],
+                ['id' => 3, 'name' => 'Santos', 'module_id' => 1],
             );
         } catch (Exception $e) {
             // Salvar log
-            Log::notice('Aula não cadastrada.', ['error' => $e->getMessage()]);
+            Log::notice('Estudante não cadastrado.', ['error' => $e->getMessage()]);
         }
     }
 }

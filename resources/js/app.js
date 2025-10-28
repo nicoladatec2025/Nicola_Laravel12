@@ -21,13 +21,13 @@ window.addEventListener('click', function (event) {
 });
 
 /**** Apresentar e ocultar sidebar ****/
-// document.getElementById('toggleSidebar').addEventListener('click', function () {
-//     document.getElementById('sidebar').classList.toggle('sidebar-open');
-// });
+document.getElementById('toggleSidebar').addEventListener('click', function () {
+    document.getElementById('sidebar').classList.toggle('sidebar-open');
+});
 
-// document.getElementById('closeSidebar').addEventListener('click', function () {
-//     document.getElementById('sidebar').classList.remove('sidebar-open');
-// });
+document.getElementById('closeSidebar').addEventListener('click', function () {
+    document.getElementById('sidebar').classList.remove('sidebar-open');
+});
 
 /**** Alterna entre tema claro e escuro ****/
 document.addEventListener("DOMContentLoaded", function () {
@@ -70,3 +70,21 @@ document.addEventListener("DOMContentLoaded", function () {
         updateIcons(); // Atualiza os ícones após alterar o tema
     });
 });
+
+// Função para apresentar o SweetAlert2 para confirmar a exclusão
+window.confirmDelete = function (id) {
+    Swal.fire({
+        title: "Tem certeza?",
+        text: "Essa ação não pode ser desfeita!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sim, excluir!",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + id).submit();
+        }
+    });
+}

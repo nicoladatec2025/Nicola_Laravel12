@@ -15,28 +15,28 @@ class CourseSeeder extends Seeder
     public function run(): void
     {
 
-        // Capturar possíveis exceções durante a execução do seeder. 
+        // Capturar possíveis exceções durante a execução do seeder.
         try {
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Course::firstOrCreate(
-                ['name' => 'Curso de Laravel 10', 'id' => 1],
-                ['id' => 1, 'name' => 'Curso de Laravel 10'],
+                ['name' => '2022-2023', 'id' => 1],
+                ['id' => 1, 'name' => '2022-2023'],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Course::firstOrCreate(
-                ['name' => 'Curso de Laravel 11', 'id' => 2],
-                ['id' => 2, 'name' => 'Curso de Laravel 11'],
+                ['name' => '2023-2024', 'id' => 2],
+                ['id' => 2, 'name' => '2023-2024'],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Course::firstOrCreate(
-                ['name' => 'Curso de Laravel 12', 'id' => 3],
-                ['id' => 3, 'name' => 'Curso de Laravel 12'],
+                ['name' => '2024-2025', 'id' => 3],
+                ['id' => 3, 'name' => '2024-2025'],
             );
         } catch (Exception $e) {
             // Salvar log
-            Log::notice('Curso não cadastrado.', ['error' => $e->getMessage()]);
+            Log::notice('Lactivo não cadastrado.', ['error' => $e->getMessage()]);
         }
     }
 }
