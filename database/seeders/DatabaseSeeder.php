@@ -38,6 +38,8 @@ class DatabaseSeeder extends Seeder
                 CourseBatchSeeder::class,
                 ModuleSeeder::class,
                 LessonSeeder::class,
+
+                HomeSectionSeeder::class,
             ]);
         }
     }

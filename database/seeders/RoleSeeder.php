@@ -93,6 +93,7 @@ class RoleSeeder extends Seeder
                 'destroy-role',
 
                 'index-role-permission',
+
             ]);
 
             /******* Professor *******/
@@ -127,6 +128,8 @@ class RoleSeeder extends Seeder
 
                 'index-user',
                 'show-user',
+
+
             ]);
 
             /******* Tutor *******/

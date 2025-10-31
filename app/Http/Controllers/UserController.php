@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Mail\UserPdfMail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Exception;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -49,7 +51,7 @@ class UserController extends Controller
         // Salvar log
         Log::info('Listar os usuários.', ['action_user_id' => Auth::id()]);
 
-        // Carregar a view 
+        // Carregar a view
         return view('users.index', [
             'menu' => 'users',
             'name' => $request->name,
@@ -67,7 +69,7 @@ class UserController extends Controller
         // Salvar log
         Log::info('Visualizar o usuário.', ['user_id' => $user->id, 'action_user_id' => Auth::id()]);
 
-        // Carregar a view 
+        // Carregar a view
         return view('users.show', ['menu' => 'users', 'user' => $user]);
     }
 
@@ -77,7 +79,7 @@ class UserController extends Controller
         // Recuperar os papéis
         $roles = Role::pluck('name')->all();
 
-        // Carregar a view 
+        // Carregar a view
         return view('users.create', ['menu' => 'users', 'roles' => $roles]);
     }
 
@@ -126,7 +128,7 @@ class UserController extends Controller
         // Recuperar os papéis do usuário
         $userRoles = $user->roles->pluck('name')->toArray();
 
-        // Carregar a view 
+        // Carregar a view
         return view('users.edit', [
             'menu' => 'users',
             'user' => $user,
@@ -176,7 +178,7 @@ class UserController extends Controller
     // Carregar o formulário editar senha do usuário
     public function editPassword(User $user)
     {
-        // Carregar a view 
+        // Carregar a view
         return view('users.edit_password', ['user' => $user]);
     }
 
@@ -246,18 +248,44 @@ class UserController extends Controller
     {
         // Capturar possíveis exceções durante a execução.
         try {
+
+   /*
             // Carregar a string com o HTML/conteúdo e determinar a orientação e o tamanho do arquivo
             $pdf = Pdf::loadView('users.generate_pdf_user', ['user' => $user])->setPaper('a4', 'portrait');
 
             // Fazer o download do arquivo
             return $pdf->download('view_user_' . $user->id . '.pdf');
+            */
+
+ // Carregar a string com o HTML/conteúdo e determinar a orientação e o tamanho do arquivo
+            $pdf = Pdf::loadView('users.generate_pdf_user', ['user' => $user])->setPaper('a4', 'portrait');
+
+            // Definir o caminho temporário para salvar o arquivo
+            $pdfPath = storage_path("app/public/view_user_{$user->id}.pdf");
+
+            // Salvar o PDF localmente
+            $pdf->save($pdfPath);
+
+            // Enviar e-mail com o PDF anexado
+            Mail::to($user->email)->send(new UserPdfMail($pdfPath, $user));
+
+            // Remover o arquivo após o envio do e-mail
+            if(file_exists($pdfPath)){
+                unlink($pdfPath);
+            }
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('users.show', ['user' => $user->id])->with('success', 'E-mail enviado com sucesso!');
+
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('PDF dos dados do usuário não gerado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('PDF dos dados do usuário não enviado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
-            // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'PDF dos dados do usuário não gerado!');
+              // Redirecionar o usuário, enviar a mensagem de erro
+            return redirect()->route('users.show', ['user' => $user->id])->with('error', 'E-mail não enviado!');
+            //return back()->withInput()->with('error', 'PDF dos dados do usuário não enviado!');
+            
         }
     }
 
@@ -357,13 +385,13 @@ class UserController extends Controller
 
                 // Somar total de registros
                 $totalRecords = $users->count('id');
-    
+
                 // Verificar se a quantidade de registros ultrapassa o limite para gerar CSV
                 $numberRecordsAllowed = 500;
                 if ($totalRecords > $numberRecordsAllowed) {
                     // Salvar log
                     Log::notice("Limite de registros ultrapassado para gerar CSV. O limite é de $numberRecordsAllowed registros.", ['action_user_id' => Auth::id()]);
-    
+
                     // Redirecionar o usuário, enviar a mensagem de erro
                     return back()->withInput()->with('error', "Limite de registros ultrapassado para gerar CSV. O limite é de $numberRecordsAllowed registros!");
                 }
@@ -399,7 +427,7 @@ class UserController extends Controller
 
                 // Realizar o download do arquivo
                 return response()->download($csvFileName, 'list_users.csv');
-                
+
         } catch (Exception $e) {
 
             // Salvar log
@@ -414,5 +442,5 @@ class UserController extends Controller
 
 
 
-    
+
 }

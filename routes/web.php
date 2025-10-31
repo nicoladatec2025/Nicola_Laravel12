@@ -14,11 +14,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserStatusController;
 use Illuminate\Support\Facades\Route;
 
 // Página inicial do site
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [SiteController::class, 'home'])->name('home');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Tela de login
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -171,5 +173,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{lesson}', [LessonController::class, 'destroy'])->name('lessons.destroy')->middleware('permission:destroy-lesson');
 
         Route::get('/generate-pdf-lesson/{lesson}', [LessonController::class, 'generatePdfLesson'])->name('lessons.generate-pdf-lesson')->middleware('permission:generate-pdf-lesson');
-    });
-});
+         });
+ // Gerenciar o conteúdo do site
+    Route::get('/edit-site-home', [SiteController::class, 'edit'])->name('site-home.edit');
+    Route::put('/update-site-home', [SiteController::class, 'update'])->name('site-home.update');
+          });
+
