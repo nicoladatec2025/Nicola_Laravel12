@@ -40,14 +40,25 @@
     <nav class="navbar">
         <div class="navbar-container">
 
+
         <button id="toggleSidebar" class="menu-button">
                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
 
-            <div class="user-container">
-                <div class="relative dropdown-button-border">
+
+            <a href="{{ route('home') }}" class="sidebar-link">
+                     <!-- Ícone home (Heroicons) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>
+                        <span>Início</span>
+                        </a>
+
+             <div class="relative dropdown-button-border">
                     <!-- Ícone moon (Heroicons) -->
                     <button id="themeToggle" class="dropdown-button">
                         <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -63,17 +74,15 @@
                         </svg>
                     </button>
                 </div>
-                <button id="userDropdownButton" class="dropdown-button">
-                        <a class="sidebar-link" href="{{ route('login') }}">Login</a><br>
+
+                        <a class="sidebar-link" href="{{ route('login') }}">Login
 
                         <svg fill="none" class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  stroke-width="1.5"
                         stroke="currentColor" >
                             <path fill-rule="evenodd" clip-rule="evenodd" />
                         </svg>
-                    </button>
+                    </a>
 
-
-            </div>
         </div>
     </nav>
 
@@ -99,7 +108,7 @@
                 <nav class="sidebar-nav">
 
 
-                    <a  class="sidebar-link">
+                    <a href="{{ route('home') }}" class="sidebar-link">
                      <!-- Ícone home (Heroicons) -->
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -109,7 +118,7 @@
                         <span>Início</span>
                         </a>
 
-                         <a  class="sidebar-link">
+                        <a  class="sidebar-link">
                         <!-- Ícone arrow-right-circle (Heroicons) -->
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -129,16 +138,44 @@
             @yield('content')
         </main>
 
-
     </div>
 
-        {{-- Seção do rodapé --}}
-        <footer class="mt-16 text-center">
+
+    </body>
+
+       <!-- Footer -->
+               <div class="footer">
+
+                      <a href="{{ route('home') }}" class="sidebar-link">
+                     <!-- Ícone home (Heroicons) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>
+                        <span>Início</span>
+                        </a>
+
+
+                <button id="userDropdownButton" class="dropdown-button">
+                        <a class="sidebar-link" href="{{ route('login') }}">Login</a>
+
+                        <svg fill="none" class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  stroke-width="1.5"
+                        stroke="currentColor" >
+                            <path fill-rule="evenodd" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                 </div>
+
+
+  <div class="">
+            {{-- Seção do rodapé --}}
+        <footer class="mt-16 text-center footer-copy">
             {{-- Exibe o ano atual e o nome do aplicativo --}}
             <p>&copy; {{ date('Y') }} {{ config('app.name') }}. Todos os direitos reservados.</p>
         </footer>
-
-</body>
+ </div>
 
 </html>
 

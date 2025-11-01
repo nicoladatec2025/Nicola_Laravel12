@@ -56,23 +56,32 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                         </svg>
-                    </button>
+
+            </button>
                 </div>
                 <div class="relative">
                     <!-- Dropdown -->
-                    <button id="userDropdownButton" class="dropdown-button">
-                        Usuário
+
+            <button id="userDropdownButton" class="dropdown-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                       <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                      {{ Auth::user()->name }}
                         <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button>
+                         <path fill-rule="evenodd"
+                       d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                 </svg>
+         </button>
+
                     <!-- Conteúdo do Dropdown -->
                     <div id="dropdownContent" class="dropdown-content hidden">
-                        <a href="{{ route('profile.show') }}" class="dropdown-item">Perfil</a>
-                        <a href="{{ route('logout') }}" class="dropdown-item">Sair</a>
+
+             <div class="dropdown-item">
+                <p class="dropdown-item">{{ Auth::user()->email }}</p></div>
+             <a href="{{ route('profile.show') }}" class="dropdown-item">Perfil</a>
+             <a href="{{ route('logout') }}" class="dropdown-item">Sair</a>
                     </div>
                 </div>
             </div>
