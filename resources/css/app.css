@@ -36,9 +36,15 @@
         @apply h-20 w-20;
     }
 
+
+
     /* Estilização da logo nav*/
     .logo-nav {
         @apply h-7 w-33;
+    }
+
+     .logo-nav s {
+        @apply h-10 w-35;
     }
 
     /* Estilização do título */
@@ -144,6 +150,7 @@
     .sidebar-header {
         @apply flex items-center border-b-2 border-gray-200 space-x-2 pl-4 py-3 dark:border-zinc-950;
     }
+
 
     .sidebar-title {
         @apply text-lg font-bold text-blue-600;

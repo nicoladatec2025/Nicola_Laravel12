@@ -1,86 +1,149 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\HomeSection;
-use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class SiteController extends Controller
 {
-    // Página inicial do site
-    public function home()
+
+    public function inicio()
     {
-
-        // Recuperar o conteúdo para a página do site
-        $homeSection = HomeSection::latest()->first();
-
-        // Carregar a VIEW
-        return view('site.home', [ 'homeSection' => $homeSection]);
+        return view('site.inicio');
     }
 
-    // Carregar o formulário editar o conteúdo da página inicial do site
-    public function edit()
+    public function sobre()
     {
-
-        // Recuperar o conteúdo para a página do site
-        $homeSection = HomeSection::latest()->first();
-
-        // Carregar a VIEW
-        return view('site.edit-home', ['homeSection' => $homeSection]);
+        return view('site.sobre');
     }
 
-    // Editar no banco de dados
-    public function update(Request $request)
+    public function contacto()
     {
-        // Validação simples (pode ser substituída por um FormRequest personalizado)
-        $validated = $request->validate([
-            'main_title' => 'required|string|max:255',
-            'main_description' => 'required|string',
-            'feature_one_title' => 'required|string|max:255',
-            'feature_one_description' => 'required|string',
-            'feature_two_title' => 'required|string|max:255',
-            'feature_two_description' => 'required|string',
-            'feature_three_title' => 'required|string|max:255',
-            'feature_three_description' => 'required|string',
-        ], [
-            'main_title.required' => 'O campo Título Principal é obrigatório.',
-            'main_title.max' => 'O campo Título Principal deve ter no máximo 255 caracteres.',
-            'main_description.required' => 'O campo Descrição Principal é obrigatório.',
+        return view('site.contacto');
+    }
 
-            'feature_one_title.required' => 'O campo Título do Recurso 1 é obrigatório.',
-            'feature_one_title.max' => 'O campo Título do Recurso 1 deve ter no máximo 255 caracteres.',
-            'feature_one_description.required' => 'O campo Descrição do Recurso 1 é obrigatório.',
-
-            'feature_two_title.required' => 'O campo Título do Recurso 2 é obrigatório.',
-            'feature_two_title.max' => 'O campo Título do Recurso 2 deve ter no máximo 255 caracteres.',
-            'feature_two_description.required' => 'O campo Descrição do Recurso 2 é obrigatório.',
-
-            'feature_three_title.required' => 'O campo Título do Recurso 3 é obrigatório.',
-            'feature_three_title.max' => 'O campo Título do Recurso 3 deve ter no máximo 255 caracteres.',
-            'feature_three_description.required' => 'O campo Descrição do Recurso 3 é obrigatório.',
+    public function enviarContacto(Request $request)
+    {
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email',
+            'mensagem' => 'required|string|min:10'
         ]);
 
-        try {
-            // Busca o primeiro registro (supondo que só exista um)
-            $homeSection = HomeSection::first();
+        // Aqui você pode implementar o envio de email
+        // Mail::to('seu@email.com')->send(new ContatoMail($request->all()));
 
-            // Se não existir, cria um novo
-            if (!$homeSection) {
-                $homeSection = new HomeSection();
-            }
+        return redirect()->route('contacto')->with('success', 'Mensagem enviada com sucesso!');
+    }
 
-            // Preenche e salva
-            $homeSection->fill($validated);
-            $homeSection->save();
+    public function servicos()
+    {
+        $servicos = [
+            [
+                'titulo' => 'Desenvolvimento Web',
+                'descricao' => 'Criação de sites e sistemas administrativos modernos e responsivos com as melhores tecnologias do mercado, por apenas uma semana.',
+                'icone' => '💻'
+            ],
+            [
+                'titulo' => 'Syber Café',
+                'descricao' => 'Digitalização, impressão, copias, encadernação de trabalhos escolares, monografias e projetos prático',
+                'icone' => '🎯'
+            ],
+            [
+                'titulo' => 'Manutenção de Sistemas e cumputadores',
+                'descricao' => 'Suporte contínuo e manutenção preventiva para seus sistemas, sites e computadores.',
+                'icone' => '🔧'
+            ],
+            [
+                'titulo' => 'Vendas de produtos diversos',
+                'descricao' => 'Vendemos materias de escritório e escolar.',
+                'icone' => '🚚'
+            ]
+        ];
 
-            return redirect()
-                ->route('site-home.edit') // ou .show dependendo da sua rota
-                ->with('success', 'Conteúdo atualizado com sucesso!');
-        } catch (Exception $e) {
-            return back()
-                ->withInput()
-                ->with('error', 'Erro ao atualizar o conteúdo!');
-        }
+        return view('site.servicos', compact('servicos'));
+    }
+
+    public function cursos()
+    {
+        $cursos = [
+
+
+            [
+               'titulo' => 'Informática',
+                'duracao' => '32 horas',
+                'nivel' => 'Iniciante',
+                'preco' => '15.000,00 KZ'
+            ],
+            [
+               'titulo' => 'Excel',
+                'duracao' => '32 horas',
+                'nivel' => 'Avançado',
+                'preco' => '20.000,00 KZ'
+            ],
+            [
+               'titulo' => 'HardWare',
+                'duracao' => '32 horas',
+                'nivel' => 'Iniciante',
+                'preco' => '15.000,00 KZ'
+            ],
+                        [
+               'titulo' => 'Design Gráfico',
+                'duracao' => '32 horas',
+                'nivel' => 'Intermediário',
+                'preco' => '20.000,00 KZ'
+            ],
+
+            [
+                'titulo' => 'PHP Fundamentos',
+                'duracao' => '32 horas',
+                'nivel' => 'Intermediário',
+                'preco' => '25.000,00 KZ'
+            ],
+
+              [
+                'titulo' => 'Laravel Avançado',
+                'duracao' => '40 horas',
+                'nivel' => 'Avançado',
+                'preco' => '30.000,00 KZ'
+            ],
+
+            [
+                'titulo' => 'Base de dados MySQL',
+                'duracao' => '32 horas',
+                'nivel' => 'Intermediário',
+                'preco' => '20.000,00 KZ'
+            ],
+
+            [
+                'titulo' => 'Pedagogia',
+                'duracao' => '20 horas',
+                'nivel' => 'Iniciante',
+                'preco' => '10.000,00 KZ'
+            ],
+
+            [
+                'titulo' => 'Atendimento ao publico',
+                'duracao' => '20 horas',
+                'nivel' => 'Iniciante',
+                'preco' => '10.000,00 KZ'
+            ],
+
+             [
+                'titulo' => 'Oratória',
+                'duracao' => '20 horas',
+                'nivel' => 'Iniciante',
+                'preco' => '10.000,00 KZ'
+            ],
+
+            [
+                'titulo' => 'Inglês',
+                'duracao' => '48 horas',
+                'nivel' => 'Iniciante',
+                'preco' => '18.000,00 KZ'
+            ]
+        ];
+
+        return view('site.cursos', compact('cursos'));
     }
 }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nicolegio</title>
+    <title>Nicoladatec</title>
     <style>
         body { font-family: DejaVu Sans, sans-serif; font-size: 12px; }
         .header { text-align: center; border-bottom: 2px solid #000; margin-bottom: 20px; }

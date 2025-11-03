@@ -16,14 +16,26 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserStatusController;
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 
+
+// Rotas do site
+Route::get('/', [SiteController::class, 'inicio'])->name('inicio');
+Route::get('/sobre', [SiteController::class, 'sobre'])->name('sobre');
+Route::get('/contacto', [SiteController::class, 'contacto'])->name('contacto');
+Route::post('/contacto', [SiteController::class, 'enviarContacto'])->name('contacto.enviar');
+Route::get('/servicos', [SiteController::class, 'servicos'])->name('servicos');
+Route::get('/cursos', [SiteController::class, 'cursos'])->name('cursos');
+
+
 // Página inicial do site
-Route::get('/', [SiteController::class, 'home'])->name('home');
-// Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', [SiteController::class, 'home'])->name('home');
 
 // Tela de login
 Route::get('/login', [AuthController::class, 'index'])->name('login');
+
+
 
 // Processar os dados do login
 Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
