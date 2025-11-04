@@ -19,24 +19,24 @@ class CourseSeeder extends Seeder
         try {
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Course::firstOrCreate(
-                ['name' => '2022-2023', 'id' => 1],
-                ['id' => 1, 'name' => '2022-2023'],
+                ['name' => 'João', 'id' => 1],
+                ['id' => 1, 'name' => 'João'],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Course::firstOrCreate(
-                ['name' => '2023-2024', 'id' => 2],
-                ['id' => 2, 'name' => '2023-2024'],
+                ['name' => 'Antóninio', 'id' => 2],
+                ['id' => 2, 'name' => 'Antóninio'],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Course::firstOrCreate(
-                ['name' => '2024-2025', 'id' => 3],
-                ['id' => 3, 'name' => '2024-2025'],
+                ['name' => 'Miguel', 'id' => 3],
+                ['id' => 3, 'name' => 'Miguel'],
             );
         } catch (Exception $e) {
             // Salvar log
-            Log::notice('Lactivo não cadastrado.', ['error' => $e->getMessage()]);
+            Log::notice('Formando não cadastrado.', ['error' => $e->getMessage()]);
         }
     }
 }

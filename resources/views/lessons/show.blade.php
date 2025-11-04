@@ -4,15 +4,15 @@
     <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
-            <h2 class="content-title">Estudante</h2>
+            <h2 class="content-title">Nível</h2>
             <nav class="breadcrumb">
                 <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
                 <span>/</span>
                 <span>...</span>
                 <span>/</span>
-                <a href="{{ route('lessons.index', ['module' => $lesson->module->id]) }}" class="breadcrumb-link">Estudantes</a>
+                <a href="{{ route('lessons.index', ['module' => $lesson->module->id]) }}" class="breadcrumb-link">Níveis</a>
                 <span>/</span>
-                <span>Estudante</span>
+                <span>Nível</span>
             </nav>
         </div>
     </div>
@@ -42,6 +42,18 @@
                                 d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
                         </svg>
                         <span>PDF</span>
+                    </a>
+                @endcan
+
+                 @can('cartao-pdf-lesson')
+                    <a href="{{ route('lessons.cartao-pdf-lesson', ['lesson' => $lesson->id]) }}" class="btn-warning align-icon-btn">
+                        <!-- Ícone document (Heroicons) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                    </svg>
+
+                        <span>Cartão</span>
                     </a>
                 @endcan
 
@@ -86,8 +98,20 @@
                 <span class="detail-content">{{ $lesson->id }}{{\Carbon\Carbon::parse($lesson->created_at)->format('dmY')}}</span>
             </div>
 
+             <div class="mb-1">
+                <span class="title-detail-content">Formando: </span>
+                <span class="detail-content">
+                    @can('show-course')
+                        <a
+                            href="{{ route('courses.show', ['course' => $lesson->module->courseBatch->course->id]) }}">{{ $lesson->module->courseBatch->course->name }}</a>
+                    @else
+                        {{ $lesson->module->courseBatch->course->name }}
+                    @endcan
+                </span>
+            </div>
+
             <div class="mb-1">
-                <span class="title-detail-content">Nome: </span>
+                <span class="title-detail-content">Nível: </span>
                 <span class="detail-content">{{ $lesson->name }}</span>
             </div>
 
@@ -104,7 +128,7 @@
             </div>
 
             <div class="mb-1">
-                <span class="title-detail-content">Classe: </span>
+                <span class="title-detail-content">Curso: </span>
                 <span class="detail-content">
                     @can('show-course-batch')
                         <a
@@ -115,17 +139,7 @@
                 </span>
             </div>
 
-            <div class="mb-1">
-                <span class="title-detail-content">Lectivo: </span>
-                <span class="detail-content">
-                    @can('show-course')
-                        <a
-                            href="{{ route('courses.show', ['course' => $lesson->module->courseBatch->course->id]) }}">{{ $lesson->module->courseBatch->course->name }}</a>
-                    @else
-                        {{ $lesson->module->courseBatch->course->name }}
-                    @endcan
-                </span>
-            </div>
+
 
             <div class="mb-1">
                 <span class="title-detail-content">Data de Cadastro</span>

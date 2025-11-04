@@ -56,14 +56,14 @@ class CourseBatchController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Classe cadastrada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
+            Log::info('Curso cadastrada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Classe cadastrada com sucesso!');
+            return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Curso cadastrada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Classe não cadastrada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Curso não cadastrada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Classe não cadastrada!');
@@ -94,17 +94,17 @@ class CourseBatchController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Classe editada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
+            Log::info('Curso editada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Classe editada com sucesso!');
+            return redirect()->route('course_batches.show', ['courseBatch' => $courseBatch->id])->with('success', 'Curso editada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Classe não editada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
+            Log::notice('Curso não editada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Classe não editada!');
+            return back()->withInput()->with('error', 'Curso não editada!');
         }
     }
 
@@ -118,17 +118,17 @@ class CourseBatchController extends Controller
             $courseBatch->delete();
 
             // Salvar log
-            Log::info('Classe apagada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
+            Log::info('Curso apagada.', ['course_batch_id' => $courseBatch->id, ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('course_batches.index', ['course' => $courseBatch->course_id])->with('success', 'Classe apagada com sucesso!');
+            return redirect()->route('course_batches.index', ['course' => $courseBatch->course_id])->with('success', 'Curso apagada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Classe não apagada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
+            Log::notice('Curso não apagada.', ['error' => $e->getMessage(), ['action_user_id' => Auth::id()]]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Classe não apagado!');
+            return back()->withInput()->with('error', 'Curso não apagado!');
         }
     }
 }

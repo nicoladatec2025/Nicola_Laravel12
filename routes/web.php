@@ -29,9 +29,6 @@ Route::get('/servicos', [SiteController::class, 'servicos'])->name('servicos');
 Route::get('/cursos', [SiteController::class, 'cursos'])->name('cursos');
 
 
-// Página inicial do site
-// Route::get('/', [SiteController::class, 'home'])->name('home');
-
 // Tela de login
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 
@@ -174,7 +171,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{module}', [ModuleController::class, 'destroy'])->name('modules.destroy')->middleware('permission:destroy-module');
     });
 
-    // Aulas ou Estudantes
+    // Aulas ou nivel
     Route::prefix('lessons')->group(function () {
         Route::get('/module/{module}', [LessonController::class, 'index'])->name('lessons.index')->middleware('permission:index-lesson');
         Route::get('/create/{module}', [LessonController::class, 'create'])->name('lessons.create')->middleware('permission:create-lesson');
@@ -185,7 +182,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{lesson}', [LessonController::class, 'destroy'])->name('lessons.destroy')->middleware('permission:destroy-lesson');
 
         Route::get('/generate-pdf-lesson/{lesson}', [LessonController::class, 'generatePdfLesson'])->name('lessons.generate-pdf-lesson')->middleware('permission:generate-pdf-lesson');
-         });
+
+        Route::get('/cartao-pdf-lesson/{lesson}', [LessonController::class, 'cartaoPdfLesson'])->name('lessons.cartao-pdf-lesson')->middleware('permission:cartao-pdf-lesson');
+    });
  // Gerenciar o conteúdo do site
     Route::get('/edit-site-home', [SiteController::class, 'edit'])->name('site-home.edit');
     Route::put('/update-site-home', [SiteController::class, 'update'])->name('site-home.update');

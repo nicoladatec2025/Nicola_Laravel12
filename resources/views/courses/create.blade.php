@@ -4,13 +4,13 @@
     <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
-            <h2 class="content-title">Lectivo</h2>
+            <h2 class="content-title">Formando</h2>
             <nav class="breadcrumb">
                 <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
                 <span>/</span>
-                <a href="{{ route('courses.index') }}" class="breadcrumb-link">Lectivos</a>
+                <a href="{{ route('courses.index') }}" class="breadcrumb-link">Formandos</a>
                 <span>/</span>
-                <span>Lectivo</span>
+                <span>Formando</span>
             </nav>
         </div>
     </div>

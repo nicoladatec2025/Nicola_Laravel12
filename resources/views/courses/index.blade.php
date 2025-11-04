@@ -4,11 +4,11 @@
     <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
-            <h2 class="content-title">Lectivo</h2>
+            <h2 class="content-title">Formando</h2>
             <nav class="breadcrumb">
                 <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
                 <span>/</span>
-                <span>Lectivos</span>
+                <span>Formandos</span>
             </nav>
         </div>
     </div>
@@ -25,7 +25,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        <span>Cadastrar Lectivo</span>
+                        <span>Cadastrar Formando</span>
                     </a>
                 @endcan
             </div>
@@ -88,7 +88,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
                                             </svg>
-                                            <span>Classes</span>
+                                            <span>Cursos</span>
                                         </a>
                                     @endcan
 

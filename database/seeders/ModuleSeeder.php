@@ -19,20 +19,20 @@ class ModuleSeeder extends Seeder
         try {
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Module::firstOrCreate(
-                ['name' => 'Turma A', 'id' => 1],
-                ['id' => 1, 'name' => 'Turma A', 'course_batch_id' => 1],
+                ['name' => 'A', 'id' => 1],
+                ['id' => 1, 'name' => 'A', 'course_batch_id' => 1],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Module::firstOrCreate(
-                ['name' => 'Turma B', 'id' => 2],
-                ['id' => 2, 'name' => 'Turma B', 'course_batch_id' => 1],
+                ['name' => 'B', 'id' => 2],
+                ['id' => 2, 'name' => 'B', 'course_batch_id' => 1],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Module::firstOrCreate(
-                ['name' => 'Turma C', 'id' => 3],
-                ['id' => 3, 'name' => 'Turma C', 'course_batch_id' => 1],
+                ['name' => 'C', 'id' => 3],
+                ['id' => 3, 'name' => 'C', 'course_batch_id' => 1],
             );
         } catch (Exception $e) {
             // Salvar log

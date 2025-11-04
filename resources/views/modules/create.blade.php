@@ -11,7 +11,7 @@
                 <span>...</span>
                 <span>/</span>
                 <a href="{{ route('course_batches.index', ['course' => $courseBatch->course_id]) }}"
-                    class="breadcrumb-link">Classes</a>
+                    class="breadcrumb-link">Cursos</a>
                 <span>/</span>
                 <span>Turma</span>
             </nav>

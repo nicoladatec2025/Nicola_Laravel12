@@ -4,11 +4,11 @@
     <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
-            <h2 class="content-title">Status Lectivo</h2>
+            <h2 class="content-title">Status Formando</h2>
             <nav class="breadcrumb">
                 <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
                 <span>/</span>
-                <span>Status Lectivo</span>
+                <span>Status Formando</span>
             </nav>
         </div>
     </div>

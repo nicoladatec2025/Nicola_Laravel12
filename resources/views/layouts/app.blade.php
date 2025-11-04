@@ -187,7 +187,7 @@
 
             <span class="logo-nav s">
                  <!--   LOGO NAVBAR -->
-             <a href="{{ route('inicio') }}"><img src="{{ asset('images/logo-define-1000x500_v3.png') }}" ></a>
+             <a href="{{ route('inicio') }}"><img src="{{ asset('images/tudoaz.png') }}" ></a>
             </span>
 
 

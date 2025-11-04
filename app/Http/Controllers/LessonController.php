@@ -22,7 +22,7 @@ class LessonController extends Controller
             ->paginate(10);
 
         // Salvar log
-        Log::info('Listar as aulas.', ['action_user_id' => Auth::id()]);
+        Log::info('Listar os níveis.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view
         return view('lessons.index', ['menu' => 'courses', 'lessons' => $lessons, 'module' => $module]);
@@ -32,7 +32,7 @@ class LessonController extends Controller
     public function show(Lesson $lesson)
     {
         // Salvar log
-        Log::info('Visualizar a aula.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
+        Log::info('Visualizar o nívei.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a view
         return view('lessons.show', ['menu' => 'courses', 'lesson' => $lesson]);
@@ -57,17 +57,17 @@ class LessonController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Aula cadastrada.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
+            Log::info('Nível cadastrada.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('lessons.show', ['lesson' => $lesson->id])->with('success', 'Aula cadastrada com sucesso!');
+            return redirect()->route('lessons.show', ['lesson' => $lesson->id])->with('success', 'Nível cadastrada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Aula não cadastrada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Nível não cadastrada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Aula não cadastrada!');
+            return back()->withInput()->with('error', 'Nível não cadastrada!');
         }
     }
 
@@ -89,14 +89,14 @@ class LessonController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Aula editada.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
+            Log::info('Nível editada.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('lessons.show', ['lesson' => $lesson->id])->with('success', 'Aula editada com sucesso!');
+            return redirect()->route('lessons.show', ['lesson' => $lesson->id])->with('success', 'Nível editada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Aula não editada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Nível não editada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Aula não editada!');
@@ -113,17 +113,17 @@ class LessonController extends Controller
             $lesson->delete();
 
             // Salvar log
-            Log::info('Estudante apagado.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
+            Log::info('Nível apagado.', ['lesson_id' => $lesson->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('lessons.index', ['module' => $lesson->module_id])->with('success', 'Aula apagada com sucesso!');
+            return redirect()->route('lessons.index', ['module' => $lesson->module_id])->with('success', 'Nível apagada com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Estudante não apagado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Nível não apagado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Estudante não apagado!');
+            return back()->withInput()->with('error', 'Nível não apagado!');
         }
     }
 
@@ -141,10 +141,35 @@ class LessonController extends Controller
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('PDF dos dados do estudante não gerado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('PDF dos dados do Nível não gerado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'PDF dos dados do estudante não gerado!');
+            return back()->withInput()->with('error', 'PDF dos dados do Nível não gerado!');
         }
     }
+
+     // Gerar PDF
+    public function cartaoPdfLesson(Lesson $lesson)
+    {
+        // Capturar possíveis exceções durante a execução.
+        try {
+
+
+            // Carregar a string com o HTML/conteúdo e determinar a orientação e o tamanho do arquivo
+            $pdf = Pdf::loadView('lessons.cartao_pdf_lesson', ['lesson' => $lesson])->setPaper('a4', 'portrait');
+
+
+
+            // Fazer o download do arquivo
+            return $pdf->download('view_lesson_' . $lesson->id . '.pdf');
+        } catch (Exception $e) {
+
+            // Salvar log
+            Log::notice('Cartao não gerado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Cartao não gerado!');
+        }
+    }
+
 }

@@ -83,15 +83,15 @@
 
             @can('index-lesson')
                 <div class="mb-1">
-                    <span class="title-detail-content">Estudantes: </span>
+                    <span class="title-detail-content">Níveis: </span>
                     <span class="detail-content">
-                        <a href="{{ route('lessons.index', ['module' => $module->id]) }}">Listar os Estudantes</a>
+                        <a href="{{ route('lessons.index', ['module' => $module->id]) }}">Listar os Níveis</a>
                     </span>
                 </div>
             @endcan
 
             <div class="mb-1">
-                <span class="title-detail-content">Classe: </span>
+                <span class="title-detail-content">Curso: </span>
                 <span class="detail-content">
                     @can('show-course-batch')
                         <a
@@ -103,7 +103,7 @@
             </div>
 
             <div class="mb-1">
-                <span class="title-detail-content">Lectivo: </span>
+                <span class="title-detail-content">Formando: </span>
                 <span class="detail-content">
                     @can('show-course')
                         <a

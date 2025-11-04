@@ -4,16 +4,16 @@
     <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
-            <h2 class="content-title">Classe</h2>
+            <h2 class="content-title">Curso</h2>
             <nav class="breadcrumb">
                 <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
                 <span>/</span>
                 <span>...</span>
                 <span>/</span>
                 <a href="{{ route('course_batches.index', ['course' => $courseBatch->course_id]) }}"
-                    class="breadcrumb-link">Classes</a>
+                    class="breadcrumb-link">Cursos</a>
                 <span>/</span>
-                <span>Classe</span>
+                <span>Curso</span>
             </nav>
         </div>
     </div>
@@ -92,7 +92,7 @@
             @endcan
 
             <div class="mb-1">
-                <span class="title-detail-content">Lectivo: </span>
+                <span class="title-detail-content">Formando: </span>
                 <span class="detail-content">
                     @can('show-course')
                         <a

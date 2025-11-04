@@ -19,24 +19,24 @@ class LessonSeeder extends Seeder
         try {
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Lesson::firstOrCreate(
-                ['name' => 'Antonio', 'id' => 1],
-                ['id' => 1, 'name' => 'Antonio', 'module_id' => 1],
+                ['name' => 'Avaçando', 'id' => 1],
+                ['id' => 1, 'name' => 'Avaçando', 'module_id' => 1],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Lesson::firstOrCreate(
-                ['name' => 'Joaquim', 'id' => 2],
-                ['id' => 2, 'name' => 'Joaquim', 'module_id' => 1],
+                ['name' => 'Intermedio', 'id' => 2],
+                ['id' => 2, 'name' => 'Intermedio', 'module_id' => 1],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             Lesson::firstOrCreate(
-                ['name' => 'Santos', 'id' => 3],
-                ['id' => 3, 'name' => 'Santos', 'module_id' => 1],
+                ['name' => 'Iniciante', 'id' => 3],
+                ['id' => 3, 'name' => 'Iniciante', 'module_id' => 1],
             );
         } catch (Exception $e) {
             // Salvar log
-            Log::notice('Estudante não cadastrado.', ['error' => $e->getMessage()]);
+            Log::notice('Nível não cadastrado.', ['error' => $e->getMessage()]);
         }
     }
 }

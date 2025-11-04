@@ -53,27 +53,28 @@ left: 0;
                 <span class="title-detail-content">Processo: </span>
                 <span class="detail-content">{{ $lesson->id }}{{\Carbon\Carbon::parse($lesson->created_at)->format('dmY')}}</span>
             </div>
-
+            
             <div class="mb-1">
-                <span class="title-detail-content">Nome: </span>
+                <span class="title-detail-content">Formando(a): </span>
+                <span class="detail-content">{{ $lesson->module->courseBatch->course->name }}</span>
+            </div>
+            
+            <div class="mb-1">
+                <span class="title-detail-content">Nível: </span>
                 <span class="detail-content">{{ $lesson->name }}</span>
             </div>
-
+         
             <div class="mb-1">
                 <span class="title-detail-content">Turma: </span>
                 <span class="detail-content">{{ $lesson->module->name }}</span>
             </div>
 
             <div class="mb-1">
-                <span class="title-detail-content">Classe: </span>
+                <span class="title-detail-content">Curso: </span>
                 <span class="detail-content">{{ $lesson->module->courseBatch->name }}</span>
             </div>
 
-            <div class="mb-1">
-                <span class="title-detail-content">Lectivo: </span>
-                <span class="detail-content">{{ $lesson->module->courseBatch->course->name }}</span>
-            </div>
-
+            
             <div class="mb-1">
                 <span class="title-detail-content">Data de Cadastro</span>
                 <span class="detail-content">{{ \Carbon\Carbon::parse($lesson->created_at)->format('d/m/Y H:i:s') }}</span>

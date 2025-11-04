@@ -20,7 +20,7 @@ class ModuleController extends Controller
             ->paginate(10);
 
         // Salvar log
-        Log::info('Listar os módulos.', ['action_user_id' => Auth::id()]);
+        Log::info('Listar os cursos.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view 
         return view('modules.index', ['menu' => 'courses', 'modules' => $modules, 'courseBatch' => $courseBatch]);
@@ -30,7 +30,7 @@ class ModuleController extends Controller
     public function show(Module $module)
     {
         // Salvar log
-        Log::info('Visualizar o módulo.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
+        Log::info('Visualizar o curso.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a view 
         return view('modules.show', ['menu' => 'courses', 'module' => $module]);
@@ -55,17 +55,17 @@ class ModuleController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Módulo cadastrado.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
+            Log::info('Curso cadastrado.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('modules.show', ['module' => $module->id])->with('success', 'Módulo cadastrado com sucesso!');
+            return redirect()->route('modules.show', ['module' => $module->id])->with('success', 'Curso cadastrado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Módulo não cadastrado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Curso não cadastrado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Módulo não cadastrado!');
+            return back()->withInput()->with('error', 'Curso não cadastrado!');
         }
     }
 
@@ -87,17 +87,17 @@ class ModuleController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Módulo editado.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
+            Log::info('Curso editado.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('modules.show', ['module' => $module->id])->with('success', 'Módulo editado com sucesso!');
+            return redirect()->route('modules.show', ['module' => $module->id])->with('success', 'Curso editado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Módulo não editado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Curso não editado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Módulo não editado!');
+            return back()->withInput()->with('error', 'Curso não editado!');
         }
     }
 
@@ -111,17 +111,17 @@ class ModuleController extends Controller
             $module->delete();
 
             // Salvar log
-            Log::info('Módulo apagado.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
+            Log::info('Curso apagado.', ['module_id' => $module->id, 'action_user_id' => Auth::id()]);
             
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('modules.index', ['courseBatch' => $module->course_batch_id])->with('success', 'Módulo apagado com sucesso!');
+            return redirect()->route('modules.index', ['courseBatch' => $module->course_batch_id])->with('success', 'Curso apagado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Módulo não apagado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Curso não apagado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Módulo não apagado!');
+            return back()->withInput()->with('error', 'Curso não apagado!');
         }
     }
 }

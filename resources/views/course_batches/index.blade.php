@@ -4,13 +4,13 @@
     <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
-            <h2 class="content-title">Classe</h2>
+            <h2 class="content-title">Curso</h2>
             <nav class="breadcrumb">
                 <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
                 <span>/</span>
-                <a href="{{ route('courses.index') }}" class="breadcrumb-link">Lectivos</a>
+                <a href="{{ route('courses.index') }}" class="breadcrumb-link">Formandos</a>
                 <span>/</span>
-                <span>Classes</span>
+                <span>Cursos</span>
             </nav>
         </div>
     </div>
@@ -29,7 +29,7 @@
                                 d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
-                        <span>Lectivo</span>
+                        <span>Formando</span>
                     </a>
                 @endcan
 
@@ -58,7 +58,7 @@
                     <tr class="table-row-header">
                         <th class="table-header">ID</th>
                         <th class="table-header">Nome</th>
-                        <th class="table-header hidden lg:table-cell">Lectivo</th>
+                        <th class="table-header hidden lg:table-cell">Formando</th>
                         <th class="table-header center">Ações</th>
                     </tr>
                 </thead>

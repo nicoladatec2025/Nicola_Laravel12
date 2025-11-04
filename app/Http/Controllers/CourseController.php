@@ -26,7 +26,7 @@ class CourseController extends Controller
             ->withQueryString();
 
         // Salvar log
-        Log::info('Listar os cursos.', ['action_user_id' => Auth::id()]);
+        Log::info('Listar os formandos.', ['action_user_id' => Auth::id()]);
 
         // Carregar a view
         return view('courses.index', [
@@ -68,11 +68,11 @@ class CourseController extends Controller
             Log::info('Curso cadastrado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('courses.show', ['course' => $course->id])->with('success', 'Curso cadastrado com sucesso!');
+            return redirect()->route('courses.show', ['course' => $course->id])->with('success', 'Formando cadastrado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Curso não cadastrado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+            Log::notice('Formando não cadastrado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Curso não cadastrado!');
@@ -97,17 +97,17 @@ class CourseController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Curso editado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
+            Log::info('Formando editado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('courses.show', ['course' => $course->id])->with('success', 'Curso editado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Curso não editado.', ['error' => $e->getMessage()]);
+            Log::notice('Formando não editado.', ['error' => $e->getMessage()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Curso não editado!');
+            return back()->withInput()->with('error', 'Formando não editado!');
         }
     }
 
@@ -121,17 +121,17 @@ class CourseController extends Controller
             $course->delete();
 
             // Salvar log
-            Log::info('Curso apagado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
+            Log::info('Formando apagado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('courses.index')->with('success', 'Curso apagado com sucesso!');
+            return redirect()->route('courses.index')->with('success', 'Formando apagado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
-            Log::notice('Curso não apagado.', ['error' => $e->getMessage()]);
+            Log::notice('Formando não apagado.', ['error' => $e->getMessage()]);
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Curso não apagado!');
+            return back()->withInput()->with('error', 'Formando não apagado!');
         }
     }
 }

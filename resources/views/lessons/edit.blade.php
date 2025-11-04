@@ -4,15 +4,15 @@
     <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
-            <h2 class="content-title">Estudante</h2>
+            <h2 class="content-title">Nível</h2>
             <nav class="breadcrumb">
                 <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
                 <span>/</span>
                 <span>...</span>
                 <span>/</span>
-                <a href="{{ route('lessons.index', ['module' => $lesson->module->id]) }}" class="breadcrumb-link">Estudantes</a>
+                <a href="{{ route('lessons.index', ['module' => $lesson->module->id]) }}" class="breadcrumb-link">Níveis</a>
                 <span>/</span>
-                <span>Estudante</span>
+                <span>Nível</span>
             </nav>
         </div>
     </div>
