@@ -154,10 +154,8 @@ class LessonController extends Controller
         // Capturar possíveis exceções durante a execução.
         try {
 
-
-            // Carregar a string com o HTML/conteúdo e determinar a orientação e o tamanho do arquivo
+             // Carregar a string com o HTML/conteúdo e determinar a orientação e o tamanho do arquivo
             $pdf = Pdf::loadView('lessons.cartao_pdf_lesson', ['lesson' => $lesson])->setPaper('a4', 'portrait');
-
 
 
             // Fazer o download do arquivo

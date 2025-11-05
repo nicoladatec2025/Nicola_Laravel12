@@ -19,20 +19,20 @@ class CourseBatchSeeder extends Seeder
         try {
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             CourseBatch::firstOrCreate(
-                ['name' => '7ª Classe', 'id' => 1],
-                ['id' => 1, 'name' => '7ª Classe', 'course_id' => 1],
+                ['name' => 'Informática', 'id' => 1],
+                ['id' => 1, 'name' => 'Informática', 'course_id' => 1],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             CourseBatch::firstOrCreate(
-                ['name' => '8ª Classe', 'id' => 2],
-                ['id' => 2, 'name' => '8ª Classe', 'course_id' => 1],
+                ['name' => 'Laravel', 'id' => 2],
+                ['id' => 2, 'name' => 'Laravel', 'course_id' => 1],
             );
 
             // Se não encontrar o registro com o nome, cadastra o registro no BD
             CourseBatch::firstOrCreate(
-                ['name' => '9ª Classe', 'id' => 3],
-                ['id' => 3, 'name' => '9ª Classe', 'course_id' => 1],
+                ['name' => 'HardWare', 'id' => 3],
+                ['id' => 3, 'name' => 'HardWare', 'course_id' => 1],
             );
         } catch (Exception $e) {
             // Salvar log

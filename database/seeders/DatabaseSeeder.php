@@ -38,6 +38,9 @@ class DatabaseSeeder extends Seeder
                 CourseBatchSeeder::class,
                 ModuleSeeder::class,
                 LessonSeeder::class,
+
+                SituacaoContaSeeder::class,
+                ContaSeeder::class,
             ]);
         }
     }

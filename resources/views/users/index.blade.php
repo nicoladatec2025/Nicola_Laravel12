@@ -14,10 +14,13 @@
     </div>
 
     <div class="content-box">
+
         <div class="content-box-header">
             <h3 class="content-box-title">Listar</h3>
+
             <div class="content-box-btn">
-                @can('create-user')
+
+            @can('create-user')
                     <a href="{{ route('users.create') }}" class="btn-success align-icon-btn">
                         <!-- Ícone plus-circle (Heroicons) -->
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -54,6 +57,9 @@
                         <span>CSV</span>
                     </a>
                 @endcan
+
+
+
             </div>
         </div>
 

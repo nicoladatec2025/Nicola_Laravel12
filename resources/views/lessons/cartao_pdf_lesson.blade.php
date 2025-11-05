@@ -90,9 +90,6 @@
 
     <div class="cartao verso">
 
-
-
-
       <h3 style="color: #3873ca; font-size: 12px;">NICOLA DA TEC - PRESTAÇÃO DE SERVIÇOS, LDA</h3>
          <h4 style="color: #303b4bff; font-size: 10px; text-align: left;">Cartão do Formando</h4>
         <br> <p style=" text-align: left;" >Nº {{ $lesson->id }}{{\Carbon\Carbon::parse($lesson->created_at)->format('dmY') }}</p>

@@ -69,15 +69,21 @@
 
             <div class="mb-4">
                 <label for="password" class="form-label">Senha</label>
+                <div class="input-group">
                 <input type="password" name="password" id="password" class="form-input"
                     placeholder="Senha com no mínimo 6 caracteres" value="{{ old('password') }}" required>
+                                <span class="input-group-text" role="button" onclick="togglePassword('password', this)"><i class="bi bi-eye"></i></span>
             </div>
+         </div>
 
             <div class="mb-4">
                 <label for="password_confirmation" class="form-label">Confirmar Senha</label>
+                <div class="input-group">
                 <input type="password" name="password_confirmation" id="password_confirmation" class="form-input"
                     placeholder="Confirmar a senha" value="{{ old('password_confirmation') }}" required>
+            <span class="input-group-text" role="button" onclick="togglePassword('password_confirmation', this)"><i class="bi bi-eye"></i></span>
             </div>
+             </div>
 
             <button type="submit" class="btn-success align-icon-btn">
                 <!-- Ícone plus-circle (Heroicons) -->
