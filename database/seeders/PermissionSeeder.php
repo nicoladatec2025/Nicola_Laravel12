@@ -87,6 +87,12 @@ class PermissionSeeder extends Seeder
                 ['title'=> 'Editar a permissão', 'name' => 'edit-permission'],
                 ['title'=> 'Apagar a permissão', 'name' => 'destroy-permission'],
 
+                ['title'=> 'Listar as contas', 'nome' => 'index-conta'],
+                ['title'=> 'Visualizar a conta', 'nome' => 'show-conta'],
+                ['title'=> 'Cadastrar a conta', 'nome' => 'create-conta'],
+                ['title'=> 'Editar a conta', 'nome' => 'edit-conta'],
+                ['title'=> 'Apagar a conta', 'nome' => 'destroy-conta'],
+
             ];
 
             foreach ($permissions as $permission) {

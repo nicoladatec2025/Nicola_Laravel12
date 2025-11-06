@@ -1,6 +1,33 @@
 @extends('layouts.admin')
 
 @section('content')
+
+<style>
+
+ .situacao {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+
+    .situacao-paga {
+        background-color: #4873ce;
+        color: white;
+    }
+
+    .situacao-pendente {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .situacao-cancelada {
+        background-color: #ff9800;
+        color: white;
+    }
+
+</style>
    <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
@@ -67,7 +94,7 @@
         <!-- Início Formulário de Pesquisa -->
         <form class="form-search">
 
-            <input type="text" name="name" class="form-input" placeholder="Nome da conta" value="{{ $nome }}">
+            <input type="text" name="nome" class="form-input" placeholder="Nome da conta" value="{{ $nome }}">
 
             <input type="datetime-local" name="data_inicio" class="form-input"
                 value="{{ $data_inicio }}">
@@ -119,12 +146,28 @@
                             <td class="table-body">{{ $conta->nome }}</td>
                             <td class="table-body">{{ 'KZ ' . number_format($conta->valor, 2, ',', '.') }}</td>
                             <td class="table-body">{{ \Carbon\Carbon::parse($conta->vencimento)->tz('Africa/Luanda')->format('d/m/Y') }}</td>
-                            <td  class="table-body">
-                              <a href="{{ route('conta.change-situation', ['conta' => $conta->id]) }}">
-                              {!! '<span class="badge text-bg-' . $conta->situacaoConta->cor . '">' . $conta->situacaoConta->nome . '</span>' !!}
-                              </a>
-                            </td>
 
+                <td class="table-body">
+                    <a href="{{ route('conta.change-situation', ['conta' => $conta->id]) }}">
+                    @if($conta->situacaoConta->nome === 'Paga')
+                        <span class="badge" style="color: green; font-weight: bold;">
+                            {{ $conta->situacaoConta->nome }}
+                        </span>
+                    @elseif($conta->situacaoConta->nome === 'Pendente')
+                        <span class="badge" style="color: red; font-weight: bold;">
+                            {{ $conta->situacaoConta->nome }}
+                        </span>
+                    @elseif($conta->situacaoConta->nome === 'Cancelada')
+                        <span class="badge" style="color: orange; font-weight: bold;">
+                            {{ $conta->situacaoConta->nome }}
+                        </span>
+                    @else
+                        <span class="badge" style="color: gray;">
+                            {{ $conta->situacaoConta->nome }}
+                        </span>
+                    @endif
+                     </a>
+                </td>
                             <td class="table-actions">
                                 <div class="table-actions-align">
                                     @can('show-conta')

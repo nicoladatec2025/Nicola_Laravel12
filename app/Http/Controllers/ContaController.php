@@ -19,6 +19,7 @@ class ContaController extends Controller
     public function index(Request $request)
     {
 
+
         // Recuperar os registros do banco dados
         $contas = Conta::when($request->has('nome'), function ($whenQuery) use ($request) {
             $whenQuery->where('nome', 'like', '%' . $request->nome . '%');
@@ -30,7 +31,7 @@ class ContaController extends Controller
                 $whenQuery->where('vencimento', '<=', \Carbon\Carbon::parse($request->data_fim)->format('Y-m-d'));
             })
             ->with('situacaoConta')
-            ->orderByDesc('created_at')
+            ->orderBy('nome')
             ->paginate(10)
             ->withQueryString();
 
@@ -79,6 +80,7 @@ class ContaController extends Controller
                 'vencimento' => $request->vencimento,
                 'situacao_conta_id' => $request->situacao_conta_id,
             ]);
+
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('conta.show', ['conta' => $conta->id])->with('success', 'Conta cadastrada com sucesso');
@@ -265,7 +267,7 @@ class ContaController extends Controller
         fclose($arquivoAberto);
 
         // Realizar o download do arquivo
-        return response()->download($csvNomeArquivo, 'relatorio_contas_celke_' . Str::ulid() . '.csv');
+        return response()->download($csvNomeArquivo, 'relatorio_contas_' . Str::ulid() . '.csv');
     }
 
     // Gerar Word

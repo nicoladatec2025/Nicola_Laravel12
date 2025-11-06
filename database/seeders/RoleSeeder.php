@@ -94,6 +94,7 @@ class RoleSeeder extends Seeder
 
                 'index-role-permission',
 
+               
             ]);
 
             /******* Professor *******/

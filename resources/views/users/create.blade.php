@@ -72,7 +72,7 @@
                 <div class="input-group">
                 <input type="password" name="password" id="password" class="form-input"
                     placeholder="Senha com no mínimo 6 caracteres" value="{{ old('password') }}" required>
-                                <span class="input-group-text" role="button" onclick="togglePassword('password', this)"><i class="bi bi-eye"></i></span>
+              <span class="input-group-text" role="button" onclick="togglePassword('password', this)"><i class="bi bi-eye"></i></span>
             </div>
          </div>
 

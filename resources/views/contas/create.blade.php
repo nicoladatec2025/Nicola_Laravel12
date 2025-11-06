@@ -1,41 +1,66 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="card mt-4 mb-4 border-light shadow">
-        <div class="card-header d-flex justify-content-between">
-            <span>Cadastrar Conta</span>
-            <span>
-                <a href="{{ route('conta.index') }}" class="btn btn-info btn-sm ">Listar</a>
-            </span>
+    <!-- Título e Trilha de Navegação -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <h2 class="content-title">Conta</h2>
+            <nav class="breadcrumb">
+                <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
+                <span>/</span>
+                <a href="{{ route('users.index') }}" class="breadcrumb-link">Contas</a>
+                <span>/</span>
+                <span>Conta</span>
+            </nav>
+        </div>
+    </div>
+
+    <div class="content-box">
+        <div class="content-box-header">
+            <h3 class="content-box-title">Cadastrar</h3>
+            <div class="content-box-btn">
+                @can('index-conta')
+                    <a href="{{ route('conta.index') }}" class="btn-info align-icon-btn">
+                        <!-- Ícone queue-list (Heroicons) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+                        </svg>
+                        <span>Listar</span>
+                    </a>
+                @endcan
+            </div>
         </div>
 
-        {{-- Verificar se existe a sessão success e imprimir o valor --}}
         <x-alert />
+        <form action="{{ route('conta.store') }}" method="POST">
+            @csrf
+            @method('POST')
 
-        <div class="card-body">
+            <div class="mb-4">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" name="nome" id="nome" class="form-input"
+                    placeholder="Nome completo do usuário" value="{{ old('nome') }}" required>
+            </div>
 
-            <form action="{{ route('conta.store') }}" method="POST" class="row g-3">
-                @csrf
 
-                <div class="col-md-12 col-sm-12">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome da conta"
-                        value="{{ old('nome') }}">
-                </div>
+            <div class="mb-4">
+                <label for="valor" class="form-label">Valor</label>
+                <input type="text" name="valor" id="valor" class="form-input"
+                    placeholder="Valor da conta" value="{{ old('valor') }}" required>
+            </div>
 
-                <div class="col-md-4 col-sm-12">
-                    <label for="valor" class="form-label">Valor</label>
-                    <input type="text" name="valor" class="form-control" id="valor" placeholder="Valor da conta"
-                        value="{{ old('valor') }}">
-                </div>
 
-                <div class="col-md-4 col-sm-12">
-                    <label for="vencimento" class="form-label">Vencimento</label>
-                    <input type="date" name="vencimento" class="form-control" id="vencimento"
-                        value="{{ old('vencimento') }}">
-                </div>
+            <div class="mb-4">
+                <label for="vencimento" class="form-label">Vencimento</label>
+                <input type="date" name="vencimento" id="vencimento" class="form-input"
+                value="{{ old('vencimento') }}" required>
 
-                <div class="col-md-4 col-sm-12">
+
+            </div>
+
+            <div class="mb-4">
                     <label for="situacao_conta_id" class="form-label">Situação da Conta</label>
                     <select name="situacao_conta_id" id="situacao_conta_id" class="form-select select2">
                         <option value="">Selecione</option>
@@ -49,12 +74,20 @@
                     </select>
                 </div>
 
-                <div class="col-12">
-                    <button type="submit" class="btn btn-success btn-sm">Cadastrar</button>
-                </div>
 
-            </form>
 
-        </div>
+            <button type="submit" class="btn-success align-icon-btn">
+                <!-- Ícone plus-circle (Heroicons) -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <span>Cadastrar</span>
+            </button>
+
+        </form>
+
     </div>
 @endsection
+
