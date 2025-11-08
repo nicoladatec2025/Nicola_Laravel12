@@ -85,7 +85,8 @@
 
             <div class="mb-1">
                 <span class="title-detail-content">Vencimento: {{ \Carbon\Carbon::parse($conta->vencimento)->tz('Africa/Luanda')->format('d/m/Y') }}</span>
-            <dt class="title-detail-content">Situação:<a href="{{ route('conta.change-situation', [ 'conta' => $conta->id])}}">
+            
+                <dt class="title-detail-content">Situação:<a href="{{ route('conta.change-situation', [ 'conta' => $conta->id])}}">
                         {!! '<span class="detail-content-'. $conta->situacaoConta->cor .'">' . $conta->situacaoConta->nome . '</span>' !!}
                     </a> </dt>
 

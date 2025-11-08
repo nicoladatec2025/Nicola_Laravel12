@@ -27,6 +27,7 @@
             }
         })();
     </script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -223,8 +224,7 @@
 
                         <span>Contas</span>
                         </a>
-
-
+                                             
                     @can('index-course-status')
                         <a @class([
                             'sidebar-link',

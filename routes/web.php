@@ -19,7 +19,10 @@ use App\Http\Controllers\UserStatusController;
 use App\Http\Controllers\ContaController;
 use App\Http\Controllers\SendEmailContaController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CashFlowController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
+
 
 
 // Rotas do site
@@ -212,3 +215,20 @@ Route::get('/gerar-word-conta', [ContaController::class, 'gerarWord'])->name('co
 
 Route::get('/send-email-pendente-conta', [SendEmailContaController::class, 'sendEmailPendenteConta'])->name('conta.send-email-pendente');
 
+
+
+Route::prefix('cashflow')->group(function () {
+Route::get('/cashflow/daily', [CashFlowController::class, 'daily'])->name('cashflow.daily');
+Route::get('/cashflow/monthly', [CashFlowController::class, 'monthly'])->name('cashflow.monthly');
+Route::get('/cashflow/yearly', [CashFlowController::class, 'yearly'])->name('cashflow.yearly');
+});
+
+
+
+Route::get('index-transactions', [TransactionController::class, 'index'])->name('transactions.index');
+Route::get('/create-transactions', [TransactionController::class, 'create'])->name('transactions.create');
+Route::get('/store-transactions', [TransactionController::class, 'store'])->name('transactions.store');
+Route::get('/show-transactions', [TransactionController::class, 'show'])->name('transactions.show');
+Route::get('/edit-transactions', [TransactionController::class, 'edit'])->name('transactions.edit');
+Route::get('/update-transactions', [TransactionController::class, 'update'])->name('transactions.update');
+Route::get('/destroy-transactions', [TransactionController::class, 'destroy'])->name('transactions.destroy');

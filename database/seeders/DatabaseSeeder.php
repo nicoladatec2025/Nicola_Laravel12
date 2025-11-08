@@ -41,7 +41,10 @@ class DatabaseSeeder extends Seeder
 
                 SituacaoContaSeeder::class,
                 ContaSeeder::class,
+
+                TransactionSeeder::class,
             ]);
         }
     }
+
 }
