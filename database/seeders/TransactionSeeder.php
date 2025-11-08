@@ -49,7 +49,7 @@ class TransactionSeeder extends Seeder
 
         // Lançamentos aleatórios para último ano e ano atual
         Transaction::factory()
-            ->count(600) // ajusta conforme volume desejado
+            ->count(10) // ajusta conforme volume desejado
             ->create();
     }
 }

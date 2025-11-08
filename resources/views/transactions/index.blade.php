@@ -45,7 +45,7 @@
                     </a>
                 @endcan
 
-                
+
                  @can('cashflow/daily')
                     <a href="{{ route('cashflow.daily') }}"
                         class="btn-warning align-icon-btn">
@@ -55,7 +55,7 @@
                       </svg>
                         <span>Diário</span>
                     </a>
-                @endcan  
+                @endcan
 
                 @can('cashflow/monthly')
                     <a href="{{ route('cashflow.monthly') }}"
@@ -92,11 +92,12 @@
                     <tr class="table-row-header">
                         <th class="table-header">ID</th>
                         <th class="table-header">Clente</th>
+                        <th class="table-header">Categoria</th>
                          <th class="table-header">Tipo</th>
                         <th class="table-header">Valor</th>
-                         <th class="table-header">Descrição</th>
-                        <th class="table-header">Data</th>
-                        <th class="table-header center">Ações</th>
+                         <th class="table-header">metodo_pagamento</th>
+                         <th class="table-header">Data</th>
+                         <th class="table-header center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,6 +105,7 @@
                     @forelse($transactions as $t)
                         <tr class="table-row-body">
                             <td class="table-body">{{ $t->id }}</td>
+                              <td class="table-body">{{$t->descricao }}</td>
                             <td class="table-body">{{ $t->categoria }}</td>
 
 
@@ -124,10 +126,10 @@
 
 
                             <td class="table-body">{{ number_format((float)$t->valor, 2, ',', '.')}} Kz</td>
-                            <td class="table-body">{{$t->descricao }}</td>
+                           <td class="table-body">{{$t->metodo_pagamento }}</td>
                            <td class="table-body">{{$t->data_transacao->format('d/m/Y H:i') }}</td>
-                            <td class="table-actions">
-                                <div class="table-actions-align">
+                          <td class="table-actions">
+                                      <div class="table-actions-align">
                                     @can('show-transactions')
                                         <a href="{{ route('transactions.show', $t->id)}}"
                                             class="btn-primary align-icon-btn">
@@ -139,7 +141,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                             </svg>
-                                          
+
                                         </a>
                                     @endcan
 
@@ -152,11 +154,11 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                             </svg>
-                                          
+
                                         </a>
                                     @endcan
 
-                                   
+
                                 </div>
                             </td>
                         </tr>
@@ -166,7 +168,7 @@
                             Nenhuma transação encontrada!
                         </div>
                     @endforelse
-                </tbody> 
+                </tbody>
             </table>
 
             <div class="mt-2 p-3">

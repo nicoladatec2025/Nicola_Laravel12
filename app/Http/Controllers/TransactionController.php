@@ -9,7 +9,7 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::orderBy('data_transacao', 'desc')->paginate(15);
+        $transactions = Transaction::orderBy('id', 'desc')->paginate(15);
         return view('transactions.index', compact('transactions'));
     }
 
@@ -17,9 +17,9 @@ class TransactionController extends Controller
     {
         return view('transactions.show', compact('transaction'));
     }
- 
 
-   
+
+
     public function create()
     {
         return view('transactions.create');
