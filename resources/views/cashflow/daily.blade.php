@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-section('content')
+
+               
+
   <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
@@ -16,8 +18,45 @@ section('content')
 
     <div class="content-box">
 
-      <div class="content-box-header">
-       
+     <canvas id="dailyChart"></canvas>
+      
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const chartDaily = @json($chartDaily);
+    const ctx = document.getElementById('dailyChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: chartDaily.labels,
+            datasets: [
+                {
+                    label: 'Entradas',
+                    data: chartDaily.entradas,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true
+                },
+                {
+                    label: 'Saídas',
+                    data: chartDaily.saidas,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: { display: true, text: 'Fluxo Diário por Hora' }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+      
       <x-alert />
 
       
@@ -42,7 +81,7 @@ section('content')
                         </tr>
                 </tbody>
             </table>
-    </div>  <br>
+    </div>   <br>
 
       <!-- Início Formulário de filtro -->
         <form class="form-search">
@@ -60,7 +99,8 @@ section('content')
                     <span>Filtrar</span>
                 </button>
 
-                 @can('cashflow/monthly')
+
+                  @can('cashflow/monthly')
                     <a href="{{ route('cashflow.monthly') }}"
                         class="btn-warning align-icon-btn">
                         <!-- Ícone document (Heroicons) -->
@@ -96,8 +136,11 @@ section('content')
                     </a>
                 @endcan
 
-   </div>
+              </div>
         </form>
+               
+
+  
         <!-- Fim Formulário de filtro -->
 
 
@@ -138,15 +181,15 @@ section('content')
                             <td class="table-body">{{ $t->descricao  }}</td>
                             <td class="table-body">{{ $t->data_transacao->format('H:i')}}</td>
  
-                           
-                           
-                        </tr>
+                          </tr>
                    
         @empty
         <tr><td colspan="5">Nenhuma transação encontrada para esta data.</td></tr>
         @endforelse
     </tbody>
 </table> <br>
+
+
 
 
 @endsection

@@ -1,8 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-  <!-- Título e Trilha de Navegação -->
-    <div class="content-wrapper">
+ 
+
+<!-- Título e Trilha de Navegação -->
+   <div class="content-wrapper">
         <div class="content-header">
             <h2 class="content-title">Fluxo de Caixa Anual</h2>
             <nav class="breadcrumb">
@@ -13,13 +15,62 @@
         </div>
     </div>
 
+   
     <div class="content-box">
 
         <x-alert />
 
       
+ <canvas id="yearlyChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const chartYearly = @json($chartYearly);
+    new Chart(document.getElementById('yearlyChart'), {
+        type: 'line',
+        data: {
+            labels: chartYearly.labels,
+            datasets: [
+                {
+                    label: 'Entradas (mês)',
+                    data: chartYearly.entradas,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: false,
+                    tension: 0.2
+                },
+                {
+                    label: 'Saídas (mês)',
+                    data: chartYearly.saidas,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: false,
+                    tension: 0.2
+                },
+                {
+                    label: 'Saldo acumulado',
+                    data: chartYearly.saldoAcumulado,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.15)',
+                    fill: true,
+                    tension: 0.2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: { display: true, text: 'Fluxo Anual: Entradas, Saídas e Saldo Acumulado' },
+                tooltip: { mode: 'index', intersect: false }
+            },
+            interaction: { mode: 'index', intersect: false },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+</script>
 
         <div class="table-container mt-6">
+
             <table class="table">
                 <thead>
                     <tr class="table-row-header">
@@ -148,7 +199,8 @@
         <tr><td colspan="5">Nenhuma transação encontrada para o ano selecionado</td></tr>
         @endforelse
     </tbody>
-</table> <br>
+</table> 
+
 
 
 @endsection

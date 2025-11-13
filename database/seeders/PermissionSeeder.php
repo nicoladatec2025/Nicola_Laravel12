@@ -15,13 +15,13 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Capturar possíveis exceções durante a execução do seeder. 
+        // Capturar possíveis exceções durante a execução do seeder.
         try {
             // Criar o array de páginas
             $permissions = [
-                
+
                 ['title'=> 'Dashboard', 'name' => 'dashboard'],
-                
+
                 ['title'=> 'Listar os cursos', 'name' => 'index-course'],
                 ['title'=> 'Visualizar o curso', 'name' => 'show-course'],
                 ['title'=> 'Cadastrar o curso', 'name' => 'create-course'],
@@ -33,13 +33,13 @@ class PermissionSeeder extends Seeder
                 ['title'=> 'Cadastrar a turma', 'name' => 'create-course-batch'],
                 ['title'=> 'Editar a turma', 'name' => 'edit-course-batch'],
                 ['title'=> 'Apagar a turma', 'name' => 'destroy-course-batch'],
-                
+
                 ['title'=> 'Listar os módulos', 'name' => 'index-module'],
                 ['title'=> 'Visualizar o módulo', 'name' => 'show-module'],
                 ['title'=> 'Cadastrar o módulo', 'name' => 'create-module'],
                 ['title'=> 'Editar o módulo', 'name' => 'edit-module'],
                 ['title'=> 'Apagar o módulo', 'name' => 'destroy-module'],
-                
+
                 ['title'=> 'Listar as aulas', 'name' => 'index-lesson'],
                 ['title'=> 'Visualizar a aula', 'name' => 'show-lesson'],
                 ['title'=> 'Cadastrar a aula', 'name' => 'create-lesson'],
@@ -51,11 +51,11 @@ class PermissionSeeder extends Seeder
                 ['title'=> 'Cadastrar status cursos', 'name' => 'create-course-status'],
                 ['title'=> 'Edtitar status cursos', 'name' => 'edit-course-status'],
                 ['title'=> 'Apagar status cursos', 'name' => 'destroy-course-status'],
-                
+
                 ['title'=> 'Visualizar o perfil', 'name' => 'show-profile'],
                 ['title'=> 'Editar o perfil', 'name' => 'edit-profile'],
                 ['title'=> 'Editar a senha do perfil', 'name' => 'edit-password-profile'],
-                
+
                 ['title'=> 'Listar os usuários', 'name' => 'index-user'],
                 ['title'=> 'Visualizar o usuário', 'name' => 'show-user'],
                 ['title'=> 'Cadastrar o usuário', 'name' => 'create-user'],
@@ -72,7 +72,7 @@ class PermissionSeeder extends Seeder
                 ['title'=> 'Cadastrar o status usuário', 'name' => 'create-user-status'],
                 ['title'=> 'Editar o status usuário', 'name' => 'edit-user-status'],
                 ['title'=> 'Apagar o status usuário', 'name' => 'destroy-user-status'],
-                
+
                 ['title'=> 'Listar os papéis', 'name' => 'index-role'],
                 ['title'=> 'Visualizar o papel', 'name' => 'show-role'],
                 ['title'=> 'Cadastrar o papel', 'name' => 'create-role'],
@@ -80,18 +80,18 @@ class PermissionSeeder extends Seeder
                 ['title'=> 'Apagar o papel', 'name' => 'destroy-role'],
 
                 ['title'=> 'Listar as permissões do papel', 'name' => 'index-role-permission'],
-                
+
                 ['title'=> 'Listar as permissões', 'name' => 'index-permission'],
                 ['title'=> 'Visualizar a permissão', 'name' => 'show-permission'],
                 ['title'=> 'Cadastrar a permissão', 'name' => 'create-permission'],
                 ['title'=> 'Editar a permissão', 'name' => 'edit-permission'],
                 ['title'=> 'Apagar a permissão', 'name' => 'destroy-permission'],
 
-                ['title'=> 'Listar as contas', 'nome' => 'index-conta'],
-                ['title'=> 'Visualizar a conta', 'nome' => 'show-conta'],
-                ['title'=> 'Cadastrar a conta', 'nome' => 'create-conta'],
-                ['title'=> 'Editar a conta', 'nome' => 'edit-conta'],
-                ['title'=> 'Apagar a conta', 'nome' => 'destroy-conta'],
+                ['title'=> 'Listar as transações', 'name' => 'index-transactions'],
+                ['title'=> 'Visualizar a transação', 'name' => 'show-transactions'],
+                ['title'=> 'Cadastrar a transação', 'name' => 'create-transactions'],
+                ['title'=> 'Editar a transação', 'name' => 'edit-transactions'],
+                ['title'=> 'Apagar a transação', 'name' => 'destroy-transactions'],
 
             ];
 

@@ -24,4 +24,8 @@ class Transaction extends Model
         'data_transacao' => 'datetime',
         'valor' => 'decimal:2',
     ];
+
+ 
+
+ 
 }

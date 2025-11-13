@@ -191,44 +191,44 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/cartao-pdf-lesson/{lesson}', [LessonController::class, 'cartaoPdfLesson'])->name('lessons.cartao-pdf-lesson')->middleware('permission:cartao-pdf-lesson');
     });
  // Gerenciar o conteúdo do site
-    Route::get('/edit-site-home', [SiteController::class, 'edit'])->name('site-home.edit');
-    Route::put('/update-site-home', [SiteController::class, 'update'])->name('site-home.update');
+    Route::get('/edit-site-home', [SiteController::class, 'edit'])->name('site-home.edit')->middleware('permission:edit-site-home');
+    Route::put('/update-site-home', [SiteController::class, 'update'])->name('site-home.update')->middleware('permission:update-site-home');
           });
 
-// CONTAS
-Route::get('/index-conta', [ContaController::class, 'index'])->name('conta.index');
-Route::get('/create-conta', [ContaController::class, 'create'])->name('conta.create');
-Route::post('/store-conta', [ContaController::class, 'store'])->name('conta.store');
-Route::get('/show-conta/{conta}', [ContaController::class, 'show'])->name('conta.show');
-Route::get('/edit-conta/{conta}', [ContaController::class, 'edit'])->name('conta.edit');
-Route::put('/update-conta/{conta}', [ContaController::class, 'update'])->name('conta.update');
-Route::delete('/destroy-conta/{conta}', [ContaController::class, 'destroy'])->name('conta.destroy');
+          // CONTAS
+Route::get('/index-conta', [ContaController::class, 'index'])->name('conta.index')->middleware('permission:index-conta');
+Route::get('/create-conta', [ContaController::class, 'create'])->name('conta.create')->middleware('permission:create-conta');
+Route::post('/store-conta', [ContaController::class, 'store'])->name('conta.store')->middleware('permission:store-conta');
+Route::get('/show-conta/{conta}', [ContaController::class, 'show'])->name('conta.show')->middleware('permission:show-conta');
+Route::get('/edit-conta/{conta}', [ContaController::class, 'edit'])->name('conta.edit')->middleware('permission:edit-conta');
+Route::put('/update-conta/{conta}', [ContaController::class, 'update'])->name('conta.update')->middleware('permission:update-conta');
+Route::delete('/destroy-conta/{conta}', [ContaController::class, 'destroy'])->name('conta.destroy')->middleware('permission:destroy-conta');
 
-Route::post('/restore-conta', [ContaController::class, 'restore'])->name('conta.restore');
-Route::get('/change-situation-conta/{conta}', [ContaController::class, 'changeSituation'])->name('conta.change-situation');
+Route::post('/restore-conta', [ContaController::class, 'restore'])->name('conta.restore')->middleware('permission:restore-conta');
+Route::get('/change-situation-conta/{conta}', [ContaController::class, 'changeSituation'])->name('conta.change-situation')->middleware('permission:change-situation-conta');
 
-Route::get('/gerar-pdf-conta', [ContaController::class, 'gerarPdf'])->name('conta.gerar-pdf');
+Route::get('/gerar-pdf-conta', [ContaController::class, 'gerarPdf'])->name('conta.gerar-pdf')->middleware('permission:gerar-pdf-conta');
 
-Route::get('/gerar-csv-conta', [ContaController::class, 'gerarCsv'])->name('conta.gerar-csv');
+Route::get('/gerar-csv-conta', [ContaController::class, 'gerarCsv'])->name('conta.gerar-csv')->middleware('permission:gerar-csv-conta');
 
-Route::get('/gerar-word-conta', [ContaController::class, 'gerarWord'])->name('conta.gerar-word');
+Route::get('/gerar-word-conta', [ContaController::class, 'gerarWord'])->name('conta.gerar-word')->middleware('permission:gerar-word-conta');
 
-Route::get('/send-email-pendente-conta', [SendEmailContaController::class, 'sendEmailPendenteConta'])->name('conta.send-email-pendente');
+Route::get('/send-email-pendente-conta', [SendEmailContaController::class, 'sendEmailPendenteConta'])->name('conta.send-email-pendente')->middleware('permission:send-email-pendente-conta');
 
 
 
 Route::prefix('cashflow')->group(function () {
-Route::get('/cashflow/daily', [CashFlowController::class, 'daily'])->name('cashflow.daily');
-Route::get('/cashflow/monthly', [CashFlowController::class, 'monthly'])->name('cashflow.monthly');
-Route::get('/cashflow/yearly', [CashFlowController::class, 'yearly'])->name('cashflow.yearly');
+Route::get('/cashflow/daily', [CashFlowController::class, 'daily'])->name('cashflow.daily')->middleware('permission:daily-cashflow');
+Route::get('/cashflow/monthly', [CashFlowController::class, 'monthly'])->name('cashflow.monthly')->middleware('permission:monthly-cashflow');
+Route::get('/cashflow/yearly', [CashFlowController::class, 'yearly'])->name('cashflow.yearly')->middleware('permission:yearly-cashflow');
 });
 
 
 
-Route::get('index-transactions', [TransactionController::class, 'index'])->name('transactions.index');
-Route::get('/create-transactions', [TransactionController::class, 'create'])->name('transactions.create');
-Route::get('/store-transactions', [TransactionController::class, 'store'])->name('transactions.store');
-Route::get('/show-transactions', [TransactionController::class, 'show'])->name('transactions.show');
-Route::get('/edit-transactions', [TransactionController::class, 'edit'])->name('transactions.edit');
-Route::get('/update-transactions', [TransactionController::class, 'update'])->name('transactions.update');
-Route::get('/destroy-transactions', [TransactionController::class, 'destroy'])->name('transactions.destroy');
+Route::get('index-transactions', [TransactionController::class, 'index'])->name('transactions.index')->middleware('permission:index-transactions');
+Route::get('/create-transactions', [TransactionController::class, 'create'])->name('transactions.create')->middleware('permission:create-transactions');
+Route::get('/store-transactions', [TransactionController::class, 'store'])->name('transactions.store')->middleware('permission:store-transactions');
+Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transactions.show')->middleware('permission:show-transactions');
+Route::get('/edit-transactions', [TransactionController::class, 'edit'])->name('transactions.edit')->middleware('permission:edit-transactions');
+Route::get('/update-transactions', [TransactionController::class, 'update'])->name('transactions.update')->middleware('permission:update-transactions');
+Route::get('/destroy-transactions{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy')->middleware('permission:destroy-transactions');

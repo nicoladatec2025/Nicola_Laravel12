@@ -13,8 +13,8 @@ return new class extends Migration {
             $table->enum('tipo', ['entrada', 'saida'])->index();
             $table->decimal('valor', 15, 2);
             $table->dateTime('data_transacao')->index();
-            $table->string('categoria')->nullable()->index();
-            $table->string('metodo_pagamento')->nullable();
+            $table->string('categoria');
+            $table->string('metodo_pagamento');
             $table->string('referencia')->nullable();
             $table->text('observacao')->nullable();
             $table->timestamps();

@@ -46,6 +46,7 @@
                 @endcan
 
 
+
                  @can('cashflow/daily')
                     <a href="{{ route('cashflow.daily') }}"
                         class="btn-warning align-icon-btn">
@@ -79,6 +80,18 @@
                     </a>
                 @endcan
 
+                 @can('index-conta')
+
+                   <a href="{{ route('conta.index') }}"
+                        class="btn-warning align-icon-btn">
+                        <!-- Ícone document (Heroicons) -->
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                        <span>Contas</span>
+                        </a>
+                         @endcan
+
 
             </div>
         </div>
@@ -86,17 +99,53 @@
         <x-alert />
 
 
+
+
+
+          <!-- Início Formulário de Pesquisa -->
+        <form class="form-search" method="GET" action="{{ route('transactions.index') }}">
+
+            <input type="text" name="categoria" id="categoria" class="form-input" placeholder="Nome do cliente" value="{{ request('categoria') }}">
+
+            <input type="date" name="data_transacao" id="data_transacao" class="form-input"
+               value="{{ request('data_transacao') }}">
+
+            <div class="flex gap-1">
+                <button type="submit" class="btn-primary flex items-center space-x-1">
+                    <!-- Ícone magnifying-glass (Heroicons) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                    <span>Filtrar</span>
+                </button>
+                <a href="{{ route('transactions.index') }}" type="submit" class="btn-warning flex items-center space-x-1">
+                    <!-- Ícone trash (Heroicons) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                    </svg>
+                    <span>Limpar</span>
+                </a>
+            </div>
+        </form>
+
+        <!-- Fim Formulário de Pesquisa -->
+
+
+
         <div class="table-container mt-6">
             <table class="table">
                 <thead>
                     <tr class="table-row-header">
-                        <th class="table-header">ID</th>
-                        <th class="table-header">Clente</th>
-                        <th class="table-header">Categoria</th>
-                         <th class="table-header">Tipo</th>
-                        <th class="table-header">Valor</th>
-                         <th class="table-header">metodo_pagamento</th>
-                         <th class="table-header">Data</th>
+                        <th class="table-header">Cliente</th>
+                        <th class="table-header">Descrição</th>
+                        <th class="table-header">Tipo_Trans</th>
+                        <th class="table-header">Valor_Trans</th>
+                         <th class="table-header">Metodo_pago</th>
+                         <th class="table-header">Data_Trans</th>
                          <th class="table-header center">Ações</th>
                     </tr>
                 </thead>
@@ -104,10 +153,8 @@
                     {{-- Imprimir os registros --}}
                     @forelse($transactions as $t)
                         <tr class="table-row-body">
-                            <td class="table-body">{{ $t->id }}</td>
-                              <td class="table-body">{{$t->descricao }}</td>
-                            <td class="table-body">{{ $t->categoria }}</td>
-
+                             <td class="table-body">{{ $t->categoria }}</td>
+                          <td class="table-body">{{$t->descricao }}</td>
 
                           <td class="table-body">
                     @if( ucfirst($t->tipo)  === 'Entrada')
@@ -127,7 +174,7 @@
 
                             <td class="table-body">{{ number_format((float)$t->valor, 2, ',', '.')}} Kz</td>
                            <td class="table-body">{{$t->metodo_pagamento }}</td>
-                           <td class="table-body">{{$t->data_transacao->format('d/m/Y H:i') }}</td>
+                           <td class="table-body">{{$t->data_transacao->format('d/m/Y') }}</td>
                           <td class="table-actions">
                                       <div class="table-actions-align">
                                     @can('show-transactions')
@@ -157,6 +204,9 @@
 
                                         </a>
                                     @endcan
+
+
+
 
 
                                 </div>

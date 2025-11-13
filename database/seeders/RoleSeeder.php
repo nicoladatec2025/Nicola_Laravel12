@@ -94,7 +94,13 @@ class RoleSeeder extends Seeder
 
                 'index-role-permission',
 
-               
+                'index-transactions',
+                'show-transactions',
+                'create-transactions',
+                'edit-transactions',
+                'destroy-transactions',
+
+
             ]);
 
             /******* Professor *******/
@@ -133,46 +139,12 @@ class RoleSeeder extends Seeder
 
             ]);
 
-            /******* Tutor *******/
-            // Se não encontrar o registro, cadastra o registro no BD
-            $tutor = Role::firstOrCreate(
-                ['name' => 'Tutor'],
-                ['name' => 'Tutor'],
-            );
 
-            // Cadastrar permissão para o papel
-            $tutor->givePermissionTo([
-                'dashboard',
-
-                'index-course',
-                'show-course',
-
-                'index-course-batch',
-                'show-course-batch',
-
-                'index-module',
-                'show-module',
-
-                'index-lesson',
-                'show-lesson',
-                'create-lesson',
-                'edit-lesson',
-                'destroy-lesson',
-
-                'show-profile',
-                'edit-profile',
-                'edit-password-profile',
-
-                'index-user',
-                'show-user',
-                'create-user',
-            ]);
-
-            /******* Aluno *******/
+            /******* Usuario *******/
             // Se não encontrar o registro, cadastra o registro no BD
             $student = Role::firstOrCreate(
-                ['name' => 'Aluno'],
-                ['name' => 'Aluno'],
+                ['name' => 'Usuario'],
+                ['name' => 'Usuario'],
             );
 
             // Cadastrar permissão para o papel

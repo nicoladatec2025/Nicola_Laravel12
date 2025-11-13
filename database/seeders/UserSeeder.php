@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-        // Capturar possíveis exceções durante a execução do seeder. 
+        // Capturar possíveis exceções durante a execução do seeder.
         try {
             // Verificar se o usuário está cadastrado no banco de dados
             if (!User::where('email', 'augusto@nicolau.com')->first()) {
@@ -51,25 +51,18 @@ class UserSeeder extends Seeder
 
                 // Atribuir papel para o usuário
                 $teacher->assignRole('Professor');
-                // $teacher->assignRole('Aluno');
+                // $teacher->assignRole('Usuario');
+
+
 
                 // Se não encontrar o registro com o e-mail, cadastra o registro no BD
-                $tutor = User::firstOrCreate(
-                    ['email' => 'gabrielly@celke.com.br'],
-                    ['name' => 'Gabrielly', 'email' => 'gabrielly@celke.com.br', 'password' => '123456A#'],
-                );
-
-                // Atribuir papel para o usuário
-                $tutor->assignRole('Tutor');
-
-                // Se não encontrar o registro com o e-mail, cadastra o registro no BD
-                $student = User::firstOrCreate(
+                $usuario = User::firstOrCreate(
                     ['email' => 'ana@celke.com.br'],
                     ['name' => 'Ana', 'email' => 'ana@celke.com.br', 'password' => '123456A#'],
                 );
 
                 // Atribuir papel para o usuário
-                $student->assignRole('Aluno');
+                $usuario->assignRole('Usuario');
 
                 // Gerar nomes e e-mails aleatórios
                 $faker = Faker::create();
@@ -103,7 +96,7 @@ class UserSeeder extends Seeder
                         'created_at' => $createdAt,
                         'updated_at' => $createdAt,
                     ]);
-                    $user->assignRole('Aluno');
+                    $user->assignRole('Usuario');
                 }
 
             }

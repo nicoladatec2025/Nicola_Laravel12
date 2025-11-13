@@ -25,9 +25,7 @@
             </div>
             <div class="flex-1 min-w-[300px]">
                 <canvas id="lineChart" class="w-full h-72"></canvas>
-            </div>
-        </div>
-    </div>
+        
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -92,4 +90,8 @@
             }
         })
     </script>
+
+        </div>
+        </div>
+    </div>
 @endsection

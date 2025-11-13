@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+
   <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
@@ -14,6 +15,55 @@
     </div>
 
     <div class="content-box">
+
+
+    <canvas id="monthlyChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const chartMonthly = @json($chartMonthly);
+    new Chart(document.getElementById('monthlyChart'), {
+        type: 'line',
+        data: {
+            labels: chartMonthly.labels,
+            datasets: [
+                {
+                    label: 'Entradas (dia)',
+                    data: chartMonthly.entradas,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: false,
+                    tension: 0.2
+                },
+                {
+                    label: 'Saídas (dia)',
+                    data: chartMonthly.saidas,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: false,
+                    tension: 0.2
+                },
+                {
+                    label: 'Saldo acumulado',
+                    data: chartMonthly.saldoAcumulado,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.15)',
+                    fill: true,
+                    tension: 0.2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: { display: true, text: 'Fluxo Mensal: Entradas, Saídas e Saldo Acumulado' },
+                tooltip: { mode: 'index', intersect: false }
+            },
+            interaction: { mode: 'index', intersect: false },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+</script>
 
         <x-alert />
 
@@ -163,7 +213,8 @@
         <tr><td colspan="5">Nenhuma transação encontrada para o período</td></tr>
         @endforelse
     </tbody>
-</table> <br>
+</table> 
+
 
 
 @endsection

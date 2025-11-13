@@ -4,17 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class TransactionController extends Controller
 {
-    public function index()
-    {
-        $transactions = Transaction::orderBy('id', 'desc')->paginate(15);
-        return view('transactions.index', compact('transactions'));
+
+
+    public function index(Request $request)
+{
+    $transactions = Transaction::orderBy('id', 'desc')->paginate(15);
+
+ $query = Transaction::query();
+
+    // Filtro por data_transacao (data exata)
+    if ($request->filled('data_transacao')) {
+        $query->whereDate('data_transacao', $request->input('data_transacao'));
     }
 
-    public function show(Transaction $transaction)
+    // Filtro por descrição (texto parcial)
+    if ($request->filled('categoria')) {
+        $query->where('categoria', 'like', '%' . $request->input('categoria') . '%');
+    }
+
+    $transactions = $query->orderBy('data_transacao', 'desc')->paginate(10);
+
+    return view('transactions.index', compact('transactions'));
+}
+
+
+     public function show($id)
     {
+        // Busca manual pelo ID
+        $transaction = Transaction::findOrFail($id);
+
         return view('transactions.show', compact('transaction'));
     }
 
@@ -35,8 +58,8 @@ class TransactionController extends Controller
             'tipo'             => 'required|in:entrada,saida',
             'valor'            => 'required|numeric|min:0',
             'data_transacao'   => 'required|date',
-            'categoria'        => 'nullable|string|max:255',
-            'metodo_pagamento' => 'nullable|string|max:255',
+            'categoria'        => 'required|string|max:255',
+            'metodo_pagamento' => 'required|string|max:255',
             'referencia'       => 'nullable|string|max:255',
             'observacao'       => 'nullable|string',
         ]);
@@ -65,8 +88,8 @@ class TransactionController extends Controller
             'tipo'             => 'required|in:entrada,saida',
             'valor'            => 'required|numeric|min:0',
             'data_transacao'   => 'required|date',
-            'categoria'        => 'nullable|string|max:255',
-            'metodo_pagamento' => 'nullable|string|max:255',
+            'categoria'        => 'required|string|max:255',
+            'metodo_pagamento' => 'required|string|max:255',
             'referencia'       => 'nullable|string|max:255',
             'observacao'       => 'nullable|string',
         ]);
@@ -78,11 +101,13 @@ class TransactionController extends Controller
     }
 
 
-    public function destroy(Transaction $transaction)
+   public function destroy()
     {
-        $transaction->delete();
 
-        return redirect()->route('transactions.index')
-                         ->with('success', 'Transação excluída com sucesso!');
+
+        // Redirecionar o usuário, enviar a mensagem de sucesso
+        return redirect()->route('transactions.index')->with('success', 'Transaçºao apagada com sucesso');
     }
+
+
 }

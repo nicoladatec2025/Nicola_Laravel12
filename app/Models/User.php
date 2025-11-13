@@ -55,4 +55,6 @@ class User extends Authenticatable implements Auditable
     {
         return $this->belongsTo(UserStatus::class);
     }
+
+  
 }
