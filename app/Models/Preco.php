@@ -9,7 +9,7 @@ class Preco extends Model
 {
     use HasFactory;
 
-    protected $table = 'tabela_precos';
+    protected $table = 'precos';
 
     protected $fillable = [
         'item',

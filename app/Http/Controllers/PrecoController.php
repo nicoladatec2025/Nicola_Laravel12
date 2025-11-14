@@ -68,4 +68,17 @@ class PrecoController extends Controller
                              ->with('error', 'Erro ao excluir o preço: ' . $e->getMessage());
         }
     }
+
+    public function exportPdf()
+{
+    try {
+        $precos = Preco::all();
+
+        $pdf = Pdf::loadView('precos.pdf', compact('precos'));
+        return $pdf->download('lista_precos.pdf');
+    } catch (\Exception $e) {
+        return redirect()->route('precos.index')
+                         ->with('error', 'Erro ao gerar PDF: ' . $e->getMessage());
+    }
+}
 }
