@@ -21,6 +21,7 @@ use App\Http\Controllers\SendEmailContaController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CashFlowController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\PrecoController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -221,6 +222,8 @@ Route::prefix('cashflow')->group(function () {
 Route::get('/cashflow/daily', [CashFlowController::class, 'daily'])->name('cashflow.daily')->middleware('permission:daily-cashflow');
 Route::get('/cashflow/monthly', [CashFlowController::class, 'monthly'])->name('cashflow.monthly')->middleware('permission:monthly-cashflow');
 Route::get('/cashflow/yearly', [CashFlowController::class, 'yearly'])->name('cashflow.yearly')->middleware('permission:yearly-cashflow');
+Route::get('/cashflow/pdfmensal', [CashflowController::class, 'exportMonthlyPdf'])->name('cashflow.pdfmensal')->middleware('permission:exportMonthlyPdf-cashflow');
+Route::get('/cashflow/pdf/annual', [CashflowController::class, 'exportAnnualPdf'])->name('cashflow.pdfannual')->middleware('permission:exportAnnualPdf-cashflow');
 });
 
 
@@ -229,6 +232,16 @@ Route::get('index-transactions', [TransactionController::class, 'index'])->name(
 Route::get('/create-transactions', [TransactionController::class, 'create'])->name('transactions.create')->middleware('permission:create-transactions');
 Route::get('/store-transactions', [TransactionController::class, 'store'])->name('transactions.store')->middleware('permission:store-transactions');
 Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transactions.show')->middleware('permission:show-transactions');
-Route::get('/edit-transactions', [TransactionController::class, 'edit'])->name('transactions.edit')->middleware('permission:edit-transactions');
-Route::get('/update-transactions', [TransactionController::class, 'update'])->name('transactions.update')->middleware('permission:update-transactions');
+Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->name('transactions.edit')->middleware('permission:edit-transactions');
+Route::get('/transactions/{id}/update', [TransactionController::class, 'update'])->name('transactions.update')->middleware('permission:update-transactions');
 Route::get('/destroy-transactions{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy')->middleware('permission:destroy-transactions');
+Route::get('/transactions/{id}/pdf', [TransactionController::class, 'exportPdf'])->name('transactions.pdf')->middleware('permission:exportPdf-transactions');
+
+
+Route::get('/precos', [PrecoController::class, 'index'])->name('precos.index')->middleware('permission:index-precos');
+Route::get('/precos/create', [PrecoController::class, 'create'])->name('precos.create')->middleware('permission:create-precos');
+Route::post('/precos', [PrecoController::class, 'store'])->name('precos.store')->middleware('permission:store-precos');
+Route::get('/precos/{preco}/edit', [PrecoController::class, 'edit'])->name('precos.edit')->middleware('permission:edit-precos');
+Route::put('/precos/{preco}', [PrecoController::class, 'update'])->name('precos.update')->middleware('permission:update-precos');
+Route::get('/precos/{preco}/destroy', [PrecoController::class, 'destroy'])->name('precos.destroy')->middleware('permission:destroy-precos');
+

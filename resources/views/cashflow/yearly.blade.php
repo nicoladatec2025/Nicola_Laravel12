@@ -137,8 +137,8 @@
                     </a>
                 @endcan
 
-                @can('cashflow/yearly')
-                    <a href="{{ route('cashflow.yearly') }}"
+                @can('cashflow/pdf/annual')
+                    <a href="{{ route('cashflow.pdfannual') }}"
                         class="btn-warning align-icon-btn">
                         <!-- Ícone document (Heroicons) -->
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

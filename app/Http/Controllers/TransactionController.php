@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Exception;
 
 
 class TransactionController extends Controller
@@ -73,32 +76,49 @@ class TransactionController extends Controller
     /**
      * Exibe o formulário de edição
      */
-    public function edit(Transaction $transaction)
-    {
+    public function edit($id)
+{
+    try {
+        $transaction = Transaction::findOrFail($id);
         return view('transactions.edit', compact('transaction'));
+    } catch (\Exception $e) {
+        return redirect()->route('transactions.index')
+                         ->with('error', 'Erro ao carregar a transação para edição.');
     }
+}
+
 
     /**
      * Atualiza uma transação existente
      */
-    public function update(Request $request, Transaction $transaction)
-    {
+    public function update(Request $request, $id)
+{
+    try {
+        $transaction = Transaction::findOrFail($id);
+
+        // Validação de todos os campos
         $validated = $request->validate([
             'descricao'        => 'required|string|max:255',
             'tipo'             => 'required|in:entrada,saida',
             'valor'            => 'required|numeric|min:0',
             'data_transacao'   => 'required|date',
-            'categoria'        => 'required|string|max:255',
-            'metodo_pagamento' => 'required|string|max:255',
+            'categoria'        => 'required|string|max:100',
+            'metodo_pagamento' => 'required|string|max:100',
             'referencia'       => 'nullable|string|max:255',
-            'observacao'       => 'nullable|string',
+            'observacao'       => 'nullable|string|max:500',
         ]);
 
+        // Atualiza os dados
         $transaction->update($validated);
 
         return redirect()->route('transactions.index')
                          ->with('success', 'Transação atualizada com sucesso!');
+    } catch (\Exception $e) {
+        return redirect()->route('transactions.index')
+                         ->with('error', 'Erro ao atualizar a transação.');
     }
+}
+
 
 
    public function destroy()
@@ -108,6 +128,22 @@ class TransactionController extends Controller
         // Redirecionar o usuário, enviar a mensagem de sucesso
         return redirect()->route('transactions.index')->with('success', 'Transaçºao apagada com sucesso');
     }
+
+  
+
+public function exportPdf($id)
+{
+    try {
+        $transaction = Transaction::findOrFail($id);
+
+        $pdf = Pdf::loadView('transactions.pdf', compact('transaction'));
+
+        return $pdf->download('transacao_'.$transaction->id.'.pdf');
+    } catch (\Exception $e) {
+        return redirect()->route('transactions.index')
+                         ->with('error', 'Erro ao gerar PDF da transação.');
+    }
+}
 
 
 }

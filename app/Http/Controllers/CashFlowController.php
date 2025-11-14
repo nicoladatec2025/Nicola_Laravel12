@@ -6,6 +6,11 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Exception;
+use Illuminate\Support\Facades\Log;
+
+
 
 class CashFlowController extends Controller
 {
@@ -157,6 +162,54 @@ class CashFlowController extends Controller
     ));
     
     }
+
+ 
+public function exportMonthlyPdf()
+{
+    try {
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth   = Carbon::now()->endOfMonth();
+
+        $transactions = Transaction::whereBetween('data_transacao', [$startOfMonth, $endOfMonth])->get();
+
+        $entradas = $transactions->where('tipo', 'entrada')->sum('valor');
+        $saidas   = $transactions->where('tipo', 'saida')->sum('valor');
+        $saldo    = $entradas - $saidas;
+
+        $pdf = Pdf::loadView('cashflow.pdfmensal', compact('transactions', 'entradas', 'saidas', 'saldo', 'startOfMonth', 'endOfMonth'));
+
+        return $pdf->download('cashflow_mensal.pdf');
+    } catch (\Exception $e) {
+        return redirect()->route('transactions.index')
+                         ->with('error', 'Erro ao gerar PDF do fluxo de caixa.');
+    }
+}
+
+public function exportAnnualPdf()
+{
+    try {
+        $startOfYear = Carbon::now()->startOfYear();
+        $endOfYear   = Carbon::now()->endOfYear();
+
+        // Busca todas as transações do ano
+        $transactions = Transaction::whereBetween('data_transacao', [$startOfYear, $endOfYear])->get();
+
+        // Calcula totais
+        $entradas = $transactions->where('tipo', 'entrada')->sum('valor');
+        $saidas   = $transactions->where('tipo', 'saida')->sum('valor');
+        $saldo    = $entradas - $saidas;
+
+        // Gera PDF
+        $pdf = Pdf::loadView('cashflow.pdfannual', compact('transactions', 'entradas', 'saidas', 'saldo', 'startOfYear', 'endOfYear'));
+
+        return $pdf->download('cashflow_anual.pdf');
+    } catch (\Exception $e) {
+        return redirect()->route('transactions.index')
+                         ->with('error', 'Erro ao gerar PDF anual do fluxo de caixa.');
+    }
+}
+
+
 }
 
 
