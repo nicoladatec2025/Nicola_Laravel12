@@ -1,66 +1,74 @@
 @extends('layouts.admin')
 
 @section('content')
-   <div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h4>Editar Preço</h4>
-        </div>
-        <div class="card-body">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $erro)
-                            <li>{{ $erro }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form action="{{ route('tabela_precos.update', $preco->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-
-                <div class="mb-3">
-                    <label for="item" class="form-label">Item</label>
-                    <input
-                        type="text"
-                        name="item"
-                        id="item"
-                        class="form-control"
-                        value="{{ old('item', $preco->item) }}"
-                        required
-                    >
-                </div>
-
-                <div class="mb-3">
-                    <label for="valor" class="form-label">Valor</label>
-                    <input
-                        type="number"
-                        step="0.01"
-                        name="valor"
-                        id="valor"
-                        class="form-control"
-                        value="{{ old('valor', $preco->valor) }}"
-                        required
-                    >
-                </div>
-
-                <div class="mb-3">
-                    <label for="descricao" class="form-label">Descrição</label>
-                    <textarea
-                        name="descricao"
-                        id="descricao"
-                        class="form-control"
-                        rows="3"
-                        required
-                    >{{ old('descricao', $preco->descricao) }}</textarea>
-                </div>
-
-                <button type="submit" class="btn btn-success">Atualizar</button>
-                <a href="{{ route('tabela_precos.index') }}" class="btn btn-secondary">Cancelar</a>
-            </form>
+    <!-- Título e Trilha de Navegação -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <h2 class="content-title">Preço</h2>
+            <nav class="breadcrumb">
+                <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
+                <span>/</span>
+                <a href="{{ route('precos.index') }}" class="breadcrumb-link">Preços</a>
+                <span>/</span>
+                <span>Preço</span>
+            </nav>
         </div>
     </div>
-</div>
+
+    <div class="content-box">
+        <div class="content-box-header">
+            <h3 class="content-box-title">Editar</h3>
+            <div class="content-box-btn">
+                @can('index-user')
+                    <a href="{{ route('precos.index') }}" class="btn-info align-icon-btn">
+                        <!-- Ícone queue-list (Heroicons) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+                        </svg>
+                        <span>Listar</span>
+                    </a>
+                @endcan
+            </div>
+        </div>
+
+        <x-alert />
+        <form action="{{ route('precos.update', $preco->id)  }}" method="GET">
+            @csrf
+            @method('GET')
+
+            <div class="mb-4">
+                <label for="item" class="form-label">Item</label>
+                <input type="text" name="item" id="item" class="form-input"
+                   value="{{ old('item', $preco->item) }}"required>
+            </div>
+
+            <div class="mb-4">
+                <label for="valor" class="form-label">Valor</label>
+                <input type="number" step="0.01" name="valor" id="valor" class="form-input"
+                    value="{{ old('valor', $preco->valor) }}" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea class="form-input" name="descricao" id="descricao" required>{{ old('descricao', $preco->descricao) }}</textarea><br><br>
+            </div>
+
+            
+             </div>
+
+            <button type="submit" class="btn-success align-icon-btn">
+                <!-- Ícone plus-circle (Heroicons) -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <span>Atualizar</span>
+            </button>
+
+        </form>
+
+    </div>
 @endsection

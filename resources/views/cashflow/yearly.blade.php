@@ -158,7 +158,7 @@
             <table class="table">
                 <thead>
                     <tr class="table-row-header">
-                        <th class="table-header">O Remetente</th>
+                        <th class="table-header">Cliente</th>
                         <th class="table-header">Tipo</th>
                         <th class="table-header">Valor</th>
                          <th class="table-header">Descrição</th>

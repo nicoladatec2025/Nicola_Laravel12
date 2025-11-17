@@ -8,18 +8,16 @@
     <title>NicolaDaTec</title>
 
     <style>
-        body { font-family: DejaVu Sans, sans-serif; font-size: 12px; }
+         body { font-family: DejaVu Sans, sans-serif; }
         .header { text-align: center; border-bottom: 2px solid #000; margin-bottom: 20px; }
         .header img { max-height: 70px; }
-        .empresa { margin-top: 30px; }
+        .empresa { margin-top: -20px; }
+         .titulo { text-align: center; font-size: 16px; margin: 20px 0; font-weight: bold; }
         .titulo { text-align: center; font-size: 16px; margin: 20px 0; font-weight: bold; }
         .conteudo { margin: 30px;  font-size: 16px; margin: 20px 0;}
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        table, th, td { border: 1px solid #000; padding: 6px; }
+       
 
-
-
-footer {
+ footer {
  position: fixed;
  bottom: -30px;
 left: 0;
@@ -43,45 +41,45 @@ left: 0;
              Bairro-Floresta, Benfica-Ramiros Rua nº km26 - Luanda<br>
             Tel: +244 938 033 192 | Email: nicoladatec@gmail.com
         </div>
-    </div> <br>
+    </div> 
 
-<div class="titulo">Cadastro do Estudantes</div><br>
+<div class="titulo">Comprovativo de Matricula</div>
 
 <div class="detail-box conteudo">
 
             <div class="mb-1">
-                <span class="title-detail-content">Processo: </span>
+                <span class="title-detail-content"><strong>Processo:</strong></span>
                 <span class="detail-content">{{ $lesson->id }}{{\Carbon\Carbon::parse($lesson->created_at)->format('dmY')}}</span>
             </div>
             
             <div class="mb-1">
-                <span class="title-detail-content">Formando(a): </span>
+                <span class="title-detail-content"><strong>Formando(a):</strong> </span>
                 <span class="detail-content">{{ $lesson->module->courseBatch->course->name }}</span>
             </div>
             
             <div class="mb-1">
-                <span class="title-detail-content">Nível: </span>
+                <span class="title-detail-content"><strong>Nível: </strong></span>
                 <span class="detail-content">{{ $lesson->name }}</span>
             </div>
          
             <div class="mb-1">
-                <span class="title-detail-content">Turma: </span>
+                <span class="title-detail-content"><strong>Turma: </strong></span>
                 <span class="detail-content">{{ $lesson->module->name }}</span>
             </div>
 
             <div class="mb-1">
-                <span class="title-detail-content">Curso: </span>
+                <span class="title-detail-content"><strong>Curso:</strong> </span>
                 <span class="detail-content">{{ $lesson->module->courseBatch->name }}</span>
-            </div>
+            </div><br>
 
             
             <div class="mb-1">
-                <span class="title-detail-content">Data de Cadastro</span>
+                <span class="title-detail-content"><strong>Data de Cadastro</strong></span>
                 <span class="detail-content">{{ \Carbon\Carbon::parse($lesson->created_at)->format('d/m/Y H:i:s') }}</span>
             </div>
 
             <div class="mb-1">
-                <span class="title-detail-content">Data de Actualização: </span>
+                <span class="title-detail-content"><strong>Data de Actualização:</strong> </span>
                 <span class="detail-content">{{ \Carbon\Carbon::parse($lesson->updated_at)->format('d/m/Y  H:i:s') }}</span>
             </div>
 
@@ -89,8 +87,8 @@ left: 0;
 
 
      <footer>
-        <P> Documento electrônico dispensa assinatura | Nicola Da Tec</P><br>
-Documento gerado automaticamente | Armazenado por computador: {{ date('d/m/Y H:i:s') }}
+        
+Nicola Da Tec | Armazenado por computador: {{ date('d/m/Y H:i:s') }}
      </footer>
 </body>
 

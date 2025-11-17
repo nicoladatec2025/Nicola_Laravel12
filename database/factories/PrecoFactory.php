@@ -2,10 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Preco;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PrecoFactory extends Factory
 {
+     protected $model = Preco::class;
+
     public function definition()
     {
         return [

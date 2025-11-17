@@ -1,33 +1,83 @@
 @extends('layouts.admin')
 
 @section('content')
-    <!-- Título e Trilha de Navegação -->
+
+<style>
+
+ .situacao {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+
+    .situacao-paga {
+        background-color: #4873ce;
+        color: white;
+    }
+
+    .situacao-pendente {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .situacao-cancelada {
+        background-color: #ff9800;
+        color: white;
+    }
+
+</style>
+   <!-- Título e Trilha de Navegação -->
     <div class="content-wrapper">
         <div class="content-header">
-            <h2 class="content-title">Formando</h2>
+            <h2 class="content-title">Conta</h2>
             <nav class="breadcrumb">
                 <a href="{{ route('dashboard.index') }}" class="breadcrumb-link">Dashboard</a>
                 <span>/</span>
-                <span>Formandos</span>
+                <span>Contas</span>
             </nav>
         </div>
     </div>
 
     <div class="content-box">
+
         <div class="content-box-header">
+            
             <h3 class="content-box-title">Listar</h3>
+
             <div class="content-box-btn">
-                @can('create-course')
-                    <a href="{{ route('courses.create') }}" class="btn-success align-icon-btn">
+
+            @can('create-conta')
+                    <a href="{{  route('conta.create') }}" class="btn-success align-icon-btn">
                         <!-- Ícone plus-circle (Heroicons) -->
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        <span>Cadastrar Formando</span>
+                        <span>Cadastrar</span>
                     </a>
                 @endcan
+
+              
+                
+                @can('gerar-pdf-conta')
+                        <a href="{{ url('gerar-pdf-conta?') . (request()->getQueryString() ? '?' . request()->getQueryString() : '') }}"
+                        class="btn-warning align-icon-btn">
+                        <!-- Ícone document (Heroicons) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                        </svg>
+                        <span>PDF</span>
+                    </a>
+                @endcan
+
+                
+
+               
             </div>
         </div>
 
@@ -36,7 +86,14 @@
         <!-- Início Formulário de Pesquisa -->
         <form class="form-search">
 
-            <input type="text" name="name" class="form-input" placeholder="Digite o nome" value="{{ $name }}">
+            <input type="text" name="nome" class="form-input" placeholder="Nome da conta" value="{{ $nome }}">
+
+            <input type="datetime-local" name="data_inicio" class="form-input"
+                value="{{ $data_inicio }}">
+
+            <input type="datetime-local" name="data_fim" class="form-input"
+                value="{{$data_fim }}">
+
 
             <div class="flex gap-1">
                 <button type="submit" class="btn-primary flex items-center space-x-1">
@@ -48,7 +105,7 @@
                     </svg>
                     <span>Pesquisar</span>
                 </button>
-                <a href="{{ route('courses.index') }}" type="submit" class="btn-warning flex items-center space-x-1">
+                <a href="{{ route('conta.index') }}" type="submit" class="btn-warning flex items-center space-x-1">
                     <!-- Ícone trash (Heroicons) -->
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5">
@@ -67,39 +124,46 @@
                     <tr class="table-row-header">
                         <th class="table-header">ID</th>
                         <th class="table-header">Nome</th>
-                        <th class="table-header">Telefone</th>
-                        <th class="table-header">Morada</th>
-                        <th class="table-header">Documento</th>
+                        <th class="table-header">Valor</th>
+                        <th class="table-header">Vencimento</th>
+                        <th class="table-header">Situação</th>
                         <th class="table-header center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{-- Imprimir os registros --}}
-                    @forelse ($courses as $course)
+                    @forelse ($contas as $conta)
                         <tr class="table-row-body">
-                            <td class="table-body">{{ $course->id }}</td>
-                            <td class="table-body">{{ $course->name }}</td>
-                            <td class="table-body">{{ $course->telefone }}</td>
-                            <td class="table-body">{{ $course->morada }}</td>
-                            <td class="table-body">{{ $course->documento }}</td>
+                            <td class="table-body">{{ $conta->id }}</td>
+                            <td class="table-body">{{ $conta->nome }}</td>
+                            <td class="table-body">{{ 'KZ ' . number_format($conta->valor, 2, ',', '.') }}</td>
+                            <td class="table-body">{{ \Carbon\Carbon::parse($conta->vencimento)->tz('Africa/Luanda')->format('d/m/Y') }}</td>
+
+                <td class="table-body">
+                    <a href="{{ route('conta.change-situation', ['conta' => $conta->id]) }}">
+                    @if($conta->situacaoConta->nome === 'Paga')
+                        <span class="badge" style="color: green; font-weight: bold;">
+                            {{ $conta->situacaoConta->nome }}
+                        </span>
+                    @elseif($conta->situacaoConta->nome === 'Pendente')
+                        <span class="badge" style="color: red; font-weight: bold;">
+                            {{ $conta->situacaoConta->nome }}
+                        </span>
+                    @elseif($conta->situacaoConta->nome === 'Cancelada')
+                        <span class="badge" style="color: orange; font-weight: bold;">
+                            {{ $conta->situacaoConta->nome }}
+                        </span>
+                    @else
+                        <span class="badge" style="color: gray;">
+                            {{ $conta->situacaoConta->nome }}
+                        </span>
+                    @endif
+                     </a>
+                </td>
                             <td class="table-actions">
                                 <div class="table-actions-align">
-
-                                    @can('index-course-batch')
-                                        <a href="{{ route('course_batches.index', ['course' => $course->id]) }}"
-                                            class="btn-info table-md-hidden">
-                                            <!-- Ícone queue-list (Heroicons) -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
-                                            </svg>
-                                            <span>Cursos</span>
-                                        </a>
-                                    @endcan
-
-                                    @can('show-course')
-                                        <a href="{{ route('courses.show', ['course' => $course->id]) }}"
+                                    @can('show-conta')
+                                        <a href="{{  route('conta.show', ['conta' => $conta->id]) }}"
                                             class="btn-primary align-icon-btn">
                                             <!-- Ícone eye (Heroicons) -->
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -109,12 +173,12 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                             </svg>
-                                        
+                                           
                                         </a>
                                     @endcan
 
-                                    @can('edit-course')
-                                        <a href="{{ route('courses.edit', ['course' => $course->id]) }}"
+                                    @can('edit-conta')
+                                        <a href="{{ route('conta.edit', ['conta' => $conta->id]) }}"
                                             class="btn-warning table-md-hidden">
                                             <!-- Ícone pencil-square (Heroicons) -->
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -122,17 +186,17 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                             </svg>
-                                        
+                                         
                                         </a>
                                     @endcan
 
-                                    @can('destroy-course')
-                                        <form id="delete-form-{{ $course->id }}"
-                                            action="{{ route('courses.destroy', ['course' => $course->id]) }}" method="POST">
+                                    @can('destroy-conta')
+                                        <form id="delete-form-{{ $conta->id }}"
+                                            action="{{ route('conta.destroy', ['conta' => $conta->id]) }}" method="POST">
                                             @csrf
                                             @method('delete')
 
-                                            <button type="button" onclick="confirmDelete({{ $course->id }})"
+                                            <button type="button" onclick="confirmDelete({{ $conta->id }})"
                                                 class="btn-danger table-md-hidden">
                                                 <!-- Ícone trash (Heroicons) -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -140,10 +204,9 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
-                                             
+                                               
                                             </button>
-
-                                        </form>
+                                         </form>
                                     @endcan
                                 </div>
                             </td>
@@ -158,7 +221,7 @@
             </table>
 
             <div class="mt-2 p-3">
-                {{ $courses->onEachSide(1)->links() }}
+                {{ $contas->onEachSide(1)->links() }}
             </div>
         </div>
 

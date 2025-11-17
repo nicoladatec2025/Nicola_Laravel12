@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
@@ -67,7 +68,10 @@ class TransactionController extends Controller
             'observacao'       => 'nullable|string',
         ]);
 
-        Transaction::create($validated);
+          $transaction = Transaction::create($validated);
+
+        Log::info('Transação criada com sucesso', ['id' => $transaction->id, 'transaction' => $transaction, 'action_user_id' => Auth::id()]);
+           
 
         return redirect()->route('transactions.index')
                          ->with('success', 'Transação criada com sucesso!');
@@ -80,8 +84,15 @@ class TransactionController extends Controller
 {
     try {
         $transaction = Transaction::findOrFail($id);
+
+         Log::info('Transação editada com sucesso', ['id' => $transaction->id, 'transaction' => $transaction, 'action_user_id' => Auth::id()]);
+             
         return view('transactions.edit', compact('transaction'));
+   
     } catch (\Exception $e) {
+
+         
+             Log::warning('Transação não editada', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
         return redirect()->route('transactions.index')
                          ->with('error', 'Erro ao carregar a transação para edição.');
     }
@@ -110,10 +121,12 @@ class TransactionController extends Controller
 
         // Atualiza os dados
         $transaction->update($validated);
-
+Log::info('Transação atualizada com sucesso', ['id' => $transaction->id, 'transaction' => $transaction, 'action_user_id' => Auth::id()]);
         return redirect()->route('transactions.index')
                          ->with('success', 'Transação atualizada com sucesso!');
     } catch (\Exception $e) {
+
+        Log::warning('Erro ao atualizar a transação', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
         return redirect()->route('transactions.index')
                          ->with('error', 'Erro ao atualizar a transação.');
     }

@@ -32,6 +32,9 @@ class CourseController extends Controller
         return view('courses.index', [
             'menu' => 'courses',
             'name' => $request->name,
+            'telefone' => $request->telefone,
+            'morada' => $request->morada,
+            'documento' => $request->documento,
             'courses' => $courses]);
     }
 
@@ -61,14 +64,17 @@ class CourseController extends Controller
         try {
             // Cadastrar no banco de dados na tabela cursos
             $course = Course::create([
-                'name' => $request->name
+                'name' => $request->name,
+                'telefone' => $request->telefone,
+            'morada' => $request->morada,
+            'documento' => $request->documento
             ]);
 
             // Salvar log
             Log::info('Curso cadastrado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('courses.show', ['course' => $course->id])->with('success', 'Formando cadastrado com sucesso!');
+            return redirect()->route('courses.create', ['course' => $course->id])->with('success', 'Formando cadastrado com sucesso!');
         } catch (Exception $e) {
 
             // Salvar log
@@ -93,7 +99,10 @@ class CourseController extends Controller
         try {
             // Editar as informações do registro no banco de dados
             $course->update([
-                'name' => $request->name
+                'name' => $request->name,
+                'telefone' => $request->telefone,
+            'morada' => $request->morada,
+            'documento' => $request->documento
             ]);
 
             // Salvar log

@@ -77,6 +77,21 @@
                 <span class="detail-content">{{ $course->name }}</span>
             </div>
 
+           <div class="mb-1">
+                <span class="title-detail-content">Telefone: </span>
+                <span class="detail-content">{{ $course->telefone }}</span>
+            </div>
+
+          <div class="mb-1">
+                <span class="title-detail-content">Morada: </span>
+                <span class="detail-content">{{ $course->morada }}</span>
+            </div>
+
+          <div class="mb-1">
+                <span class="title-detail-content">Documento: </span>
+                <span class="detail-content">{{ $course->documento }}</span>
+            </div>
+
             @can('index-course-batch')
                 <div class="mb-1">
                     <span class="title-detail-content">Curso: </span>

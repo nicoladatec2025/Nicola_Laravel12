@@ -8,14 +8,26 @@ use Carbon\Carbon;
 use App\Http\Requests\PrecoRequest;
 use Exception;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class PrecoController extends Controller
 {
-    public function index()
+    public function index(Request $request, Preco $precos)
     {
         $precos = Preco::all();
+
+         $precos = Preco::when(
+            $request->filled('item'),
+            fn($query) =>
+            $query->whereLike('item', '%' . $request->item .  '%')
+        )
+            ->orderBy('item', 'ASC')
+            ->paginate(0)
+            ->withQueryString();
+
+
         return view('precos.index', compact('precos'));
     }
 
@@ -32,8 +44,10 @@ class PrecoController extends Controller
             'descricao' => 'required|string',
         ]);
 
-        Preco::create($request->all());
-
+           $preco = Preco::create($request->all());
+      
+         Log::info('Preco criado com sucesso', ['id' => $preco->id, 'preco' => $preco, 'action_user_id' => Auth::id()]);
+            
         return redirect()->route('precos.index')
                          ->with('success', 'Preço cadastrado com sucesso!');
     }
@@ -53,6 +67,8 @@ class PrecoController extends Controller
 
         $preco->update($request->only(['item', 'valor', 'descricao']));
 
+        Log::info('Preço atualizado com sucesso', ['id' => $preco->id, 'preco' => $preco, 'action_user_id' => Auth::id()]);
+        
         return redirect()->route('precos.index')
                          ->with('success', 'Preço atualizado com sucesso!');
     }
@@ -61,22 +77,31 @@ class PrecoController extends Controller
     {
         try {
             $preco->delete();
+
+              Log::info('Preço excluído com sucesso!', ['id' => $preco->id, 'preco' => $preco, 'action_user_id' => Auth::id()]);
+          
             return redirect()->route('precos.index')
                              ->with('success', 'Preço excluído com sucesso!');
         } catch (Exception $e) {
+
+          
+             Log::warning('Erro ao excluir o preço', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+
             return redirect()->route('precos.index')
                              ->with('error', 'Erro ao excluir o preço: ' . $e->getMessage());
         }
     }
 
-    public function exportPdf()
+    public function pdfpreco()
 {
     try {
         $precos = Preco::all();
 
-        $pdf = Pdf::loadView('precos.pdf', compact('precos'));
-        return $pdf->download('lista_precos.pdf');
+        $pdfpreco = Pdf::loadView('precos.pdfpreco', compact('precos'));
+        return $pdfpreco->download('lista_precos.pdf');
     } catch (\Exception $e) {
+
+         Log::warning('Erro ao gerar PDF', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
         return redirect()->route('precos.index')
                          ->with('error', 'Erro ao gerar PDF: ' . $e->getMessage());
     }

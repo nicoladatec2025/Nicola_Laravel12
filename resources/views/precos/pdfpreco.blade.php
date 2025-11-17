@@ -2,19 +2,19 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Transações Mensal</title>
+    <title>Lista de Preços</title>
     <style>
         body { font-family: DejaVu Sans, sans-serif; }
         .header { text-align: center; border-bottom: 2px solid #000; margin-bottom: 20px; }
         .header img { max-height: 70px; }
         .empresa { margin-top: -20px; }
-         .titulo { text-align: center; font-size: 16px; margin: 20px 0; font-weight: bold; }
-        h2 { text-align: center; }
+        .titulo { text-align: center; font-size: 16px; margin: 20px 0; font-weight: bold; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th { background-color: #f2f2f2;  border: 1px solid #000; padding: 8px; text-align: center; }
         td { border: 1px solid #000; padding: 8px; text-align: left; }
-    
-     footer {
+      
+        
+footer {
  position: fixed;
  bottom: -30px;
 left: 0;
@@ -24,7 +24,6 @@ left: 0;
  color: #000;
  padding: 6px;
  }
-
     </style>
 </head>
 <body>
@@ -39,39 +38,30 @@ left: 0;
         </div>
     </div>
 
-
-    <h1 class="titulo"  >Transações Mensal</h1>
-    <p>Período: {{ $startOfMonth->format('d/m/Y') }} - {{ $endOfMonth->format('d/m/Y') }}</p>
-
+    <h1 class="titulo"> Lista de Preços</h1>
     <table>
         <thead>
             <tr>
-               <th>Descrição</th>
-                <th>Tipo</th>
-                <th>Valor</th>
-                <th>Data</th>
+                <th>Item</th>
+                <th>Valor_à_pagar</th>
+                <th>Descrição</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($transactions as $transaction)
+            @foreach($precos as $preco)
                 <tr>
-                   <td>{{ $transaction->descricao }}</td>
-                    <td>{{ ucfirst($transaction->tipo) }}</td>
-                    <td> {{ number_format($transaction->valor, 2, ',', '.') }} Kz</td>
-                    <td>{{ \Carbon\Carbon::parse($transaction->data_transacao)->format('d/m/Y H:i') }}</td>
+                    <td>{{ $preco->item }}</td>
+                    <td> {{ number_format($preco->valor, 2, ',', '.') }} Kz</td>
+                    <td>{{ $preco->descricao }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    <h3>RESUMO DO MÊS</h3>
-    <p><strong>Total de Entradas:</strong> {{ number_format($entradas, 2, ',', '.') }} Kz</p>
-    <p><strong>Total de Saídas:</strong> {{ number_format($saidas, 2, ',', '.') }} Kz</p>
-    <p><strong>Saldo:</strong> {{ number_format($saldo, 2, ',', '.') }} Kz</p>
-<footer>
+    <footer>
         
 Nicola Da Tec | Armazenado por computador: {{ date('d/m/Y H:i:s') }}
      </footer>
-    
-    </body>
+
+</body>
 </html>

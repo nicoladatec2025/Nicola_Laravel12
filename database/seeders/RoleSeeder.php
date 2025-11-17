@@ -100,6 +100,12 @@ class RoleSeeder extends Seeder
                 'edit-transactions',
                 'destroy-transactions',
 
+                'index-precos',
+                'create-precos',
+                'edit-precos',
+                'destroy-precos',
+                'pdfpreco-precos',
+
 
             ]);
 
@@ -154,6 +160,10 @@ class RoleSeeder extends Seeder
                 'show-profile',
                 'edit-profile',
                 'edit-password-profile',
+
+                
+                'create-course',
+             
             ]);
         } catch (Exception $e) {
             // Salvar log

@@ -125,7 +125,7 @@ class ContaController extends Controller
 
             // Salvar log
             Log::info('Conta editado com sucesso', ['id' => $conta->id, 'conta' => $conta]);
-
+         
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('conta.show', ['conta' => $conta->id])->with('success', 'Conta editada com sucesso');
         } catch (Exception $e) {

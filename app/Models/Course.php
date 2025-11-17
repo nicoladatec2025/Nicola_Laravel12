@@ -13,7 +13,7 @@ class Course extends Model implements Auditable
     protected $table = 'courses';
 
     // Indicar quais colunas podem ser manipuladas
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'telefone', 'morada', 'documento'];
 
     // Criar relacionamento entre um e muitos inverso
     public function courseStatus()

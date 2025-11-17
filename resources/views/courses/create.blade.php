@@ -42,7 +42,25 @@
             <div class="mb-4">
                 <label for="name" class="form-label">Nome</label>
                 <input type="text" name="name" id="name" class="form-input"
-                    placeholder="Nome do curso" value="{{ old('name') }}" required>
+                    placeholder="Nome" value="{{ old('name') }}" required>
+            </div>
+
+             <div class="mb-4">
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="text" name="telefone" id="telefone" class="form-input"
+                    placeholder="Telefone" value="{{ old('telefone') }}" required>
+            </div>
+
+             <div class="mb-4">
+                <label for="morada" class="form-label">Morada</label>
+                <input type="text" name="morada" id="morada" class="form-input"
+                    placeholder="Morada" value="{{ old('morada') }}" required>
+            </div>
+
+             <div class="mb-4">
+                <label for="documento" class="form-label">Documento</label>
+                <input type="text" name="documento" id="documento" class="form-input"
+                    placeholder="Nº do Documento" value="{{ old('documento') }}" required>
             </div>
 
             <button type="submit" class="btn-success align-icon-btn">

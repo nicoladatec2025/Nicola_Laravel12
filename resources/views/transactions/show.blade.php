@@ -66,8 +66,8 @@
         <div class="detail-box">
 
             <div class="mb-1">
-                <span class="title-detail-content">ID:</span>
-                <span class="detail-content">{{ $transaction->id }}</span>
+                <span class="title-detail-content">Transação Nº</span>
+                <span class="detail-content">{{ $transaction->id }} {{ \Carbon\Carbon::parse($transaction->data_transacao)->tz('America/Sao_Paulo')->format('dmY')}}</span>
             </div>
 
             <div class="mb-1">
@@ -107,7 +107,7 @@
 
                   <div class="mb-1">
                 <span class="title-detail-content">Data:</span>
-                <span class="detail-content">{{ \Carbon\Carbon::parse($transaction->data_transacao)->format('d/m/Y') }}</span>
+                <span class="detail-content">{{ \Carbon\Carbon::parse($transaction->data_transacao)->tz('America/Sao_Paulo')->format('d/m/Y H:i') }}</span>
                  </div>
 
 

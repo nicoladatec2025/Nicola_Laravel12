@@ -242,6 +242,6 @@ Route::get('/precos', [PrecoController::class, 'index'])->name('precos.index')->
 Route::get('/precos/create', [PrecoController::class, 'create'])->name('precos.create')->middleware('permission:create-precos');
 Route::post('/precos', [PrecoController::class, 'store'])->name('precos.store')->middleware('permission:store-precos');
 Route::get('/precos/{preco}/edit', [PrecoController::class, 'edit'])->name('precos.edit')->middleware('permission:edit-precos');
-Route::put('/precos/{preco}', [PrecoController::class, 'update'])->name('precos.update')->middleware('permission:update-precos');
+Route::get('/precos/{preco}', [PrecoController::class, 'update'])->name('precos.update')->middleware('permission:update-precos');
 Route::get('/precos/{preco}/destroy', [PrecoController::class, 'destroy'])->name('precos.destroy')->middleware('permission:destroy-precos');
-Route::get('/precos/pdf', [PrecoController::class, 'exportPdf'])->name('precos.pdf')->middleware('permission:exportPdf-precos');
+Route::get('/pdfpreco-precos', [PrecoController::class, 'pdfpreco'])->name('precos.pdfpreco')->middleware('permission:pdfpreco-precos');

@@ -93,7 +93,13 @@ class PermissionSeeder extends Seeder
                 ['title'=> 'Editar a transação', 'name' => 'edit-transactions'],
                 ['title'=> 'Apagar a transação', 'name' => 'destroy-transactions'],
 
-            ];
+                ['title'=> 'Listar precos', 'name' => 'index-precos'],
+                ['title'=> 'Cadastrar precos', 'name' => 'create-precos'],
+                ['title'=> 'Editar precos', 'name' => 'edit-precos'],
+                ['title'=> 'Apagar precos', 'name' => 'destroy-precos'],
+                ['title'=> 'Gerar o pdf precos', 'name' => 'pdfpreco-precos'],
+
+              ];
 
             foreach ($permissions as $permission) {
                 // Se não encontrar o registro, cadastra o registro no BD

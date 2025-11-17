@@ -64,7 +64,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="vencimento" class="form-label">Data da Transação</label>
+                <label for="data_transacao" class="form-label">Data da Transação</label>
                 <input type="date" name="data_transacao" id="data_transacao" class="form-input"
                 value="{{ old('data_transacao') }}" required>
             </div>

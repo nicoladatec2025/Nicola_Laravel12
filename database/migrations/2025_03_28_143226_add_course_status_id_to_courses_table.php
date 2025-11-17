@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('courses', function (Blueprint $table) {
             $table->foreignId('course_status_id')
-                ->after('name')
+                ->after('documento')
                 ->default(1)
                 ->constrained('course_statuses')
                 ->onUpdate('cascade')
