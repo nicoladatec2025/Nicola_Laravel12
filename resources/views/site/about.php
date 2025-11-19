@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Conheça a nossa empresa de tecnologias de informação e formação profissional">
-    <title>Sobre Nós - Tecnologia e Formação</title>
+    <title>Sobre-Nós-Tecnologia-e-Formação</title>
     <style>
         * {
             margin: 0;

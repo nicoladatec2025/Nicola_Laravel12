@@ -33,6 +33,8 @@ class TransactionController extends Controller
 
     $transactions = $query->orderBy('data_transacao', 'desc')->paginate(10);
 
+     Log::info('Listar transações.', ['action_user_id' => Auth::id()]);
+
     return view('transactions.index', compact('transactions'));
 }
 
@@ -41,6 +43,8 @@ class TransactionController extends Controller
     {
         // Busca manual pelo ID
         $transaction = Transaction::findOrFail($id);
+
+         Log::info('Visualizar o curso.', ['transaction_id' => $transaction->id, 'action_user_id' => Auth::id()]);
 
         return view('transactions.show', compact('transaction'));
     }
@@ -71,7 +75,7 @@ class TransactionController extends Controller
           $transaction = Transaction::create($validated);
 
         Log::info('Transação criada com sucesso', ['id' => $transaction->id, 'transaction' => $transaction, 'action_user_id' => Auth::id()]);
-           
+
 
         return redirect()->route('transactions.index')
                          ->with('success', 'Transação criada com sucesso!');
@@ -86,12 +90,12 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail($id);
 
          Log::info('Transação editada com sucesso', ['id' => $transaction->id, 'transaction' => $transaction, 'action_user_id' => Auth::id()]);
-             
+
         return view('transactions.edit', compact('transaction'));
-   
+
     } catch (\Exception $e) {
 
-         
+
              Log::warning('Transação não editada', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
         return redirect()->route('transactions.index')
                          ->with('error', 'Erro ao carregar a transação para edição.');
@@ -142,7 +146,7 @@ Log::info('Transação atualizada com sucesso', ['id' => $transaction->id, 'tran
         return redirect()->route('transactions.index')->with('success', 'Transaçºao apagada com sucesso');
     }
 
-  
+
 
 public function exportPdf($id)
 {

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Início - NicolaDaTec')
+@section('title', 'Início-Nicola-Da-Tec')
 
 @section('content')
 <style>
@@ -104,7 +104,7 @@
 <div class="hero">
     <h1>Bem-vindo à Nicola Da Tec</h1>
     <p>Soluções tecnológicas inovadoras para o seu negócio</p>
-    <a href="{{ route('servicos') }}" class="btn">Conheça Nossos Serviços</a>
+    <a href="{{ route('news.index') }}" class="btn">Aceder às Notícias</a>
 </div>
 
 <div class="slider">

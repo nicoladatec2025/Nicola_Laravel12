@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class PrecoSection extends Model
+
+class PrecoSection extends Model implements Auditable
 {
+     use \OwenIt\Auditing\Auditable;
 
     // Indicar o nome da tabela
     protected $table = 'preco_sections';

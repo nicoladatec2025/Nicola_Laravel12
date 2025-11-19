@@ -23,8 +23,17 @@ use App\Http\Controllers\CashFlowController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PrecoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Admin\AdminNewsController;
+// Rotas públicas
+Route::get('/noticias', [NewsController::class, 'index'])->name('news.index');
+Route::get('/noticias/{slug}', [NewsController::class, 'show'])->name('news.show');
 
-
+// Rotas administrativas (protegidas por auth)
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('news', AdminNewsController::class);
+    Route::post('news/{news}/toggle-publish', [AdminNewsController::class, 'togglePublish'])->name('news.toggle-publish');
+});
 
 // Rotas do site
 Route::get('/', [SiteController::class, 'inicio'])->name('inicio');
@@ -197,25 +206,21 @@ Route::group(['middleware' => 'auth'], function () {
           });
 
           // CONTAS
-Route::get('/index-conta', [ContaController::class, 'index'])->name('conta.index')->middleware('permission:index-conta');
+Route::prefix('conta')->group(function () {
+Route::get('/conta/index', [ContaController::class, 'index'])->name('conta.index')->middleware('permission:index-conta');
 Route::get('/create-conta', [ContaController::class, 'create'])->name('conta.create')->middleware('permission:create-conta');
 Route::post('/store-conta', [ContaController::class, 'store'])->name('conta.store')->middleware('permission:store-conta');
 Route::get('/show-conta/{conta}', [ContaController::class, 'show'])->name('conta.show')->middleware('permission:show-conta');
 Route::get('/edit-conta/{conta}', [ContaController::class, 'edit'])->name('conta.edit')->middleware('permission:edit-conta');
 Route::put('/update-conta/{conta}', [ContaController::class, 'update'])->name('conta.update')->middleware('permission:update-conta');
 Route::delete('/destroy-conta/{conta}', [ContaController::class, 'destroy'])->name('conta.destroy')->middleware('permission:destroy-conta');
-
 Route::post('/restore-conta', [ContaController::class, 'restore'])->name('conta.restore')->middleware('permission:restore-conta');
 Route::get('/change-situation-conta/{conta}', [ContaController::class, 'changeSituation'])->name('conta.change-situation')->middleware('permission:change-situation-conta');
-
 Route::get('/gerar-pdf-conta', [ContaController::class, 'gerarPdf'])->name('conta.gerar-pdf')->middleware('permission:gerar-pdf-conta');
-
 Route::get('/gerar-csv-conta', [ContaController::class, 'gerarCsv'])->name('conta.gerar-csv')->middleware('permission:gerar-csv-conta');
-
 Route::get('/gerar-word-conta', [ContaController::class, 'gerarWord'])->name('conta.gerar-word')->middleware('permission:gerar-word-conta');
-
 Route::get('/send-email-pendente-conta', [SendEmailContaController::class, 'sendEmailPendenteConta'])->name('conta.send-email-pendente')->middleware('permission:send-email-pendente-conta');
-
+ });
 
 
 Route::prefix('cashflow')->group(function () {
@@ -227,8 +232,8 @@ Route::get('/cashflow/pdf/annual', [CashflowController::class, 'exportAnnualPdf'
 });
 
 
-
-Route::get('index-transactions', [TransactionController::class, 'index'])->name('transactions.index')->middleware('permission:index-transactions');
+Route::prefix('transactions')->group(function () {
+Route::get('/transactions/index', [TransactionController::class, 'index'])->name('transactions.index')->middleware('permission:index-transactions');
 Route::get('/create-transactions', [TransactionController::class, 'create'])->name('transactions.create')->middleware('permission:create-transactions');
 Route::get('/store-transactions', [TransactionController::class, 'store'])->name('transactions.store')->middleware('permission:store-transactions');
 Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transactions.show')->middleware('permission:show-transactions');
@@ -236,12 +241,14 @@ Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->n
 Route::get('/transactions/{id}/update', [TransactionController::class, 'update'])->name('transactions.update')->middleware('permission:update-transactions');
 Route::get('/destroy-transactions{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy')->middleware('permission:destroy-transactions');
 Route::get('/transactions/{id}/pdf', [TransactionController::class, 'exportPdf'])->name('transactions.pdf')->middleware('permission:exportPdf-transactions');
+});
 
-
-Route::get('/precos', [PrecoController::class, 'index'])->name('precos.index')->middleware('permission:index-precos');
+Route::prefix('precos')->group(function () {
+Route::get('/precos/index', [PrecoController::class, 'index'])->name('precos.index')->middleware('permission:index-precos');
 Route::get('/precos/create', [PrecoController::class, 'create'])->name('precos.create')->middleware('permission:create-precos');
 Route::post('/precos', [PrecoController::class, 'store'])->name('precos.store')->middleware('permission:store-precos');
 Route::get('/precos/{preco}/edit', [PrecoController::class, 'edit'])->name('precos.edit')->middleware('permission:edit-precos');
 Route::get('/precos/{preco}', [PrecoController::class, 'update'])->name('precos.update')->middleware('permission:update-precos');
 Route::get('/precos/{preco}/destroy', [PrecoController::class, 'destroy'])->name('precos.destroy')->middleware('permission:destroy-precos');
 Route::get('/pdfpreco-precos', [PrecoController::class, 'pdfpreco'])->name('precos.pdfpreco')->middleware('permission:pdfpreco-precos');
+});

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nicoladatec</title>
- 
+    <title>Site - Nicola Da Tec</title>
+
          <script>
         // Executar logo no início, antes de carregar o CSS e evitar o piscar na tela
         (function() {
@@ -146,7 +146,7 @@
         <!-- Conteúdo Principal -->
         <main class="main-content">
             @yield('content')
-             
+
         </main>
 
     </div>
@@ -186,7 +186,7 @@
             <p>&copy; 2025 - {{ date('Y') }} | Tecnologias de Informação | Inovação e Formação - {{ config('app.name') }}. Todos os direitos reservados.</p>
         </footer>
  </div>
- 
+
     </body>
 
 

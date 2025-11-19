@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'NicolaDaTec')</title>
+    <title>@yield('title', 'Site-Nicola-Da-Tec')</title>
 
     <style>
         * {
@@ -196,6 +196,7 @@
                 <nav>
                     <ul>
                         <li><a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'active' : '' }}">Início</a></li>
+                        <li><a href="{{ route('news.index') }}" class="{{ request()->routeIs('index') ? 'active' : '' }}">Notícias</a></li>
                         <li><a href="{{ route('sobre') }}" class="{{ request()->routeIs('sobre') ? 'active' : '' }}">Sobre-Nós</a></li>
                         <li><a href="{{ route('servicos') }}" class="{{ request()->routeIs('servicos') ? 'active' : '' }}">Serviços</a></li>
                         <li><a href="{{ route('cursos') }}" class="{{ request()->routeIs('cursos') ? 'active' : '' }}">Cursos</a></li>

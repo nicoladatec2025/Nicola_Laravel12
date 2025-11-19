@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Transaction extends Model
+
+class Transaction extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
 
     protected $fillable = [
@@ -25,7 +28,7 @@ class Transaction extends Model
         'valor' => 'decimal:2',
     ];
 
- 
 
- 
+
+
 }
