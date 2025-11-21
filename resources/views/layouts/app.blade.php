@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Site-Nicola-Da-Tec')</title>
 
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+        document.getElementById('nav-links').classList.toggle('active');
+    });
+});
+</script>
+
     <style>
         * {
             margin: 0;
@@ -59,13 +67,13 @@
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s;
+
             padding: 0.5rem 1rem;
             border-radius: 5px;
         }
 
         nav a:hover, nav a.active {
-            background-color: rgba(255,255,255,0.2);
+            background-color: #2a5298;;
             transform: translateY(-2px);
         }
 
@@ -172,6 +180,104 @@
         }
 
         }
+
+
+ /* Menu de navegação */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-menu li a:hover {
+            background-color: #2a5298;
+        }
+
+        /* Ícone de menu hambúrguer */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #2a5298;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+
+        }
+
+        /* Animação do ícone quando ativo */
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Media query para telas menores */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #1e3c72;
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-in-out;
+
+            }
+
+            .nav-menu.active {
+                max-height: 500px;
+            }
+
+            .nav-menu li {
+                width: 100%;
+                text-align: left;
+            }
+
+            .nav-menu li a {
+                display: block;
+                padding: 1rem;
+                border-radius: 0;
+            }
+
+            .nav-menu li a:hover {
+                background-color: #2a5298;
+            }
+        }
+
+
+
     </style>
 
      @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -192,14 +298,22 @@
 
 
 
+<!-- Navbar -->
+    <nav >
 
-                <nav>
-                    <ul>
+        <!-- Botão do menu hambúrguer -->
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Menu de navegação -->
+        <ul class="nav-menu" id="navMenu">
                         <li><a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'active' : '' }}">Início</a></li>
-                        <li><a href="{{ route('news.index') }}" class="{{ request()->routeIs('index') ? 'active' : '' }}">Notícias</a></li>
                         <li><a href="{{ route('sobre') }}" class="{{ request()->routeIs('sobre') ? 'active' : '' }}">Sobre-Nós</a></li>
                         <li><a href="{{ route('servicos') }}" class="{{ request()->routeIs('servicos') ? 'active' : '' }}">Serviços</a></li>
-                        <li><a href="{{ route('cursos') }}" class="{{ request()->routeIs('cursos') ? 'active' : '' }}">Cursos</a></li>
+                        <li><a href="{{ route('cursos.index') }}" class="{{ request()->routeIs('cursos') ? 'active' : '' }}">Cursos</a></li>
                         <li><a href="{{ route('contacto') }}" class="{{ request()->routeIs('contacto') ? 'active' : '' }}">Contacto</a></li>
                     </ul>
                 </nav>
@@ -229,7 +343,7 @@
                         <li><a href="{{ route('inicio') }}">Início</a></li>
                         <li><a href="{{ route('sobre') }}">Sobre-Nós</a></li>
                         <li><a href="{{ route('servicos') }}">Serviços</a></li>
-                        <li><a href="{{ route('cursos') }}">Cursos</a></li>
+                        <li><a href="{{ route('cursos.index') }}">Cursos</a></li>
                         <li><a href="{{ route('contacto') }}">Contacto</a></li>
                     </ul>
                 </div>
@@ -256,5 +370,34 @@
             </div>
         </div>
     </footer>
+
+     <script>
+        // JavaScript para toggle do menu
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', function() {
+            // Alterna a classe 'active' no botão e no menu
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Fecha o menu ao clicar em um link (opcional)
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Fecha o menu ao redimensionar a tela para desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

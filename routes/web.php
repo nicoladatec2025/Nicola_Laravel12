@@ -25,6 +25,9 @@ use App\Http\Controllers\PrecoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\AdminNewsController;
+use App\Http\Controllers\CursoController;
+
+
 // Rotas públicas
 Route::get('/noticias', [NewsController::class, 'index'])->name('news.index');
 Route::get('/noticias/{slug}', [NewsController::class, 'show'])->name('news.show');
@@ -252,3 +255,21 @@ Route::get('/precos/{preco}', [PrecoController::class, 'update'])->name('precos.
 Route::get('/precos/{preco}/destroy', [PrecoController::class, 'destroy'])->name('precos.destroy')->middleware('permission:destroy-precos');
 Route::get('/pdfpreco-precos', [PrecoController::class, 'pdfpreco'])->name('precos.pdfpreco')->middleware('permission:pdfpreco-precos');
 });
+
+Route::middleware(['web'])->group(function () {
+    // Público
+    Route::get('/cursos', [CursoController::class, 'index'])->name('cursos.index');
+    Route::get('/cursos/{curso:slug}', [CursoController::class, 'show'])->name('cursos.show');
+
+    // Admin (protege com auth conforme teu app)
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/admin/cursos', [CursoController::class, 'adminIndex'])->name('admin.cursos.index');
+        Route::get('/admin/cursos/create', [CursoController::class, 'create'])->name('admin.cursos.create');
+        Route::post('/admin/cursos', [CursoController::class, 'store'])->name('admin.cursos.store');
+        Route::get('/admin/cursos/{curso}/edit', [CursoController::class, 'edit'])->name('admin.cursos.edit');
+        Route::put('/admin/cursos/{curso}', [CursoController::class, 'update'])->name('admin.cursos.update');
+        Route::delete('/admin/cursos/{curso}', [CursoController::class, 'destroy'])->name('admin.cursos.destroy');
+        Route::patch('/admin/cursos/{curso}/toggle', [CursoController::class, 'toggle'])->name('admin.cursos.toggle');
+    });
+});
+

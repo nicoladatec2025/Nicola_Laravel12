@@ -44,6 +44,9 @@ class DatabaseSeeder extends Seeder
 
                 TransactionSeeder::class,
                 PrecoSeeder::class,
+
+                CursoSeeder::class,
+
             ]);
         }
     }
